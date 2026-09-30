@@ -7,6 +7,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Дневник">
 <meta name="theme-color" content="#4f46e5">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
 <title>Электронный дневник</title>
 <style>
 :root{--p:#4f46e5;--bg:#f5f6fa;--c:#fff;--t:#1c1e2b;--m:#6b7080;--e:#d93b3b;--ok:#1f9d55}
@@ -40,6 +43,9 @@ textarea{min-height:90px;resize:vertical}
 label.sm{display:inline-block}
 .lrow{display:flex;align-items:center;gap:8px}.lrow b{width:20px}
 .tab small{opacity:.7}
+.dot{color:#f59e0b}
+.card.done{opacity:.6}
+.sm.on{background:var(--p);color:#fff}
 </style>
 </head>
 <body>
@@ -60,7 +66,7 @@ const T = {
     soon:'Здесь скоро будет расписание и домашние задания.',diary:'Дневник',people:'Люди',approve:'Одобрить',
     mkAdmin:'Сделать админом',rmAdmin:'Снять права админа',revoke:'Убрать доступ',r_pending:'Ждёт одобрения',
     r_student:'Ученик',r_admin:'Админ',r_owner:'Создатель',badlogin:'Неверная почта или пароль',
-    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',topic:'Тема урока',hwtext:'Домашнее задание',photo:'Фото',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено'},
+    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',topic:'Тема урока',hwtext:'Домашнее задание',photo:'Фото',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано'},
   en: {title:'Class Diary',email:'Email',pass:'Password (at least 6 characters)',login:'Log in',signup:'Sign up',
     forgot:'Forgot password?',toLogin:'Have an account? Log in',toSignup:'No account? Sign up',code:'Code from the email',
     confirm:'Confirm',verifyH:'Enter the code',verifyT:'We sent a code to',sent:'Code sent to your email',
@@ -69,7 +75,7 @@ const T = {
     soon:'The schedule and homework will appear here soon.',diary:'Diary',people:'People',approve:'Approve',
     mkAdmin:'Make admin',rmAdmin:'Remove admin rights',revoke:'Revoke access',r_pending:'Pending approval',
     r_student:'Student',r_admin:'Admin',r_owner:'Owner',badlogin:'Wrong email or password',
-    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',topic:'Lesson topic',hwtext:'Homework (in Russian)',photo:'Photo',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved'}
+    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',topic:'Lesson topic',hwtext:'Homework (in Russian)',photo:'Photo',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done'}
 };
 let lang = 'ru';
 try { lang = localStorage.getItem('lang') || 'ru'; } catch (e) {}
@@ -78,7 +84,7 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp
 
 const S = {ready:false, view:'login', otpType:'signup', email:'', f:{}, msg:'', info:'', busy:false,
            user:null, profile:null, tab:'diary', people:[], recovering:false,
-           week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null};
+           week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null, done:new Set()};
 const BUCKET = 'homework-photos';
 const pad = n => String(n).padStart(2, '0');
 const fmt = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
@@ -142,18 +148,21 @@ function subjects(date) {
   return o;
 }
 
+const hasHw = w => !!(w.topic || w.body || (w.photo_paths || []).length);
+const todo = d => Object.values(S.hw).some(w => w.lesson_date === d && hasHw(w) && !S.done.has(w.id));
+
 function diaryView() {
   const ed = canEdit(), date = dayDate(), subj = subjects(date) || {};
   const nos = Object.keys(subj).map(Number).sort((a, b) => a - b);
   const h = `<div class="wk"><button class="lnk" data-a="week" data-v="-1">‹</button><b>${fmtShort(S.week)} – ${fmtShort(addDays(S.week, 4))}</b><button class="lnk" data-a="week" data-v="1">›</button></div><div class="tabs">` +
-    DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}<br><small>${parse(addDays(S.week, i)).getDate()}</small></button>`).join('') + '</div>';
+    DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}<br><small>${parse(addDays(S.week, i)).getDate()}${todo(addDays(S.week, i)) ? ' <span class="dot">●</span>' : ''}</small></button>`).join('') + '</div>';
   if (!nos.length) return h + `<div class="card">${t(ed ? 'noschedEd' : 'nosched')}</div>`;
   return h + nos.map(no => {
     if (S.edit && S.edit.date === date && S.edit.no === no) return editForm();
     const w = S.hw[date + '|' + no];
     const body = w ? (w.topic ? `<b>${esc(w.topic)}</b><br>` : '') + esc(w.body || '') +
       (w.photo_paths || []).filter(p => S.urls[p]).map(p => `<a href="${esc(S.urls[p])}" target="_blank" rel="noopener"><img src="${esc(S.urls[p])}"></a>`).join('') : '<span class="badge">—</span>';
-    return `<div class="card row"><div><b>${no}.</b> ${esc(subj[no])}</div><div><div class="hw">${body}</div>${ed ? `<button class="sm" data-a="edit" data-v="${no}">${t(w ? 'edit' : 'add')}</button>` : ''}</div></div>`;
+    return `<div class="card row${w && S.done.has(w.id) ? ' done' : ''}"><div><b>${no}.</b> ${esc(subj[no])}</div><div><div class="hw">${body}</div>${w && hasHw(w) ? `<button class="sm${S.done.has(w.id) ? ' on' : ''}" data-a="done" data-v="${w.id}">${S.done.has(w.id) ? '✓ ' : ''}${t('done')}</button>` : ''}${ed ? `<button class="sm" data-a="edit" data-v="${no}">${t(w ? 'edit' : 'add')}</button>` : ''}</div></div>`;
   }).join('');
 }
 
@@ -188,6 +197,8 @@ async function loadDiary() {
   S.versions = v.data || []; S.slots = sl.data || [];
   const {data} = await sb.from('homework').select('*').gte('lesson_date', S.week).lte('lesson_date', addDays(S.week, 4));
   S.hw = {}; (data || []).forEach(x => S.hw[x.lesson_date + '|' + x.lesson_no] = x);
+  const dn = await sb.from('homework_done').select('homework_id');
+  S.done = new Set((dn.data || []).map(x => x.homework_id));
   const paths = [...new Set((data || []).flatMap(x => x.photo_paths || []))].filter(p => !S.urls[p]);
   if (paths.length) {
     const {data: u} = await sb.storage.from(BUCKET).createSignedUrls(paths, 3600);
@@ -276,6 +287,18 @@ async function act(a, v) {
       const {error} = await sb.from('profiles').update({role}).eq('id', id);
       if (error) throw error;
       await loadPeople();
+    }
+    else if (a === 'done') {
+      const id = Number(v);
+      if (S.done.has(id)) {
+        const {error} = await sb.from('homework_done').delete().eq('homework_id', id).eq('user_id', S.user.id);
+        if (error) throw error;
+        S.done.delete(id);
+      } else {
+        const {error} = await sb.from('homework_done').insert({homework_id: id, user_id: S.user.id});
+        if (error) throw error;
+        S.done.add(id);
+      }
     }
     else if (a === 'week') { S.week = addDays(S.week, 7 * Number(v)); S.edit = null; await loadDiary(); }
     else if (a === 'day') { S.day = Number(v); S.edit = null; }
