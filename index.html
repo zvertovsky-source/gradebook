@@ -6,46 +6,72 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Дневник">
-<meta name="theme-color" content="#4f46e5">
+<meta name="theme-color" content="#f2f2f4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
 <title>Электронный дневник</title>
 <style>
-:root{--p:#4f46e5;--bg:#f5f6fa;--c:#fff;--t:#1c1e2b;--m:#6b7080;--e:#d93b3b;--ok:#1f9d55}
-@media(prefers-color-scheme:dark){:root{--bg:#12131a;--c:#1d1f2b;--t:#eceef7;--m:#9aa0b5}}
-*{box-sizing:border-box}
+:root{--bg:#f2f2f4;--c:#fff;--t:#111;--m:#6f6f76;--line:#e5e5ea;--p:#111;--pt:#fff;--soft:#efeff2;--e:#d93b3b;--ok:#1f9d55;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0c0c0e;--c:#1a1a1d;--t:#f2f2f3;--m:#9a9aa2;--line:#2b2b30;--p:#f2f2f3;--pt:#111;--soft:#26262a;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#0c0c0e;--c:#1a1a1d;--t:#f2f2f3;--m:#9a9aa2;--line:#2b2b30;--p:#f2f2f3;--pt:#111;--soft:#26262a;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0}
-body{font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--t);-webkit-text-size-adjust:100%}
+body{font:16px/1.45 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--t);-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased}
 #app{max-width:520px;margin:0 auto;min-height:100vh;min-height:100dvh;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px calc(env(safe-area-inset-bottom,0px) + 16px)}
 .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.card{background:var(--c);border-radius:16px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:12px}
-h3{margin:0 0 8px}
-input,textarea{width:100%;font:inherit;font-size:16px;padding:12px;border:1px solid #c9ccd8;border-radius:10px;margin:6px 0 10px;background:var(--c);color:var(--t)}
-button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.btn{width:100%;padding:13px;border:0;border-radius:10px;background:var(--p);color:#fff;font-weight:600}
-.btn:disabled{opacity:.6}
-.sm{padding:8px 12px;border:1px solid var(--p);background:transparent;color:var(--p);border-radius:8px;margin:8px 8px 0 0;font-size:14px}
-.lnk{background:none;border:0;color:var(--p);padding:8px 0 8px 12px;font-size:15px}
+.top b{font-size:20px;letter-spacing:-.02em}
+.top span{display:flex;align-items:center}
+.card{background:var(--c);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}
+h3{margin:0 0 10px;font-size:20px;letter-spacing:-.02em}
+input,textarea{width:100%;font:inherit;font-size:16px;padding:13px 14px;border:1px solid transparent;border-radius:12px;margin:6px 0 10px;background:var(--soft);color:var(--t);outline:0;transition:border-color .15s}
+input:focus,textarea:focus{border-color:var(--t)}
+::placeholder{color:var(--m)}
+textarea{min-height:90px;resize:vertical}
+button{font:inherit;cursor:pointer;color:inherit;transition:transform .12s ease,opacity .12s,background-color .15s,color .15s}
+button:active{transform:scale(.95)}
+.btn{width:100%;padding:14px;border:0;border-radius:14px;background:var(--p);color:var(--pt);font-weight:600}
+.btn:disabled{opacity:.5}
+.sm{padding:8px 14px;border:1px solid var(--line);background:var(--c);color:var(--t);border-radius:999px;margin:8px 8px 0 0;font-size:14px;font-weight:500}
+.sm.on{background:var(--p);color:var(--pt);border-color:var(--p)}
+label.sm{display:inline-block}
+.chip{padding:6px 12px;border:1px dashed var(--m);border-radius:999px;background:transparent;font-size:14px}
+.lnk{background:none;border:0;padding:8px 0 8px 14px;font-size:15px;color:var(--m);display:inline-flex;align-items:center}
 .msg{color:var(--e);margin:4px 0 8px}
 .info{color:var(--ok);margin:4px 0 8px}
-.tabs{display:flex;gap:8px;margin:10px 0 12px}
-.tab{flex:1;padding:10px;border:0;border-radius:10px;background:var(--c);color:var(--t)}
-.tab.on{background:var(--p);color:#fff}
 .badge{font-size:13px;color:var(--m)}
-.wk{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.row{display:grid;grid-template-columns:36% 1fr;gap:12px;align-items:start}
-.hw{white-space:pre-wrap;word-break:break-word}
-.hw img,.ph img{width:72px;height:72px;object-fit:cover;border-radius:8px;margin:6px 6px 0 0;display:inline-block}
-.ph{display:inline-block;position:relative}
-.x{position:absolute;top:2px;right:8px;border:0;border-radius:50%;width:22px;height:22px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:0}
-textarea{min-height:90px;resize:vertical}
-label.sm{display:inline-block}
-.lrow{display:flex;align-items:center;gap:8px}.lrow b{width:20px}
-.tab small{opacity:.7}
+.tabs{display:flex;gap:6px;margin:10px 0 12px;background:var(--soft);padding:4px;border-radius:14px}
+.tab{flex:1;padding:9px 4px;border:0;border-radius:11px;background:transparent;color:var(--m);font-weight:500}
+.tab.on{background:var(--p);color:var(--pt)}
+.tab small{opacity:.75}
 .dot{color:#f59e0b}
+.wk{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.wk .lnk{font-size:24px;padding:2px 14px}
+.row{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;align-items:start}
+.l,.r{min-width:0}
+.r{display:flex;flex-direction:column;align-items:flex-end;gap:8px;text-align:right;align-self:stretch}
+.r .sm{margin:0}
+.r .sm:last-child{margin-top:auto}
+.ls{font-weight:600}
+.hw{white-space:pre-wrap;word-break:break-word;margin-top:6px}
+.l .sm{margin:10px 0 0}
 .card.done{opacity:.6}
-.sm.on{background:var(--p);color:#fff}
+.ph{display:inline-block;position:relative}
+.ph img{width:72px;height:72px;object-fit:cover;border-radius:10px;margin:6px 6px 0 0;display:inline-block}
+.x{position:absolute;top:2px;right:8px;border:0;border-radius:50%;width:22px;height:22px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:0}
+.lrow{display:flex;align-items:center;gap:8px}.lrow b{width:20px}
+@keyframes pop{0%{transform:scale(.85)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+.pop{animation:pop .3s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.ov{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.88);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 60px) 12px calc(env(safe-area-inset-bottom,0px) + 16px);animation:fade .2s ease}
+.ov img{display:block;max-width:100%;margin:0 auto 12px;border-radius:12px}
+.cl{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:14px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.2);color:#fff;font-size:20px}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#app.anim .card,#app.anim .tabs{animation:rise .35s cubic-bezier(.2,.8,.2,1) both}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -84,7 +110,7 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp
 
 const S = {ready:false, view:'login', otpType:'signup', email:'', f:{}, msg:'', info:'', busy:false,
            user:null, profile:null, tab:'diary', people:[], recovering:false,
-           week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null, done:new Set()};
+           week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null, done:new Set(), viewer:null, pop:null};
 const BUCKET = 'homework-photos';
 const pad = n => String(n).padStart(2, '0');
 const fmt = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
@@ -97,6 +123,16 @@ const dayDate = () => addDays(S.week, S.day - 1);
 const canEdit = () => !!S.profile && (S.profile.role === 'admin' || S.profile.role === 'owner');
 { const now = new Date(), wd = (now.getDay() + 6) % 7, mon = fmt(mondayOf(now));
   S.week = wd > 4 ? addDays(mon, 7) : mon; S.day = wd > 4 ? 1 : wd + 1; }
+
+const dark = () => (document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
+function paintTheme() { const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = dark() ? '#0c0c0e' : '#f2f2f4'; }
+function setTheme(x) { document.documentElement.dataset.theme = x; try { localStorage.setItem('theme', x); } catch (e) {} paintTheme(); }
+try { const th = localStorage.getItem('theme'); if (th) document.documentElement.dataset.theme = th; } catch (e) {}
+paintTheme();
+const svg = p => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const SUN = svg('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>');
+const MOON = svg('<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>');
+const viewer = () => S.viewer ? `<div class="ov" data-a="closeview">${S.viewer.map(u => `<img src="${esc(u)}">`).join('')}<button class="cl" data-a="closeview">✕</button></div>` : '';
 
 const fld = (n, type, ph, ac) =>
   `<input name="${n}" type="${type}" placeholder="${esc(ph)}" autocomplete="${ac}" value="${esc(S.f[n])}" required>`;
@@ -159,10 +195,12 @@ function diaryView() {
   if (!nos.length) return h + `<div class="card">${t(ed ? 'noschedEd' : 'nosched')}</div>`;
   return h + nos.map(no => {
     if (S.edit && S.edit.date === date && S.edit.no === no) return editForm();
-    const w = S.hw[date + '|' + no];
-    const body = w ? (w.topic ? `<b>${esc(w.topic)}</b><br>` : '') + esc(w.body || '') +
-      (w.photo_paths || []).filter(p => S.urls[p]).map(p => `<a href="${esc(S.urls[p])}" target="_blank" rel="noopener"><img src="${esc(S.urls[p])}"></a>`).join('') : '<span class="badge">—</span>';
-    return `<div class="card row${w && S.done.has(w.id) ? ' done' : ''}"><div><b>${no}.</b> ${esc(subj[no])}</div><div><div class="hw">${body}</div>${w && hasHw(w) ? `<button class="sm${S.done.has(w.id) ? ' on' : ''}" data-a="done" data-v="${w.id}">${S.done.has(w.id) ? '✓ ' : ''}${t('done')}</button>` : ''}${ed ? `<button class="sm" data-a="edit" data-v="${no}">${t(w ? 'edit' : 'add')}</button>` : ''}</div></div>`;
+    const w = S.hw[date + '|' + no], has = w && hasHw(w), dn = w && S.done.has(w.id);
+    const ph = w ? (w.photo_paths || []).filter(p => S.urls[p]).length : 0;
+    const mid = has ? (w.body ? `<div class="hw">${esc(w.body)}</div>` : '') : '<div class="badge">—</div>';
+    const doneBtn = has ? `<button class="sm${dn ? ' on' : ''}${S.pop === w.id ? ' pop' : ''}" data-a="done" data-v="${w.id}">${dn ? '✓ ' : ''}${t('done')}</button>` : '';
+    const chip = ph ? `<button class="chip" data-a="photos" data-v="${date}|${no}">+ ${t('photo').toLowerCase()}${ph > 1 ? ' (' + ph + ')' : ''}</button>` : '';
+    return `<div class="card row${dn ? ' done' : ''}"><div class="l"><div class="ls"><b>${no}.</b> ${esc(subj[no])}</div>${mid}${doneBtn}</div><div class="r">${has && w.topic ? `<b>${esc(w.topic)}</b>` : ''}${chip}${ed ? `<button class="sm" data-a="edit" data-v="${no}">${t(w ? 'edit' : 'add')}</button>` : ''}</div></div>`;
   }).join('');
 }
 
@@ -248,7 +286,7 @@ function render() {
   else if (S.user) body = appView();
   else body = authView();
   document.getElementById('app').innerHTML =
-    `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>` + body;
+    `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>` + body + viewer();
 }
 
 function errText(e) {
@@ -275,7 +313,7 @@ async function load() {
 
 async function act(a, v) {
   if (S.busy) return;
-  S.busy = true; S.msg = ''; S.info = '';
+  S.busy = true; S.msg = ''; S.info = ''; S.pop = null;
   try {
     const email = (S.f.email || '').trim();
     if (a === 'lang') { lang = lang === 'ru' ? 'en' : 'ru'; try { localStorage.setItem('lang', lang); } catch (e) {} }
@@ -288,6 +326,9 @@ async function act(a, v) {
       if (error) throw error;
       await loadPeople();
     }
+    else if (a === 'theme') { setTheme(dark() ? 'light' : 'dark'); }
+    else if (a === 'photos') { const w = S.hw[v]; S.viewer = ((w && w.photo_paths) || []).map(x => S.urls[x]).filter(Boolean); }
+    else if (a === 'closeview') { S.viewer = null; }
     else if (a === 'done') {
       const id = Number(v);
       if (S.done.has(id)) {
@@ -297,7 +338,7 @@ async function act(a, v) {
       } else {
         const {error} = await sb.from('homework_done').insert({homework_id: id, user_id: S.user.id});
         if (error) throw error;
-        S.done.add(id);
+        S.done.add(id); S.pop = id;
       }
     }
     else if (a === 'week') { S.week = addDays(S.week, 7 * Number(v)); S.edit = null; await loadDiary(); }
@@ -381,6 +422,10 @@ async function act(a, v) {
   } finally {
     S.busy = false;
     render();
+    if (['tab', 'day', 'week', 'go', 'sday', 'out'].includes(a)) {
+      const el = document.getElementById('app'); el.classList.add('anim');
+      setTimeout(() => el.classList.remove('anim'), 700);
+    }
   }
 }
 
@@ -399,6 +444,7 @@ sb.auth.onAuthStateChange((ev, sess) => {
   setTimeout(load, 0);
 });
 setTimeout(() => { if (!S.ready) load(); }, 3000);
+document.addEventListener('touchstart', () => {}, {passive: true});
 render();
 </script>
 </body>
