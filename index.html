@@ -15,9 +15,9 @@
 <link rel="icon" type="image/png" href="icon-192.png">
 <title>Электронный дневник</title>
 <style>
-:root{--bg:#f2f2f4;--c:#fff;--t:#111;--m:#6f6f76;--line:#e5e5ea;--p:#111;--pt:#fff;--soft:#efeff2;--e:#d93b3b;--ok:#1f9d55;color-scheme:light}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0c0c0e;--c:#1a1a1d;--t:#f2f2f3;--m:#9a9aa2;--line:#2b2b30;--p:#f2f2f3;--pt:#111;--soft:#26262a;color-scheme:dark}}
-:root[data-theme=dark]{--bg:#0c0c0e;--c:#1a1a1d;--t:#f2f2f3;--m:#9a9aa2;--line:#2b2b30;--p:#f2f2f3;--pt:#111;--soft:#26262a;color-scheme:dark}
+:root{--bg:#f2f2f4;--c:#fff;--t:#111;--m:#6f6f76;--line:#d6d6dc;--bd:#85858d;--p:#111;--pt:#fff;--soft:#efeff2;--e:#d93b3b;--ok:#1f9d55;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0c0c0e;--c:#1a1a1d;--t:#f2f2f3;--m:#9a9aa2;--line:#3a3a40;--bd:#74747c;--p:#f2f2f3;--pt:#111;--soft:#26262a;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#0c0c0e;--c:#1a1a1d;--t:#f2f2f3;--m:#9a9aa2;--line:#3a3a40;--bd:#74747c;--p:#f2f2f3;--pt:#111;--soft:#26262a;color-scheme:dark}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0}
 body{font:16px/1.45 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--t);-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased}
@@ -72,6 +72,42 @@ label.sm{display:inline-block}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 #app.anim .card,#app.anim .tabs{animation:rise .35s cubic-bezier(.2,.8,.2,1) both}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+#app.anim .week{animation:rise .35s cubic-bezier(.2,.8,.2,1) both}
+.sm,.chip{border-width:1.5px;border-color:var(--bd)}
+.sm.on{border-color:var(--p)}
+.chip{border-style:dashed}
+.tabs{border:1.5px solid var(--bd)}
+.tab{color:var(--t)}
+.tab.on{color:var(--pt)}
+.wk{margin-bottom:6px}
+.arr{width:46px;height:46px;border:1.5px solid var(--bd);border-radius:14px;background:var(--c);color:var(--t);font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center;padding:0}
+.ph2{display:flex;gap:10px;margin-bottom:14px}
+.pill{border:2px solid var(--t);border-radius:22px;padding:12px 18px;font-size:20px;font-weight:600;letter-spacing:-.02em;background:var(--c);color:var(--t);text-align:left}
+.pill.grow{flex:1}
+button.pill{text-align:center;white-space:nowrap}
+.phr{margin:4px 0 14px}
+.phr .sm{margin:0}
+.phr .ph{margin-bottom:8px}
+.week{background:var(--c);border:1.5px solid var(--bd);border-radius:26px;padding:6px 16px 8px;margin-bottom:14px;scroll-margin-top:12px}
+.wh{font-size:22px;font-weight:700;letter-spacing:-.02em;padding:12px 0 10px}
+.dayrow{border-top:1px solid var(--line);padding:10px 0}
+.dayh{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:0;color:var(--t);font-size:17px;padding:2px 0 6px;text-align:left}
+.ls2{padding:2px 0;overflow-wrap:anywhere}
+.ls2 span{color:var(--m);display:inline-block;min-width:22px}
+.hwl{margin:0 0 6px 22px;color:var(--m);font-size:14px;overflow-wrap:anywhere;white-space:pre-wrap}
+.hwl .chip{margin-left:6px;padding:3px 10px;font-size:13px}
+.prow{display:flex;justify-content:space-between;align-items:center}
+.prow .sm{margin:0}
+.btn.out{background:transparent;color:var(--t);border:1.5px solid var(--bd);margin:4px 0 6px}
+.bnav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 10px);width:min(calc(100% - 24px),496px);display:flex;justify-content:space-around;gap:6px;padding:8px;background:var(--c);border:1.5px solid var(--bd);border-radius:30px;z-index:10}
+.bnav button{flex:1;border:0;background:none;color:var(--m);display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0;border-radius:22px;font-size:11px;font-weight:500}
+.bnav button svg{width:24px;height:24px}
+.bnav button.on{background:var(--p);color:var(--pt)}
+#app.hasnav{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 100px)}
+.sheet{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;animation:fade .2s ease}
+.sheet>div{width:min(100%,520px);background:var(--c);border-radius:26px 26px 0 0;padding:18px 16px calc(env(safe-area-inset-bottom,0px) + 18px)}
+.qopt{width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px;margin-top:8px;border:1.5px solid var(--bd);border-radius:16px;background:none;color:var(--t);font-size:16px}
+.qopt.on{background:var(--p);color:var(--pt);border-color:var(--p)}
 </style>
 </head>
 <body>
@@ -92,7 +128,7 @@ const T = {
     soon:'Здесь скоро будет расписание и домашние задания.',diary:'Дневник',people:'Люди',approve:'Одобрить',
     mkAdmin:'Сделать админом',rmAdmin:'Снять права админа',revoke:'Убрать доступ',r_pending:'Ждёт одобрения',
     r_student:'Ученик',r_admin:'Админ',r_owner:'Создатель',badlogin:'Неверная почта или пароль',
-    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',topic:'Тема урока',hwtext:'Домашнее задание',photo:'Фото',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано'},
+    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',topic:'Тема урока',hwtext:'Домашнее задание',photo:'Фото',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано',notdone:'Не сделано',profile:'Профиль',theme:'Тема',language:'Язык',dark:'Тёмная',light:'Светлая',editSched:'Изменить расписание',back:'Назад',today:'сегодня',toDiary:'Открыть в дневнике',quarter:'Четверть'},
   en: {title:'Class Diary',email:'Email',pass:'Password (at least 6 characters)',login:'Log in',signup:'Sign up',
     forgot:'Forgot password?',toLogin:'Have an account? Log in',toSignup:'No account? Sign up',code:'Code from the email',
     confirm:'Confirm',verifyH:'Enter the code',verifyT:'We sent a code to',sent:'Code sent to your email',
@@ -101,7 +137,7 @@ const T = {
     soon:'The schedule and homework will appear here soon.',diary:'Diary',people:'People',approve:'Approve',
     mkAdmin:'Make admin',rmAdmin:'Remove admin rights',revoke:'Revoke access',r_pending:'Pending approval',
     r_student:'Student',r_admin:'Admin',r_owner:'Owner',badlogin:'Wrong email or password',
-    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',topic:'Lesson topic',hwtext:'Homework (in Russian)',photo:'Photo',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done'}
+    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',topic:'Lesson topic',hwtext:'Homework (in Russian)',photo:'Photo',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done',notdone:'Not done',profile:'Profile',theme:'Theme',language:'Language',dark:'Dark',light:'Light',editSched:'Edit schedule',back:'Back',today:'today',toDiary:'Open in diary',quarter:'Quarter'}
 };
 let lang = 'ru';
 try { lang = localStorage.getItem('lang') || 'ru'; } catch (e) {}
@@ -110,7 +146,7 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp
 
 const S = {ready:false, view:'login', otpType:'signup', email:'', f:{}, msg:'', info:'', busy:false,
            user:null, profile:null, tab:'diary', people:[], recovering:false,
-           week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null, done:new Set(), viewer:null, pop:null};
+           week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null, done:new Set(), viewer:null, pop:null, q:0, qpick:false, sedit:false, open:null, scroll:false};
 const BUCKET = 'homework-photos';
 const pad = n => String(n).padStart(2, '0');
 const fmt = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
@@ -123,6 +159,11 @@ const dayDate = () => addDays(S.week, S.day - 1);
 const canEdit = () => !!S.profile && (S.profile.role === 'admin' || S.profile.role === 'owner');
 { const now = new Date(), wd = (now.getDay() + 6) % 7, mon = fmt(mondayOf(now));
   S.week = wd > 4 ? addDays(mon, 7) : mon; S.day = wd > 4 ? 1 : wd + 1; }
+const schoolYear = () => { const n = new Date(); return n.getMonth() >= 7 ? n.getFullYear() : n.getFullYear() - 1; };
+const QS = () => { const y = schoolYear(); return [[y + '-09-01', y + '-10-31'], [y + '-11-01', y + '-12-25'], [(y + 1) + '-01-10', (y + 1) + '-03-30'], [(y + 1) + '-04-05', (y + 1) + '-05-31']]; };
+const curQ = () => { const x = QS()[S.q]; return {from: x[0], to: x[1]}; };
+const qn = i => lang === 'ru' ? (i + 1) + ' ч.' : 'Q' + (i + 1);
+S.q = (() => { const today = fmt(new Date()), i = QS().findIndex(x => today <= x[1]); return i < 0 ? 3 : i; })();
 
 const dark = () => (document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
 function paintTheme() { const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = dark() ? '#0c0c0e' : '#f2f2f4'; }
@@ -163,18 +204,64 @@ function peopleView() {
   }).join('');
 }
 
+const HOME = svg('<path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/>');
+const DOC = svg('<rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M9 8h6M9 12h6M9 16h4"/>');
+const USER = svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.5 18c1.2-2.4 3.2-3.5 5.5-3.5s4.3 1.1 5.5 3.5"/>');
+
 function appView() {
   const r = S.profile && S.profile.role, ed = canEdit();
   if (!r || r === 'pending') return `<div class="card"><h3>${t('wait')}</h3><p>${t('waitT')}</p></div>`;
-  const tabs = [['diary', t('diary')]];
-  if (ed) tabs.push(['sched', t('schedule')]);
-  if (r === 'owner') tabs.push(['people', t('people')]);
-  let h = `<div class="badge">${esc(S.user.email)} · ${t('r_' + r)}</div>`;
-  if (tabs.length > 1) h += `<div class="tabs">${tabs.map(x => `<button class="tab${S.tab === x[0] ? ' on' : ''}" data-a="tab" data-v="${x[0]}">${x[1]}</button>`).join('')}</div>`;
-  if (S.tab === 'people' && r === 'owner') return h + peopleView();
-  if (S.tab === 'sched' && ed && S.sched) return h + schedView();
-  return h + diaryView();
+  if (S.tab === 'profile') return profileView();
+  if (S.tab === 'sched') return S.sedit && ed && S.sched
+    ? `<div class="ph2"><div class="pill grow">${t('editSched')}</div><button class="pill" data-a="sback">${t('back')}</button></div>` + schedView()
+    : schedFeed();
+  return diaryView();
 }
+
+function profileView() {
+  const r = S.profile.role;
+  let h = `<div class="ph2"><div class="pill grow">${t('profile')}</div></div><div class="card"><b>${esc(S.user.email)}</b><div class="badge">${t('r_' + r)}</div></div>` +
+    `<div class="card prow"><span>${t('theme')}</span><button class="sm" data-a="theme">${dark() ? t('dark') + ' ' + SUN : t('light') + ' ' + MOON}</button></div>` +
+    `<div class="card prow"><span>${t('language')}</span><button class="sm" data-a="lang">${lang === 'ru' ? 'English' : 'Русский'}</button></div>` +
+    `<button class="btn out" data-a="out">${t('out')}</button>`;
+  if (r === 'owner') h += `<h3 style="margin:22px 0 10px">${t('people')}</h3>` + peopleView();
+  return h;
+}
+
+function hwLine(d, no) {
+  const w = S.hw[d + '|' + no];
+  if (!w || !hasHw(w)) return '<div class="hwl">—</div>';
+  const n = (w.photo_paths || []).filter(x => S.urls[x]).length;
+  return `<div class="hwl">${w.topic ? `<b>${esc(w.topic)}</b> ` : ''}${esc(w.body || '')}${S.done.has(w.id) ? ' ✓' : ''}${n ? `<button class="chip" data-a="photos" data-v="${d}|${no}">+ ${t('photo').toLowerCase()}${n > 1 ? ' (' + n + ')' : ''}</button>` : ''}</div>`;
+}
+
+function schedFeed() {
+  const q = curQ(), ed = canEdit(), today = fmt(new Date()), weeks = [];
+  for (let mon = fmt(mondayOf(parse(q.from))); mon <= q.to; mon = addDays(mon, 7)) {
+    const days = [0, 1, 2, 3, 4].map(i => addDays(mon, i)).filter(d => d >= q.from && d <= q.to);
+    if (days.length) weeks.push({mon, days});
+  }
+  let ci = weeks.findIndex(w => today <= addDays(w.mon, 6)); if (ci < 0) ci = 0;
+  let h = `<div class="ph2"><div class="pill grow">${t('schedule')}</div><button class="pill" data-a="qopen" aria-label="${t('quarter')}">${qn(S.q)}</button></div>`;
+  if (ed) h += `<button class="sm" style="margin:0 0 12px" data-a="sedit">${t('editSched')}</button>`;
+  return h + weeks.map((w, wi) => `<div class="week"${wi === ci ? ' data-cur="1"' : ''}><div class="wh">${fmtShort(w.mon)} – ${fmtShort(addDays(w.mon, 6))}</div>` +
+    w.days.map(d => {
+      const subj = subjects(d) || {}, nos = Object.keys(subj).map(Number).sort((a, b) => a - b), open = S.open === d;
+      return `<div class="dayrow"><button class="dayh" data-a="fday" data-v="${d}"><b>${DN[lang][(parse(d).getDay() + 6) % 7]} ${fmtShort(d)}${d === today ? ` <span class="badge">· ${t('today')}</span>` : ''}</b><span>${open ? '−' : '+'}</span></button>` +
+        (nos.length ? nos.map(no => `<div class="ls2"><span>${no}.</span>${esc(subj[no])}</div>` + (open ? hwLine(d, no) : '')).join('') : '<div class="badge">—</div>') +
+        (open ? `<button class="sm" data-a="todiary" data-v="${d}">${t('toDiary')}</button>` : '') + '</div>';
+    }).join('') + '</div>').join('');
+}
+
+function navView() {
+  const r = S.profile && S.profile.role;
+  if (!r || r === 'pending') return '';
+  const it = [['diary', HOME, t('diary')], ['sched', DOC, t('schedule')], ['profile', USER, t('profile')]];
+  return `<nav class="bnav">${it.map(x => `<button class="${S.tab === x[0] ? 'on' : ''}" data-a="tab" data-v="${x[0]}">${x[1]}<span>${x[2]}</span></button>`).join('')}</nav>`;
+}
+
+const qsheet = () => !S.qpick ? '' : `<div class="sheet" data-a="qclose"><div data-a="qkeep"><b>${t('quarter')}</b>` +
+  QS().map((x, i) => `<button class="qopt${i === S.q ? ' on' : ''}" data-a="q" data-v="${i}"><b>${qn(i)}</b><span>${fmtShort(x[0])} – ${fmtShort(x[1])}</span></button>`).join('') + '</div></div>';
 
 function subjects(date) {
   const v = S.versions.find(v => v.effective_from <= date);
@@ -190,7 +277,7 @@ const todo = d => Object.values(S.hw).some(w => w.lesson_date === d && hasHw(w) 
 function diaryView() {
   const ed = canEdit(), date = dayDate(), subj = subjects(date) || {};
   const nos = Object.keys(subj).map(Number).sort((a, b) => a - b);
-  const h = `<div class="wk"><button class="lnk" data-a="week" data-v="-1">‹</button><b>${fmtShort(S.week)} – ${fmtShort(addDays(S.week, 4))}</b><button class="lnk" data-a="week" data-v="1">›</button></div><div class="tabs">` +
+  const h = `<div class="ph2"><div class="pill grow">${t('diary')}</div></div><div class="wk"><button class="arr" aria-label="prev" data-a="week" data-v="-1">‹</button><b>${fmtShort(S.week)} – ${fmtShort(addDays(S.week, 4))}</b><button class="arr" aria-label="next" data-a="week" data-v="1">›</button></div><div class="tabs">` +
     DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}<br><small>${parse(addDays(S.week, i)).getDate()}${todo(addDays(S.week, i)) ? ' <span class="dot">●</span>' : ''}</small></button>`).join('') + '</div>';
   if (!nos.length) return h + `<div class="card">${t(ed ? 'noschedEd' : 'nosched')}</div>`;
   return h + nos.map(no => {
@@ -198,7 +285,7 @@ function diaryView() {
     const w = S.hw[date + '|' + no], has = w && hasHw(w), dn = w && S.done.has(w.id);
     const ph = w ? (w.photo_paths || []).filter(p => S.urls[p]).length : 0;
     const mid = has ? (w.body ? `<div class="hw">${esc(w.body)}</div>` : '') : '<div class="badge">—</div>';
-    const doneBtn = has ? `<button class="sm${dn ? ' on' : ''}${S.pop === w.id ? ' pop' : ''}" data-a="done" data-v="${w.id}">${dn ? '✓ ' : ''}${t('done')}</button>` : '';
+    const doneBtn = has ? `<button class="sm${dn ? ' on' : ''}${S.pop === w.id ? ' pop' : ''}" data-a="done" data-v="${w.id}">${dn ? '✓ ' + t('done') : t('notdone')}</button>` : '';
     const chip = ph ? `<button class="chip" data-a="photos" data-v="${date}|${no}">+ ${t('photo').toLowerCase()}${ph > 1 ? ' (' + ph + ')' : ''}</button>` : '';
     return `<div class="card row${dn ? ' done' : ''}"><div class="l"><div class="ls"><b>${no}.</b> ${esc(subj[no])}</div>${mid}${doneBtn}</div><div class="r">${has && w.topic ? `<b>${esc(w.topic)}</b>` : ''}${chip}${ed ? `<button class="sm" data-a="edit" data-v="${no}">${t(w ? 'edit' : 'add')}</button>` : ''}</div></div>`;
   }).join('');
@@ -207,7 +294,7 @@ function diaryView() {
 function editForm() {
   const e = S.edit;
   const ph = e.photos.map(p => `<div class="ph"><img src="${esc(S.urls[p] || '')}"><button type="button" class="x" data-a="rmphoto" data-v="${esc(p)}">✕</button></div>`).join('');
-  const inner = `<input name="hwtopic" placeholder="${t('topic')}" value="${esc(S.f.hwtopic)}"><textarea name="hwbody" placeholder="${t('hwtext')}">${esc(S.f.hwbody)}</textarea><div>${ph}</div><label class="sm">+ ${t('photo')}<input id="hwfile" type="file" accept="image/*" multiple hidden></label>`;
+  const inner = `<input name="hwtopic" placeholder="${t('topic')}" value="${esc(S.f.hwtopic)}"><textarea name="hwbody" placeholder="${t('hwtext')}">${esc(S.f.hwbody)}</textarea><div class="phr">${ph}<label class="sm">+ ${t('photo')}<input id="hwfile" type="file" accept="image/*" multiple hidden></label></div>`;
   return `<div class="card"><b>${e.no}. ${esc(e.subject)}</b>${form('savehw', inner, t('save'))}<button class="lnk" style="padding-left:0" data-a="cancel">${t('cancel')}</button></div>`;
 }
 
@@ -228,12 +315,8 @@ function initSched() {
   }
 }
 
-async function loadDiary() {
-  const [v, sl] = await Promise.all([
-    sb.from('schedule_versions').select('id,effective_from').order('effective_from', {ascending:false}),
-    sb.from('schedule_slots').select('version_id,weekday,lesson_no,subject')]);
-  S.versions = v.data || []; S.slots = sl.data || [];
-  const {data} = await sb.from('homework').select('*').gte('lesson_date', S.week).lte('lesson_date', addDays(S.week, 4));
+async function loadHw(from, to) {
+  const {data} = await sb.from('homework').select('*').gte('lesson_date', from).lte('lesson_date', to);
   S.hw = {}; (data || []).forEach(x => S.hw[x.lesson_date + '|' + x.lesson_no] = x);
   const dn = await sb.from('homework_done').select('homework_id');
   S.done = new Set((dn.data || []).map(x => x.homework_id));
@@ -244,9 +327,18 @@ async function loadDiary() {
   }
 }
 
+async function loadDiary(feed) {
+  const [v, sl] = await Promise.all([
+    sb.from('schedule_versions').select('id,effective_from').order('effective_from', {ascending:false}),
+    sb.from('schedule_slots').select('version_id,weekday,lesson_no,subject')]);
+  S.versions = v.data || []; S.slots = sl.data || [];
+  if (feed) { const q = curQ(); await loadHw(q.from, q.to); }
+  else await loadHw(S.week, addDays(S.week, 4));
+}
+
 async function loadTab() {
-  if (S.tab === 'people') await loadPeople();
-  else { await loadDiary(); if (S.tab === 'sched') initSched(); }
+  if (S.tab === 'profile') { if (S.profile && S.profile.role === 'owner') await loadPeople(); }
+  else await loadDiary(S.tab === 'sched');
 }
 
 function shrink(file) {
@@ -280,13 +372,16 @@ async function uploadPhotos(files) {
 }
 
 function render() {
-  let body;
+  const appr = S.ready && S.user && !S.recovering && S.profile && S.profile.role !== 'pending';
+  let body, nav = '';
   if (!S.ready) body = `<div class="card">${t('load')}</div>`;
   else if (S.user && S.recovering) body = `<div class="card"><h3>${t('newH')}</h3>${form('newpass', fld('password','password',t('pass'),'new-password'), t('save'))}</div>`;
-  else if (S.user) body = appView();
+  else if (S.user) { body = appView(); nav = navView(); }
   else body = authView();
-  document.getElementById('app').innerHTML =
-    `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>` + body + viewer();
+  const a = document.getElementById('app');
+  a.className = nav ? 'hasnav' : '';
+  a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + viewer();
+  if (S.scroll) { S.scroll = false; const el = document.querySelector('[data-cur]'); if (el) el.scrollIntoView({block: 'start'}); }
 }
 
 function errText(e) {
@@ -318,8 +413,15 @@ async function act(a, v) {
     const email = (S.f.email || '').trim();
     if (a === 'lang') { lang = lang === 'ru' ? 'en' : 'ru'; try { localStorage.setItem('lang', lang); } catch (e) {} }
     else if (a === 'go') { S.view = v; S.f.password = ''; }
-    else if (a === 'tab') { S.tab = v; S.edit = null; await loadTab(); }
-    else if (a === 'out') { await sb.auth.signOut(); S.view = 'login'; S.f = {}; S.edit = null; S.sched = null; S.tab = 'diary'; }
+    else if (a === 'tab') { S.tab = v; S.edit = null; S.sedit = false; S.qpick = false; S.scroll = v === 'sched'; await loadTab(); }
+    else if (a === 'qopen') { S.qpick = true; }
+    else if (a === 'qclose') { S.qpick = false; }
+    else if (a === 'q') { S.q = Number(v); S.qpick = false; S.open = null; S.scroll = true; await loadDiary(true); }
+    else if (a === 'fday') { S.open = S.open === v ? null : v; }
+    else if (a === 'sedit') { if (canEdit()) { initSched(); S.sedit = true; } }
+    else if (a === 'sback') { S.sedit = false; S.scroll = true; await loadDiary(true); }
+    else if (a === 'todiary') { const d = parse(v); S.week = fmt(mondayOf(d)); S.day = (d.getDay() + 6) % 7 + 1; S.tab = 'diary'; await loadDiary(); }
+    else if (a === 'out') { await sb.auth.signOut(); S.view = 'login'; S.f = {}; S.edit = null; S.sched = null; S.sedit = false; S.tab = 'diary'; }
     else if (a === 'role') {
       const [id, role] = v.split('|');
       const {error} = await sb.from('profiles').update({role}).eq('id', id);
@@ -422,7 +524,7 @@ async function act(a, v) {
   } finally {
     S.busy = false;
     render();
-    if (['tab', 'day', 'week', 'go', 'sday', 'out'].includes(a)) {
+    if (['tab', 'day', 'week', 'go', 'sday', 'out', 'q', 'todiary', 'sback', 'sedit'].includes(a)) {
       const el = document.getElementById('app'); el.classList.add('anim');
       setTimeout(() => el.classList.remove('anim'), 700);
     }
