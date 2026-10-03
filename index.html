@@ -138,6 +138,17 @@ input,textarea,button{font-family:inherit}
 .em{aspect-ratio:1;border:1.5px solid var(--line);border-radius:12px;background:var(--c);font-size:22px;padding:0;display:flex;align-items:center;justify-content:center}
 .em.on{border-color:var(--t);background:var(--soft)}
 .em2{font-size:22px;line-height:24px;height:24px}
+.pill.plus{width:56px;padding:0;font-size:28px;font-weight:400}
+.nh{margin:0 0 10px;padding-bottom:8px;border-bottom:1.5px solid var(--bd);font-size:18px}
+.ni{padding:8px 0;overflow-wrap:anywhere}
+.ni+.ni{border-top:1px solid var(--line)}
+.ni.edit{cursor:pointer}
+.tag{display:inline-block;font-size:12px;border:1px solid var(--bd);border-radius:999px;padding:1px 8px;margin-right:6px;color:var(--m)}
+input[type=date],input[type=time]{min-height:48px;-webkit-appearance:none;appearance:none;text-align:left}
+.seg{display:flex;gap:6px;background:var(--soft);padding:4px;border-radius:14px;margin:10px 0;border:1.5px solid var(--bd)}
+.seg button{flex:1;padding:9px;border:0;border-radius:11px;background:transparent;color:var(--t);font-weight:500}
+.seg button.on{background:var(--p);color:var(--pt)}
+.nsh .badge{margin:2px 0 0}
 </style>
 </head>
 <body>
@@ -158,7 +169,7 @@ const T = {
     soon:'Здесь скоро будет расписание и домашние задания.',diary:'Дневник',people:'Люди',approve:'Одобрить',
     mkAdmin:'Сделать админом',rmAdmin:'Снять права админа',revoke:'Убрать доступ',r_pending:'Ждёт одобрения',
     r_student:'Ученик',r_admin:'Админ',r_owner:'Создатель',badlogin:'Неверная почта или пароль',
-    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',topic:'Тема урока',hwtext:'Домашнее задание',photo:'Фото',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано',notdone:'Не сделано',profile:'Профиль',theme:'Тема',language:'Язык',dark:'Тёмная',light:'Светлая',editSched:'Изменить расписание',back:'Назад',today:'сегодня',toDiary:'Открыть в дневнике',quarter:'Четверть',quarterWord:'четверть',nohw:'Домашнего задания нет',close:'Закрыть',nowk:'В этой четверти больше нет предстоящих недель',editProfile:'Изменить профиль',nick:'Никнейм',bio:'О себе',ownEmoji:'Или вставь свой смайлик',emojiOnly:'Нужен смайлик, а не текст или фото'},
+    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',topic:'Тема урока',hwtext:'Домашнее задание',photo:'Фото',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано',notdone:'Не сделано',profile:'Профиль',theme:'Тема',language:'Язык',dark:'Тёмная',light:'Светлая',editSched:'Изменить расписание',back:'Назад',today:'сегодня',toDiary:'Открыть в дневнике',quarter:'Четверть',quarterWord:'четверть',nohw:'Домашнего задания нет',close:'Закрыть',nowk:'В этой четверти больше нет предстоящих недель',editProfile:'Изменить профиль',nick:'Никнейм',bio:'О себе',ownEmoji:'Или вставь свой смайлик',emojiOnly:'Нужен смайлик, а не текст или фото',news:'Новости',newsTitle:'Новости и события',near:'Ближайшие',far:'Долгосрочные',announce:'объявление',kAnn:'Объявление',kEv:'Событие',newItem:'Новая запись',editItem:'Редактировать запись',evDate:'Дата',evTime:'Время',evPlace:'Место проведения',textPh:'Текст',del:'Удалить',delConfirm:'Удалить эту запись?',needText:'Введите текст',needDate:'Укажите дату события',pastDate:'Дата события уже прошла',nothing:'Пока ничего нет'},
   en: {title:'Class Diary',email:'Email',pass:'Password (at least 6 characters)',login:'Log in',signup:'Sign up',
     forgot:'Forgot password?',toLogin:'Have an account? Log in',toSignup:'No account? Sign up',code:'Code from the email',
     confirm:'Confirm',verifyH:'Enter the code',verifyT:'We sent a code to',sent:'Code sent to your email',
@@ -167,7 +178,7 @@ const T = {
     soon:'The schedule and homework will appear here soon.',diary:'Diary',people:'People',approve:'Approve',
     mkAdmin:'Make admin',rmAdmin:'Remove admin rights',revoke:'Revoke access',r_pending:'Pending approval',
     r_student:'Student',r_admin:'Admin',r_owner:'Owner',badlogin:'Wrong email or password',
-    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',topic:'Lesson topic',hwtext:'Homework (in Russian)',photo:'Photo',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done',notdone:'Not done',profile:'Profile',theme:'Theme',language:'Language',dark:'Dark',light:'Light',editSched:'Edit schedule',back:'Back',today:'today',toDiary:'Open in diary',quarter:'Quarter',quarterWord:'quarter',nohw:'No homework',close:'Close',nowk:'No upcoming weeks left in this quarter',editProfile:'Edit profile',nick:'Nickname',bio:'About me',ownEmoji:'Or paste your own emoji',emojiOnly:'An emoji is required, not text or a photo'}
+    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',topic:'Lesson topic',hwtext:'Homework (in Russian)',photo:'Photo',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done',notdone:'Not done',profile:'Profile',theme:'Theme',language:'Language',dark:'Dark',light:'Light',editSched:'Edit schedule',back:'Back',today:'today',toDiary:'Open in diary',quarter:'Quarter',quarterWord:'quarter',nohw:'No homework',close:'Close',nowk:'No upcoming weeks left in this quarter',editProfile:'Edit profile',nick:'Nickname',bio:'About me',ownEmoji:'Or paste your own emoji',emojiOnly:'An emoji is required, not text or a photo',news:'News',newsTitle:'News and events',near:'Upcoming',far:'Long-term',announce:'notice',kAnn:'Notice',kEv:'Event',newItem:'New post',editItem:'Edit post',evDate:'Date',evTime:'Time',evPlace:'Place',textPh:'Text',del:'Delete',delConfirm:'Delete this post?',needText:'Enter some text',needDate:'Pick the event date',pastDate:'The event date has already passed',nothing:'Nothing yet'}
 };
 let lang = 'ru';
 try { lang = localStorage.getItem('lang') || 'ru'; } catch (e) {}
@@ -176,7 +187,7 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp
 
 const S = {ready:false, view:'login', otpType:'signup', email:'', f:{}, msg:'', info:'', busy:false,
            user:null, profile:null, tab:'diary', people:[], recovering:false,
-           week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null, done:new Set(), viewer:null, pop:null, q:0, qpick:false, sedit:false, open:null, scroll:false, detail:null, pedit:false};
+           week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null, done:new Set(), viewer:null, pop:null, q:0, qpick:false, sedit:false, open:null, scroll:false, detail:null, pedit:false, news:[], nsheet:null};
 const BUCKET = 'homework-photos';
 const pad = n => String(n).padStart(2, '0');
 const fmt = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
@@ -239,10 +250,55 @@ const HOME = svg('<path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/>');
 const DOC = svg('<rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M9 8h6M9 12h6M9 16h4"/>');
 const USER = svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.5 18c1.2-2.4 3.2-3.5 5.5-3.5s4.3 1.1 5.5 3.5"/>');
 
+const FLAG = svg('<path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5"/>');
+const ANN_DAYS = 7, NEAR_DAYS = 7;
+const expired = n => n.kind === 'announcement' ? Date.now() - Date.parse(n.created_at) >= ANN_DAYS * 864e5 : n.event_date < fmt(new Date());
+
+async function loadNews() {
+  const {data} = await sb.from('news').select('*');
+  S.news = data || [];
+  if (canEdit()) {
+    const old = S.news.filter(expired).map(n => n.id);
+    if (old.length) { await sb.from('news').delete().in('id', old); S.news = S.news.filter(n => !old.includes(n.id)); }
+  }
+}
+
+function newsGroups() {
+  const today = fmt(new Date()), limit = addDays(today, NEAR_DAYS), near = [], far = [];
+  S.news.filter(n => !expired(n)).forEach(n => (n.kind === 'event' && n.event_date > limit ? far : near).push(n));
+  const key = n => n.event_date + (n.event_time || '');
+  near.sort((a, b) => a.kind === b.kind ? (a.kind === 'event' ? key(a).localeCompare(key(b)) : Date.parse(b.created_at) - Date.parse(a.created_at)) : (a.kind === 'announcement' ? -1 : 1));
+  far.sort((a, b) => key(a).localeCompare(key(b)));
+  return {near, far};
+}
+
+function newsItem(n) {
+  const ed = canEdit();
+  const head = n.kind === 'event' ? `<b>${fmtShort(n.event_date)}${n.event_time ? ' ' + n.event_time.slice(0, 5) : ''}</b> ` : `<span class="tag">${t('announce')}</span>`;
+  return `<div class="ni${ed ? ' edit' : ''}"${ed ? ` data-a="nedit" data-v="${n.id}" role="button" tabindex="0"` : ''}>${head}${esc(n.body)}${n.place ? `<div class="badge">${esc(n.place)}</div>` : ''}</div>`;
+}
+
+function newsView() {
+  const g = newsGroups(), box = (title, list) => `<div class="card"><h3 class="nh">${title}</h3>${list.length ? list.map(newsItem).join('') : `<div class="badge">${t('nothing')}</div>`}</div>`;
+  return `<div class="ph2"><div class="pill grow">${t('newsTitle')}</div>${canEdit() ? '<button class="pill plus" data-a="nnew" aria-label="+">+</button>' : ''}</div>` + box(t('near'), g.near) + box(t('far'), g.far);
+}
+
+function newsSheet() {
+  if (!S.nsheet || !canEdit()) return '';
+  const ns = S.nsheet, ev = ns.kind === 'event';
+  const kind = ns.id ? `<div class="badge" style="margin:6px 0">${t(ev ? 'kEv' : 'kAnn')}</div>` :
+    `<div class="seg"><button type="button" class="${ev ? '' : 'on'}" data-a="nkind" data-v="announcement">${t('kAnn')}</button><button type="button" class="${ev ? 'on' : ''}" data-a="nkind" data-v="event">${t('kEv')}</button></div>`;
+  const inner = `<textarea name="nbody" maxlength="500" placeholder="${t('textPh')}">${esc(S.f.nbody)}</textarea>` +
+    (ev ? `<div class="badge">${t('evDate')}</div><input type="date" name="ndate" value="${esc(S.f.ndate)}"><div class="badge">${t('evTime')}</div><input type="time" name="ntime" value="${esc(S.f.ntime)}"><input name="nplace" maxlength="80" placeholder="${t('evPlace')}" value="${esc(S.f.nplace)}">` : '');
+  return `<div class="sheet" data-a="nclose"><div class="nsh"><b>${t(ns.id ? 'editItem' : 'newItem')}</b>${kind}${form('savenews', inner, t('save'))}` +
+    `${ns.id ? `<button class="btn out" data-a="ndel">${t('del')}</button>` : ''}<button class="lnk" style="padding-left:0" data-a="nclose">${t('cancel')}</button></div></div>`;
+}
+
 function appView() {
   const r = S.profile && S.profile.role, ed = canEdit();
   if (!r || r === 'pending') return `<div class="card"><h3>${t('wait')}</h3><p>${t('waitT')}</p></div>`;
   if (S.tab === 'profile') return profileView();
+  if (S.tab === 'news') return newsView();
   if (S.tab === 'sched') return S.sedit && ed && S.sched
     ? `<div class="ph2"><div class="pill grow">${t('editSched')}</div><button class="pill" data-a="sback">${t('back')}</button></div>` + schedView()
     : schedFeed();
@@ -312,7 +368,7 @@ function schedFeed() {
 function navView() {
   const r = S.profile && S.profile.role;
   if (!r || r === 'pending') return '';
-  const it = [['diary', HOME, t('diary')], ['sched', DOC, t('schedule')], ['profile', (S.profile && S.profile.avatar) ? `<span class="em2">${esc(S.profile.avatar)}</span>` : USER, t('profile')]];
+  const it = [['diary', HOME, t('diary')], ['sched', DOC, t('schedule')], ['news', FLAG, t('news')], ['profile', (S.profile && S.profile.avatar) ? `<span class="em2">${esc(S.profile.avatar)}</span>` : USER, t('profile')]];
   return `<nav class="bnav">${it.map(x => `<button class="${S.tab === x[0] ? 'on' : ''}" data-a="tab" data-v="${x[0]}">${x[1]}<span>${x[2]}</span></button>`).join('')}</nav>`;
 }
 
@@ -395,6 +451,7 @@ async function loadDiary(feed) {
 
 async function loadTab() {
   if (S.tab === 'profile') { if (S.profile && S.profile.role === 'owner') await loadPeople(); }
+  else if (S.tab === 'news') await loadNews();
   else await loadDiary(S.tab === 'sched');
 }
 
@@ -437,7 +494,7 @@ function render() {
   else body = authView();
   const a = document.getElementById('app');
   a.className = nav ? 'hasnav' : '';
-  a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + detailSheet() + viewer();
+  a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + detailSheet() + newsSheet() + viewer();
   if (S.scroll) { S.scroll = false; const el = document.querySelector('[data-cur]'); if (el) el.scrollIntoView({block: 'start'}); }
 }
 
@@ -471,7 +528,7 @@ async function act(a, v) {
     const email = (S.f.email || '').trim();
     if (a === 'lang') { lang = lang === 'ru' ? 'en' : 'ru'; try { localStorage.setItem('lang', lang); } catch (e) {} }
     else if (a === 'go') { S.view = v; S.f.password = ''; }
-    else if (a === 'tab') { S.tab = v; S.edit = null; S.sedit = false; S.qpick = false; S.detail = null; S.pedit = false; S.scroll = false; await loadTab(); }
+    else if (a === 'tab') { S.tab = v; S.edit = null; S.sedit = false; S.qpick = false; S.detail = null; S.pedit = false; S.scroll = false; S.nsheet = null; await loadTab(); }
     else if (a === 'pedit') { const p = S.profile; S.f.nick = p.nickname || ''; S.f.bio = p.bio || ''; S.f.avatar = p.avatar || ''; S.pedit = true; }
     else if (a === 'pcancel') { S.pedit = false; }
     else if (a === 'pick') { S.f.avatar = v; }
@@ -486,6 +543,29 @@ async function act(a, v) {
       if (error) throw error;
       const {data} = await sb.from('profiles').select('*').eq('id', S.user.id).maybeSingle();
       S.profile = data; S.pedit = false;
+    }
+    else if (a === 'nnew') { if (canEdit()) { S.nsheet = {id: null, kind: 'announcement'}; S.f.nbody = ''; S.f.ndate = ''; S.f.ntime = ''; S.f.nplace = ''; } }
+    else if (a === 'nkind') { S.nsheet.kind = v; }
+    else if (a === 'nclose') { S.nsheet = null; }
+    else if (a === 'nedit') {
+      const n = S.news.find(x => x.id === Number(v));
+      if (n && canEdit()) { S.nsheet = {id: n.id, kind: n.kind}; S.f.nbody = n.body || ''; S.f.ndate = n.event_date || ''; S.f.ntime = (n.event_time || '').slice(0, 5); S.f.nplace = n.place || ''; }
+    }
+    else if (a === 'ndel') {
+      if (!confirm(t('delConfirm'))) return;
+      const {error} = await sb.from('news').delete().eq('id', S.nsheet.id);
+      if (error) throw error;
+      S.nsheet = null; await loadNews();
+    }
+    else if (a === 'savenews') {
+      const ns = S.nsheet, ev = ns.kind === 'event', body = (S.f.nbody || '').trim();
+      if (!body) throw new Error(t('needText'));
+      if (ev && !S.f.ndate) throw new Error(t('needDate'));
+      if (ev && S.f.ndate < fmt(new Date())) throw new Error(t('pastDate'));
+      const row = {kind: ns.kind, body, event_date: ev ? S.f.ndate : null, event_time: ev && S.f.ntime ? S.f.ntime : null, place: ev ? ((S.f.nplace || '').trim() || null) : null, updated_at: new Date().toISOString()};
+      const {error} = ns.id ? await sb.from('news').update(row).eq('id', ns.id) : await sb.from('news').insert(row);
+      if (error) throw error;
+      S.nsheet = null; await loadNews();
     }
     else if (a === 'qopen') { S.qpick = true; }
     else if (a === 'lesson') { S.detail = v; }
