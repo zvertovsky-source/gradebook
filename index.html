@@ -47,7 +47,7 @@ label.sm{display:inline-block}
 .tab{flex:1;padding:9px 4px;border:0;border-radius:11px;background:transparent;color:var(--m);font-weight:500}
 .tab.on{background:var(--p);color:var(--pt)}
 .tab small{opacity:.75}
-.dot{color:#f59e0b}
+.dot{color:var(--ok)}
 .wk{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
 .wk .lnk{font-size:24px;padding:2px 14px}
 .row{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;align-items:start}
@@ -149,6 +149,14 @@ input[type=date],input[type=time]{min-height:48px;-webkit-appearance:none;appear
 .seg button{flex:1;padding:9px;border:0;border-radius:11px;background:transparent;color:var(--t);font-weight:500}
 .seg button.on{background:var(--p);color:var(--pt)}
 .nsh .badge{margin:2px 0 0}
+.wt{display:inline-flex;align-items:center;white-space:nowrap;margin-left:8px;padding:2px 10px;border:1.5px solid var(--wc);border-radius:999px;background:color-mix(in srgb,var(--wc) 16%,transparent);color:var(--t);font-size:12px;font-weight:700;font-style:normal;line-height:1.3;vertical-align:middle}
+.wt.kr{--wc:#e5484d}.wt.sr{--wc:#f97316}.wt.qz{--wc:#eab308}.wt.lr{--wc:#22b35e}.wt.pr{--wc:#0ea5e9}
+.wt.big{margin:0;font-size:14px;padding:4px 12px}
+button.wt{margin:0;font-size:14px;padding:8px 14px;font-weight:600;font-family:inherit}
+button.wt.on{background:var(--wc);color:#111}
+.wpick{margin:12px 0 4px}.wl{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.srow{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}.srow .sm{margin:0}
+.vr{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid var(--line)}
 </style>
 </head>
 <body>
@@ -169,7 +177,7 @@ const T = {
     soon:'Здесь скоро будет расписание и домашние задания.',diary:'Дневник',people:'Люди',approve:'Одобрить',
     mkAdmin:'Сделать админом',rmAdmin:'Снять права админа',revoke:'Убрать доступ',r_pending:'Ждёт одобрения',
     r_student:'Ученик',r_admin:'Админ',r_owner:'Создатель',badlogin:'Неверная почта или пароль',
-    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',topic:'Тема урока',hwtext:'Домашнее задание',photo:'Фото',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано',notdone:'Не сделано',profile:'Профиль',theme:'Тема',language:'Язык',dark:'Тёмная',light:'Светлая',editSched:'Изменить расписание',back:'Назад',today:'сегодня',toDiary:'Открыть в дневнике',quarter:'Четверть',quarterWord:'четверть',nohw:'Домашнего задания нет',close:'Закрыть',nowk:'В этой четверти больше нет предстоящих недель',editProfile:'Изменить профиль',nick:'Никнейм',bio:'О себе',ownEmoji:'Или вставь свой смайлик',emojiOnly:'Нужен смайлик, а не текст или фото',news:'Новости',newsTitle:'Новости и события',near:'Ближайшие',far:'Долгосрочные',announce:'объявление',kAnn:'Объявление',kEv:'Событие',newItem:'Новая запись',editItem:'Редактировать запись',evDate:'Дата',evTime:'Время',evPlace:'Место проведения',textPh:'Текст',del:'Удалить',delConfirm:'Удалить эту запись?',needText:'Введите текст',needDate:'Укажите дату события',pastDate:'Дата события уже прошла',nothing:'Пока ничего нет'},
+    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',topic:'Тема урока',hwtext:'Домашнее задание',photo:'Фото',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано',notdone:'Не сделано',profile:'Профиль',theme:'Тема',language:'Язык',dark:'Тёмная',light:'Светлая',editSched:'Изменить расписание',back:'Назад',today:'сегодня',toDiary:'Открыть в дневнике',quarter:'Четверть',quarterWord:'четверть',nohw:'Домашнего задания нет',close:'Закрыть',nowk:'В этой четверти больше нет предстоящих недель',editProfile:'Изменить профиль',nick:'Никнейм',bio:'О себе',ownEmoji:'Или вставь свой смайлик',emojiOnly:'Нужен смайлик, а не текст или фото',news:'Новости',newsTitle:'Новости и события',near:'Ближайшие',far:'Долгосрочные',announce:'объявление',kAnn:'Объявление',kEv:'Событие',newItem:'Новая запись',editItem:'Редактировать запись',evDate:'Дата',evTime:'Время',evPlace:'Место проведения',textPh:'Текст',del:'Удалить',delConfirm:'Удалить эту запись?',needText:'Введите текст',needDate:'Укажите дату события',pastDate:'Дата события уже прошла',nothing:'Пока ничего нет',vacation:'Каникулы',vAut:'Осенние',vWin:'Зимние',vSpr:'Весенние',vSum:'Летние',wtLabel:'Пометка о работе',wtHint:'нажмите ещё раз, чтобы убрать',wt_kr:'Контрольная работа',wt_sr:'Самостоятельная работа',wt_qz:'Летучка/Тест',wt_lr:'Лабораторная работа',wt_pr:'Практическая работа'},
   en: {title:'Class Diary',email:'Email',pass:'Password (at least 6 characters)',login:'Log in',signup:'Sign up',
     forgot:'Forgot password?',toLogin:'Have an account? Log in',toSignup:'No account? Sign up',code:'Code from the email',
     confirm:'Confirm',verifyH:'Enter the code',verifyT:'We sent a code to',sent:'Code sent to your email',
@@ -178,7 +186,7 @@ const T = {
     soon:'The schedule and homework will appear here soon.',diary:'Diary',people:'People',approve:'Approve',
     mkAdmin:'Make admin',rmAdmin:'Remove admin rights',revoke:'Revoke access',r_pending:'Pending approval',
     r_student:'Student',r_admin:'Admin',r_owner:'Owner',badlogin:'Wrong email or password',
-    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',topic:'Lesson topic',hwtext:'Homework (in Russian)',photo:'Photo',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done',notdone:'Not done',profile:'Profile',theme:'Theme',language:'Language',dark:'Dark',light:'Light',editSched:'Edit schedule',back:'Back',today:'today',toDiary:'Open in diary',quarter:'Quarter',quarterWord:'quarter',nohw:'No homework',close:'Close',nowk:'No upcoming weeks left in this quarter',editProfile:'Edit profile',nick:'Nickname',bio:'About me',ownEmoji:'Or paste your own emoji',emojiOnly:'An emoji is required, not text or a photo',news:'News',newsTitle:'News and events',near:'Upcoming',far:'Long-term',announce:'notice',kAnn:'Notice',kEv:'Event',newItem:'New post',editItem:'Edit post',evDate:'Date',evTime:'Time',evPlace:'Place',textPh:'Text',del:'Delete',delConfirm:'Delete this post?',needText:'Enter some text',needDate:'Pick the event date',pastDate:'The event date has already passed',nothing:'Nothing yet'}
+    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',topic:'Lesson topic',hwtext:'Homework (in Russian)',photo:'Photo',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done',notdone:'Not done',profile:'Profile',theme:'Theme',language:'Language',dark:'Dark',light:'Light',editSched:'Edit schedule',back:'Back',today:'today',toDiary:'Open in diary',quarter:'Quarter',quarterWord:'quarter',nohw:'No homework',close:'Close',nowk:'No upcoming weeks left in this quarter',editProfile:'Edit profile',nick:'Nickname',bio:'About me',ownEmoji:'Or paste your own emoji',emojiOnly:'An emoji is required, not text or a photo',news:'News',newsTitle:'News and events',near:'Upcoming',far:'Long-term',announce:'notice',kAnn:'Notice',kEv:'Event',newItem:'New post',editItem:'Edit post',evDate:'Date',evTime:'Time',evPlace:'Place',textPh:'Text',del:'Delete',delConfirm:'Delete this post?',needText:'Enter some text',needDate:'Pick the event date',pastDate:'The event date has already passed',nothing:'Nothing yet',vacation:'Holidays',vAut:'Autumn',vWin:'Winter',vSpr:'Spring',vSum:'Summer',wtLabel:'Work mark',wtHint:'tap again to remove',wt_kr:'Test (exam)',wt_sr:'Independent work',wt_qz:'Quiz/Test',wt_lr:'Lab work',wt_pr:'Practical work'}
 };
 let lang = 'ru';
 try { lang = localStorage.getItem('lang') || 'ru'; } catch (e) {}
@@ -187,7 +195,7 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp
 
 const S = {ready:false, view:'login', otpType:'signup', email:'', f:{}, msg:'', info:'', busy:false,
            user:null, profile:null, tab:'diary', people:[], recovering:false,
-           week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null, done:new Set(), viewer:null, pop:null, q:0, qpick:false, sedit:false, open:null, scroll:false, detail:null, pedit:false, news:[], nsheet:null};
+           week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null, done:new Set(), viewer:null, pop:null, q:0, qpick:false, sedit:false, open:null, scroll:false, detail:null, pedit:false, news:[], nsheet:null, vac:false};
 const BUCKET = 'homework-photos';
 const pad = n => String(n).padStart(2, '0');
 const fmt = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
@@ -198,10 +206,18 @@ const fmtShort = x => { const d = parse(x); return pad(d.getDate()) + '.' + pad(
 const DN = {ru:['Пн','Вт','Ср','Чт','Пт'], en:['Mon','Tue','Wed','Thu','Fri']};
 const dayDate = () => addDays(S.week, S.day - 1);
 const canEdit = () => !!S.profile && (S.profile.role === 'admin' || S.profile.role === 'owner');
-{ const now = new Date(), wd = (now.getDay() + 6) % 7, mon = fmt(mondayOf(now));
+function goToday() { const now = new Date(), wd = (now.getDay() + 6) % 7, mon = fmt(mondayOf(now));
   S.week = wd > 4 ? addDays(mon, 7) : mon; S.day = wd > 4 ? 1 : wd + 1; }
+goToday();
 const schoolYear = () => { const n = new Date(); return n.getMonth() >= 7 ? n.getFullYear() : n.getFullYear() - 1; };
-const QS = () => { const y = schoolYear(); return [[y + '-09-01', y + '-10-31'], [y + '-11-01', y + '-12-25'], [(y + 1) + '-01-10', (y + 1) + '-03-30'], [(y + 1) + '-04-05', (y + 1) + '-05-31']]; };
+const QS = () => { const y = schoolYear(); return [[y + '-09-01', y + '-10-31'], [y + '-11-08', y + '-12-24'], [(y + 1) + '-01-10', (y + 1) + '-03-18'], [(y + 1) + '-03-28', (y + 1) + '-05-25']]; };
+const VAC = () => { const y = schoolYear(); return [['vAut', y + '-11-01', y + '-11-07'], ['vWin', y + '-12-25', (y + 1) + '-01-09'], ['vSpr', (y + 1) + '-03-19', (y + 1) + '-03-27'], ['vSum', (y + 1) + '-05-26', (y + 1) + '-08-31']]; };
+const WTK = ['kr', 'sr', 'qz', 'lr', 'pr'];
+const wtShort = k => k === 'qz' ? t('wt_qz') : ({kr: 'КР', sr: 'СР', lr: 'ЛР', pr: 'ПР'})[k];
+const wtBadge = (k, full) => WTK.includes(k) ? `<em class="wt ${k}${full ? ' big' : ''}">${esc(full ? t('wt_' + k) : wtShort(k))}</em>` : '';
+const wtPick = (cur, a) => `<div class="wpick"><div class="badge">${t('wtLabel')} · ${t('wtHint')}</div><div class="wl">` +
+  WTK.map(k => `<button type="button" class="wt ${k}${cur === k ? ' on' : ''}" data-a="${a}" data-v="${k}">${esc(t('wt_' + k))}</button>`).join('') + '</div>' +
+  (a === 'setwt' && S.msg ? `<div class="msg">${esc(S.msg)}</div>` : '') + '</div>';
 const curQ = () => { const x = QS()[S.q]; return {from: x[0], to: x[1]}; };
 const qn = i => ['I', 'II', 'III', 'IV'][i];
 const CHEV = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
@@ -325,8 +341,8 @@ function profileView() {
   if (S.pedit) return profEdit();
   const r = S.profile.role;
   let h = `<div class="ph2"><div class="pill grow">${t('profile')}</div></div>${profCard()}` +
-    `<div class="card prow"><span>${t('theme')}</span><button class="sm" data-a="theme">${dark() ? t('dark') + ' ' + SUN : t('light') + ' ' + MOON}</button></div>` +
-    `<div class="card prow"><span>${t('language')}</span><button class="sm" data-a="lang">${lang === 'ru' ? 'English' : 'Русский'}</button></div>` +
+    `<div class="card prow"><span>${t('theme')}</span><button class="sm" data-a="theme">${dark() ? t('dark') + ' ' + MOON : t('light') + ' ' + SUN}</button></div>` +
+    `<div class="card prow"><span>${t('language')}</span><button class="sm" data-a="lang">${lang === 'ru' ? 'Русский' : 'English'}</button></div>` +
     `<button class="btn out" data-a="out">${t('out')}</button>`;
   if (r === 'owner') h += `<h3 style="margin:22px 0 10px">${t('people')}</h3>` + peopleView();
   return h;
@@ -336,7 +352,7 @@ function profileView() {
 function lessonRow(d, no, name) {
   const w = S.hw[d + '|' + no], has = !!w && hasHw(w), n = w ? (w.photo_paths || []).filter(x => S.urls[x]).length : 0;
   const line = has ? `<div class="hl"><span class="ht">${w.topic ? `<b>${esc(w.topic)}</b> ` : ''}${esc(w.body || '')}${S.done.has(w.id) ? ' ✓' : ''}</span>${n ? `<button class="chip" data-a="photos" data-v="${d}|${no}">+ ${t('photo').toLowerCase()}</button>` : ''}</div>` : '<div class="hl"><span class="ht">—</span></div>';
-  return `<div class="lr" role="button" tabindex="0" data-a="lesson" data-v="${d}|${no}"><div class="ls2"><span>${no}.</span>${esc(name)}</div>${line}</div>`;
+  return `<div class="lr" role="button" tabindex="0" data-a="lesson" data-v="${d}|${no}"><div class="ls2"><span>${no}.</span>${esc(name)}${w ? wtBadge(w.work_type) : ''}</div>${line}</div>`;
 }
 
 function detailSheet() {
@@ -344,8 +360,8 @@ function detailSheet() {
   const [d, no] = S.detail.split('|'), name = (subjects(d) || {})[no] || '', w = S.hw[S.detail];
   const photos = w ? (w.photo_paths || []).filter(x => S.urls[x]) : [];
   return `<div class="sheet" data-a="dclose"><div><div class="dh"><b>${no}. ${esc(name)}</b><span class="badge">${DN[lang][(parse(d).getDay() + 6) % 7]} ${fmtShort(d)}</span></div>` +
-    (w && hasHw(w) ? (w.topic ? `<div class="dt">${esc(w.topic)}</div>` : '') + (w.body ? `<div class="db">${esc(w.body)}</div>` : '') + photos.map(x => `<img class="dimg" src="${esc(S.urls[x])}">`).join('') : `<div class="badge">${t('nohw')}</div>`) +
-    `<button class="sm" style="margin:14px 8px 0 0" data-a="todiary" data-v="${d}">${t('toDiary')}</button><button class="sm" style="margin:14px 0 0" data-a="dclose">${t('close')}</button></div></div>`;
+    (w && WTK.includes(w.work_type) ? `<div style="margin:0 0 10px">${wtBadge(w.work_type, true)}</div>` : '') + (w && hasHw(w) ? (w.topic ? `<div class="dt">${esc(w.topic)}</div>` : '') + (w.body ? `<div class="db">${esc(w.body)}</div>` : '') + photos.map(x => `<img class="dimg" src="${esc(S.urls[x])}">`).join('') : `<div class="badge">${t('nohw')}</div>`) +
+    (canEdit() ? wtPick(w && w.work_type, 'setwt') : '') + `<button class="sm" style="margin:14px 8px 0 0" data-a="todiary" data-v="${d}">${t('toDiary')}</button><button class="sm" style="margin:14px 0 0" data-a="dclose">${t('close')}</button></div></div>`;
 }
 
 function schedFeed() {
@@ -355,7 +371,7 @@ function schedFeed() {
     if (days.length && addDays(mon, 6) >= today) weeks.push({mon, days});
   }
   let h = `<div class="ph2"><div class="pill grow">${t('schedule')}</div><button class="pill" data-a="qopen" aria-label="${t('quarter')}">${qn(S.q)}${CHEV}</button></div>`;
-  if (ed) h += `<button class="sm" style="margin:0 0 12px" data-a="sedit">${t('editSched')}</button>`;
+  h += `<div class="srow">${ed ? `<button class="sm" data-a="sedit">${t('editSched')}</button>` : ''}<button class="sm" data-a="vac">${t('vacation')}</button></div>`;
   if (!weeks.length) return h + `<div class="card">${t('nowk')}</div>`;
   return h + weeks.map(w => `<div class="week"><div class="wh">${fmtShort(w.mon)} – ${fmtShort(addDays(w.mon, 6))}</div>` +
     w.days.map(d => {
@@ -372,6 +388,9 @@ function navView() {
   return `<nav class="bnav">${it.map(x => `<button class="${S.tab === x[0] ? 'on' : ''}" data-a="tab" data-v="${x[0]}">${x[1]}<span>${x[2]}</span></button>`).join('')}</nav>`;
 }
 
+const vsheet = () => !S.vac ? '' : `<div class="sheet" data-a="vclose"><div data-a="vkeep"><b>${t('vacation')}</b>` +
+  VAC().map(x => `<div class="vr"><span>${t(x[0])}</span><b>${fmtShort(x[1])} – ${fmtShort(x[2])}</b></div>`).join('') +
+  `<button class="sm" style="margin:14px 0 0" data-a="vclose">${t('close')}</button></div></div>`;
 const qsheet = () => !S.qpick ? '' : `<div class="sheet" data-a="qclose"><div data-a="qkeep"><b>${t('quarter')}</b>` +
   QS().map((x, i) => `<button class="qopt${i === S.q ? ' on' : ''}" data-a="q" data-v="${i}"><b>${qn(i)} ${t('quarterWord')}</b><span>${fmtShort(x[0])} – ${fmtShort(x[1])}</span></button>`).join('') + '</div></div>';
 
@@ -400,14 +419,14 @@ function diaryView() {
     const doneBtn = has ? `<button class="sm${dn ? ' on' : ''}${S.pop === w.id ? ' pop' : ''}" data-a="done" data-v="${w.id}">${dn ? '✓ ' + t('done') : t('notdone')}</button>` : '';
     const chip = ph ? `<button class="chip" data-a="photos" data-v="${date}|${no}">+ ${t('photo').toLowerCase()}${ph > 1 ? ' (' + ph + ')' : ''}</button>` : '';
     const editBtn = ed ? `<button class="sm" data-a="edit" data-v="${no}">${t(w ? 'edit' : 'add')}</button>` : '';
-    return `<div class="card row${dn ? ' done' : ''}"><div class="l"><div class="ls"><b>${no}.</b> ${esc(subj[no])}</div>${mid}</div><div class="r">${has && w.topic ? `<b>${esc(w.topic)}</b>` : ''}</div>${doneBtn || chip || editBtn ? `<div class="foot">${doneBtn}<div class="fr">${chip}${editBtn}</div></div>` : ''}</div>`;
+    return `<div class="card row${dn ? ' done' : ''}"><div class="l"><div class="ls"><b>${no}.</b> ${esc(subj[no])}${w ? wtBadge(w.work_type) : ''}</div>${mid}</div><div class="r">${has && w.topic ? `<b>${esc(w.topic)}</b>` : ''}</div>${doneBtn || chip || editBtn ? `<div class="foot">${doneBtn}<div class="fr">${chip}${editBtn}</div></div>` : ''}</div>`;
   }).join('');
 }
 
 function editForm() {
   const e = S.edit;
   const ph = e.photos.map(p => `<div class="ph"><img src="${esc(S.urls[p] || '')}"><button type="button" class="x" data-a="rmphoto" data-v="${esc(p)}">✕</button></div>`).join('');
-  const inner = `<input name="hwtopic" placeholder="${t('topic')}" value="${esc(S.f.hwtopic)}"><textarea name="hwbody" placeholder="${t('hwtext')}">${esc(S.f.hwbody)}</textarea><div class="phr">${ph}<label class="sm">+ ${t('photo')}<input id="hwfile" type="file" accept="image/*" multiple hidden></label></div>`;
+  const inner = `<input name="hwtopic" placeholder="${t('topic')}" value="${esc(S.f.hwtopic)}"><textarea name="hwbody" placeholder="${t('hwtext')}">${esc(S.f.hwbody)}</textarea>${wtPick(e.wt, 'wt')}<div class="phr">${ph}<label class="sm">+ ${t('photo')}<input id="hwfile" type="file" accept="image/*" multiple hidden></label></div>`;
   return `<div class="card"><b>${e.no}. ${esc(e.subject)}</b>${form('savehw', inner, t('save'))}<button class="lnk" style="padding-left:0" data-a="cancel">${t('cancel')}</button></div>`;
 }
 
@@ -494,7 +513,7 @@ function render() {
   else body = authView();
   const a = document.getElementById('app');
   a.className = nav ? 'hasnav' : '';
-  a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + detailSheet() + newsSheet() + viewer();
+  a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + vsheet() + detailSheet() + newsSheet() + viewer();
   if (S.scroll) { S.scroll = false; const el = document.querySelector('[data-cur]'); if (el) el.scrollIntoView({block: 'start'}); }
 }
 
@@ -528,7 +547,7 @@ async function act(a, v) {
     const email = (S.f.email || '').trim();
     if (a === 'lang') { lang = lang === 'ru' ? 'en' : 'ru'; try { localStorage.setItem('lang', lang); } catch (e) {} }
     else if (a === 'go') { S.view = v; S.f.password = ''; }
-    else if (a === 'tab') { S.tab = v; S.edit = null; S.sedit = false; S.qpick = false; S.detail = null; S.pedit = false; S.scroll = false; S.nsheet = null; await loadTab(); }
+    else if (a === 'tab') { S.tab = v; S.edit = null; S.sedit = false; S.qpick = false; S.detail = null; S.pedit = false; S.scroll = false; S.nsheet = null; S.vac = false; if (v === 'diary') goToday(); await loadTab(); }
     else if (a === 'pedit') { const p = S.profile; S.f.nick = p.nickname || ''; S.f.bio = p.bio || ''; S.f.avatar = p.avatar || ''; S.pedit = true; }
     else if (a === 'pcancel') { S.pedit = false; }
     else if (a === 'pick') { S.f.avatar = v; }
@@ -568,6 +587,8 @@ async function act(a, v) {
       S.nsheet = null; await loadNews();
     }
     else if (a === 'qopen') { S.qpick = true; }
+    else if (a === 'vac') { S.vac = true; }
+    else if (a === 'vclose') { S.vac = false; }
     else if (a === 'lesson') { S.detail = v; }
     else if (a === 'dclose') { S.detail = null; }
     else if (a === 'qclose') { S.qpick = false; }
@@ -603,8 +624,18 @@ async function act(a, v) {
     else if (a === 'sday') { S.sched.day = Number(v); }
     else if (a === 'edit') {
       const no = Number(v), date = dayDate(), w = S.hw[date + '|' + no];
-      S.edit = {date, no, subject: (subjects(date) || {})[no] || '', photos: [...(w ? w.photo_paths || [] : [])], removed: [], added: []};
+      S.edit = {date, no, subject: (subjects(date) || {})[no] || '', photos: [...(w ? w.photo_paths || [] : [])], removed: [], added: [], wt: (w && w.work_type) || '', wt0: (w && w.work_type) || ''};
       S.f.hwtopic = w && w.topic || ''; S.f.hwbody = w && w.body || '';
+    }
+    else if (a === 'wt') { S.edit.wt = S.edit.wt === v ? '' : v; }
+    else if (a === 'setwt') {
+      if (!canEdit() || !S.detail) return;
+      const [d, no] = S.detail.split('|'), w = S.hw[S.detail];
+      const row = {lesson_date: d, lesson_no: Number(no), work_type: w && w.work_type === v ? null : v, updated_by: S.user.id, updated_at: new Date().toISOString()};
+      if (!w) { row.created_by = S.user.id; row.photo_paths = []; }
+      const {error} = await sb.from('homework').upsert(row, {onConflict: 'lesson_date,lesson_no'});
+      if (error) throw error;
+      await loadDiary(true);
     }
     else if (a === 'rmphoto') { S.edit.photos = S.edit.photos.filter(p => p !== v); S.edit.removed.push(v); }
     else if (a === 'cancel') {
@@ -616,6 +647,7 @@ async function act(a, v) {
       const row = {lesson_date: e.date, lesson_no: e.no, topic: (S.f.hwtopic || '').trim() || null, body: (S.f.hwbody || '').trim() || null,
         photo_paths: e.photos, updated_by: S.user.id, updated_at: new Date().toISOString()};
       if (!S.hw[key]) row.created_by = S.user.id;
+      if (e.wt !== e.wt0) row.work_type = e.wt || null;
       const {error} = await sb.from('homework').upsert(row, {onConflict: 'lesson_date,lesson_no'});
       if (error) throw error;
       if (e.removed.length) await sb.storage.from(BUCKET).remove(e.removed);
@@ -702,6 +734,13 @@ sb.auth.onAuthStateChange((ev, sess) => {
 });
 setTimeout(() => { if (!S.ready) load(); }, 3000);
 document.addEventListener('touchstart', () => {}, {passive: true});
+let lastDay = fmt(new Date());
+document.addEventListener('visibilitychange', () => {
+  const n = fmt(new Date());
+  if (document.hidden || n === lastDay) return;
+  lastDay = n;
+  if (!S.edit && S.user) { goToday(); load(); }
+});
 render();
 </script>
 </body>
