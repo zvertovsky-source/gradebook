@@ -157,6 +157,18 @@ button.wt.on{background:var(--wc);color:#111}
 .wpick{margin:12px 0 4px}.wl{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .srow{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}.srow .sm{margin:0}
 .vr{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-top:1px solid var(--line)}
+.card.row{grid-template-columns:1fr}
+.fbtn{gap:6px}.fbtn svg{width:16px;height:16px;margin:0}
+label.sm{display:inline-flex}
+.fchip{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;margin:6px 6px 0 0;border:1.5px dashed var(--bd);border-radius:10px;font-size:13px;font-style:normal;text-transform:uppercase;color:var(--m)}
+.ftxt{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.45 ui-monospace,Menlo,monospace;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0 0;max-height:50vh;overflow:auto}
+.fi{margin:12px 0 0}
+.srow{flex-wrap:nowrap}.srow .sm{flex:1 1 0;min-width:0;padding:10px 6px;white-space:normal}
+.tag{display:inline-block;margin:0;padding:2px 10px;border:1.5px solid var(--tc);border-radius:999px;background:var(--tc);color:#fff;font-size:12px;font-weight:600}
+.tag.an{--tc:#3a6d99}.tag.ev{--tc:#3a994d}
+.nhd{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.nt{margin-left:auto;display:inline-flex;align-items:center;gap:4px;color:var(--m);font-weight:600;font-size:14px}.nt svg{width:15px;height:15px}
+.sm.danger{color:#d93b3b;border-color:#d93b3b}
 </style>
 </head>
 <body>
@@ -177,7 +189,7 @@ const T = {
     soon:'Здесь скоро будет расписание и домашние задания.',diary:'Дневник',people:'Люди',approve:'Одобрить',
     mkAdmin:'Сделать админом',rmAdmin:'Снять права админа',revoke:'Убрать доступ',r_pending:'Ждёт одобрения',
     r_student:'Ученик',r_admin:'Админ',r_owner:'Создатель',badlogin:'Неверная почта или пароль',
-    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',topic:'Тема урока',hwtext:'Домашнее задание',photo:'Фото',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано',notdone:'Не сделано',profile:'Профиль',theme:'Тема',language:'Язык',dark:'Тёмная',light:'Светлая',editSched:'Изменить расписание',back:'Назад',today:'сегодня',toDiary:'Открыть в дневнике',quarter:'Четверть',quarterWord:'четверть',nohw:'Домашнего задания нет',close:'Закрыть',nowk:'В этой четверти больше нет предстоящих недель',editProfile:'Изменить профиль',nick:'Никнейм',bio:'О себе',ownEmoji:'Или вставь свой смайлик',emojiOnly:'Нужен смайлик, а не текст или фото',news:'Новости',newsTitle:'Новости и события',near:'Ближайшие',far:'Долгосрочные',announce:'объявление',kAnn:'Объявление',kEv:'Событие',newItem:'Новая запись',editItem:'Редактировать запись',evDate:'Дата',evTime:'Время',evPlace:'Место проведения',textPh:'Текст',del:'Удалить',delConfirm:'Удалить эту запись?',needText:'Введите текст',needDate:'Укажите дату события',pastDate:'Дата события уже прошла',nothing:'Пока ничего нет',vacation:'Каникулы',vAut:'Осенние',vWin:'Зимние',vSpr:'Весенние',vSum:'Летние',wtLabel:'Пометка о работе',wtHint:'нажмите ещё раз, чтобы убрать',wt_kr:'Контрольная работа',wt_sr:'Самостоятельная работа',wt_qz:'Летучка/Тест',wt_lr:'Лабораторная работа',wt_pr:'Практическая работа'},
+    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',hwtext:'Домашнее задание',file:'Файл',download:'Скачать',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано',notdone:'Не сделано',profile:'Профиль',theme:'Тема',language:'Язык',dark:'Тёмная',light:'Светлая',editSched:'Изменить расписание',back:'Назад',today:'сегодня',toDiary:'Открыть в дневнике',quarter:'Четверть',quarterWord:'четверть',nohw:'Домашнего задания нет',close:'Закрыть',nowk:'В этой четверти больше нет предстоящих недель',editProfile:'Изменить профиль',nick:'Никнейм',bio:'О себе',ownEmoji:'Или вставь свой смайлик',emojiOnly:'Нужен смайлик, а не текст или фото',news:'Новости',newsTitle:'Новости и события',near:'Ближайшие',far:'Долгосрочные',announce:'объявление',kAnn:'Объявление',kEv:'Событие',newItem:'Новая запись',editItem:'Редактировать запись',evDate:'Дата',evTime:'Время',evPlace:'Место проведения',textPh:'Текст',del:'Удалить',delConfirm:'Удалить эту запись?',needText:'Введите текст',needDate:'Укажите дату события',pastDate:'Дата события уже прошла',nothing:'Пока ничего нет',vacation:'Каникулы',evTag:'событие',annDate:'Дата (необязательно)',expLabel:'Исчезнет через',expCur:'сейчас до',d1:'1 день',d3:'3 дня',d7:'7 дней',dC:'Своё',days:'Число дней',needDays:'Укажите число дней от 1 до 365',pickQ:'Выбрать четверть',udelConfirm:'Удалить пользователя из базы? Это нельзя отменить.',vAut:'Осенние',vWin:'Зимние',vSpr:'Весенние',vSum:'Летние',wtLabel:'Пометка о работе',wtHint:'нажмите ещё раз, чтобы убрать',wt_kr:'Контрольная работа',wt_sr:'Самостоятельная работа',wt_qz:'Летучка/Тест',wt_lr:'Лабораторная работа',wt_pr:'Практическая работа'},
   en: {title:'Class Diary',email:'Email',pass:'Password (at least 6 characters)',login:'Log in',signup:'Sign up',
     forgot:'Forgot password?',toLogin:'Have an account? Log in',toSignup:'No account? Sign up',code:'Code from the email',
     confirm:'Confirm',verifyH:'Enter the code',verifyT:'We sent a code to',sent:'Code sent to your email',
@@ -186,7 +198,7 @@ const T = {
     soon:'The schedule and homework will appear here soon.',diary:'Diary',people:'People',approve:'Approve',
     mkAdmin:'Make admin',rmAdmin:'Remove admin rights',revoke:'Revoke access',r_pending:'Pending approval',
     r_student:'Student',r_admin:'Admin',r_owner:'Owner',badlogin:'Wrong email or password',
-    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',topic:'Lesson topic',hwtext:'Homework (in Russian)',photo:'Photo',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done',notdone:'Not done',profile:'Profile',theme:'Theme',language:'Language',dark:'Dark',light:'Light',editSched:'Edit schedule',back:'Back',today:'today',toDiary:'Open in diary',quarter:'Quarter',quarterWord:'quarter',nohw:'No homework',close:'Close',nowk:'No upcoming weeks left in this quarter',editProfile:'Edit profile',nick:'Nickname',bio:'About me',ownEmoji:'Or paste your own emoji',emojiOnly:'An emoji is required, not text or a photo',news:'News',newsTitle:'News and events',near:'Upcoming',far:'Long-term',announce:'notice',kAnn:'Notice',kEv:'Event',newItem:'New post',editItem:'Edit post',evDate:'Date',evTime:'Time',evPlace:'Place',textPh:'Text',del:'Delete',delConfirm:'Delete this post?',needText:'Enter some text',needDate:'Pick the event date',pastDate:'The event date has already passed',nothing:'Nothing yet',vacation:'Holidays',vAut:'Autumn',vWin:'Winter',vSpr:'Spring',vSum:'Summer',wtLabel:'Work mark',wtHint:'tap again to remove',wt_kr:'Test (exam)',wt_sr:'Independent work',wt_qz:'Quiz/Test',wt_lr:'Lab work',wt_pr:'Practical work'}
+    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',hwtext:'Homework (in Russian)',file:'File',download:'Download',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done',notdone:'Not done',profile:'Profile',theme:'Theme',language:'Language',dark:'Dark',light:'Light',editSched:'Edit schedule',back:'Back',today:'today',toDiary:'Open in diary',quarter:'Quarter',quarterWord:'quarter',nohw:'No homework',close:'Close',nowk:'No upcoming weeks left in this quarter',editProfile:'Edit profile',nick:'Nickname',bio:'About me',ownEmoji:'Or paste your own emoji',emojiOnly:'An emoji is required, not text or a photo',news:'News',newsTitle:'News and events',near:'Upcoming',far:'Long-term',announce:'notice',kAnn:'Notice',kEv:'Event',newItem:'New post',editItem:'Edit post',evDate:'Date',evTime:'Time',evPlace:'Place',textPh:'Text',del:'Delete',delConfirm:'Delete this post?',needText:'Enter some text',needDate:'Pick the event date',pastDate:'The event date has already passed',nothing:'Nothing yet',vacation:'Holidays',evTag:'event',annDate:'Date (optional)',expLabel:'Disappears after',expCur:'currently until',d1:'1 day',d3:'3 days',d7:'7 days',dC:'Custom',days:'Number of days',needDays:'Enter a number of days from 1 to 365',pickQ:'Choose quarter',udelConfirm:'Delete this user from the database? This cannot be undone.',vAut:'Autumn',vWin:'Winter',vSpr:'Spring',vSum:'Summer',wtLabel:'Work mark',wtHint:'tap again to remove',wt_kr:'Test (exam)',wt_sr:'Independent work',wt_qz:'Quiz/Test',wt_lr:'Lab work',wt_pr:'Practical work'}
 };
 let lang = 'ru';
 try { lang = localStorage.getItem('lang') || 'ru'; } catch (e) {}
@@ -195,7 +207,7 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp
 
 const S = {ready:false, view:'login', otpType:'signup', email:'', f:{}, msg:'', info:'', busy:false,
            user:null, profile:null, tab:'diary', people:[], recovering:false,
-           week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null, done:new Set(), viewer:null, pop:null, q:0, qpick:false, sedit:false, open:null, scroll:false, detail:null, pedit:false, news:[], nsheet:null, vac:false};
+           week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null, done:new Set(), viewer:null, pop:null, q:0, qpick:false, sedit:false, open:null, scroll:false, detail:null, pedit:false, news:[], nsheet:null, vac:false, fv:null};
 const BUCKET = 'homework-photos';
 const pad = n => String(n).padStart(2, '0');
 const fmt = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
@@ -231,6 +243,14 @@ paintTheme();
 const svg = p => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const SUN = svg('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>');
 const MOON = svg('<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>');
+const CLIP = svg('<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/>');
+const CLOCK = svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>');
+const IMG = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'avif'], TXT = ['txt', 'md', 'csv', 'json', 'log'];
+const extOf = p => p.split('.').pop().toLowerCase();
+const fname = p => 'hw-' + p.split('/')[0] + '-' + p.split('/').pop().split('-')[0] + '.' + extOf(p);
+const fsheet = () => !S.fv ? '' : `<div class="sheet" data-a="fclose"><div data-a="fkeep"><b>${t('file')}</b>` +
+  S.fv.map(f => `<div class="fi">${f.kind === 'img' ? `<img class="dimg" src="${esc(f.url)}">` : f.kind === 'txt' ? `<pre class="ftxt">${esc(f.text)}</pre>` : `<div class="badge">${esc(f.name)}</div>`}<button class="sm fbtn" style="margin:10px 0 0" data-a="dl" data-v="${esc(f.p)}">${t('download')}</button></div>`).join('') +
+  (S.msg ? `<div class="msg">${esc(S.msg)}</div>` : '') + `<button class="sm" style="margin:14px 0 0" data-a="fclose">${t('close')}</button></div></div>`;
 const viewer = () => S.viewer ? `<div class="ov" data-a="closeview">${S.viewer.map(u => `<img src="${esc(u)}">`).join('')}<button class="cl" data-a="closeview">✕</button></div>` : '';
 
 const fld = (n, type, ph, ac) =>
@@ -252,12 +272,13 @@ function peopleView() {
   const ord = {pending:0, student:1, admin:2, owner:3};
   const list = [...S.people].sort((a, b) => ord[a.role] - ord[b.role]);
   if (!list.length) return `<div class="card">${t('empty')}</div>`;
-  return list.map(u => {
+  return (S.msg ? `<div class="msg">${esc(S.msg)}</div>` : '') + list.map(u => {
     const B = (role, label) => `<button class="sm" data-a="role" data-v="${u.id}|${role}">${label}</button>`;
     let btns = '';
     if (u.role === 'pending') btns = B('student', t('approve'));
     if (u.role === 'student') btns = B('admin', t('mkAdmin')) + B('pending', t('revoke'));
     if (u.role === 'admin') btns = B('student', t('rmAdmin')) + B('pending', t('revoke'));
+    if (u.role !== 'owner' && u.id !== S.user.id) btns += `<button class="sm danger" data-a="udel" data-v="${u.id}">${t('del')}</button>`;
     return `<div class="card"><b>${u.avatar ? esc(u.avatar) + ' ' : ''}${esc(u.email)}</b><div class="badge">${u.nickname ? esc(u.nickname) + ' · ' : ''}${t('r_' + u.role)}</div>${btns}</div>`;
   }).join('');
 }
@@ -268,7 +289,7 @@ const USER = svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/>
 
 const FLAG = svg('<path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5"/>');
 const ANN_DAYS = 7, NEAR_DAYS = 7;
-const expired = n => n.kind === 'announcement' ? Date.now() - Date.parse(n.created_at) >= ANN_DAYS * 864e5 : n.event_date < fmt(new Date());
+const expired = n => n.kind === 'announcement' ? Date.now() >= (n.expires_at ? Date.parse(n.expires_at) : Date.parse(n.created_at) + ANN_DAYS * 864e5) : n.event_date < fmt(new Date());
 
 async function loadNews() {
   const {data} = await sb.from('news').select('*');
@@ -290,7 +311,7 @@ function newsGroups() {
 
 function newsItem(n) {
   const ed = canEdit();
-  const head = n.kind === 'event' ? `<b>${fmtShort(n.event_date)}${n.event_time ? ' ' + n.event_time.slice(0, 5) : ''}</b> ` : `<span class="tag">${t('announce')}</span>`;
+  const ev = n.kind === 'event', dd = ev ? n.event_date : n.ann_date, head = `<div class="nhd"><span class="tag ${ev ? 'ev' : 'an'}">${t(ev ? 'evTag' : 'announce')}</span>${dd ? `<b>${fmtShort(dd)}</b>` : ''}${ev && n.event_time ? `<span class="nt">${CLOCK}${n.event_time.slice(0, 5)}</span>` : ''}</div>`;
   return `<div class="ni${ed ? ' edit' : ''}"${ed ? ` data-a="nedit" data-v="${n.id}" role="button" tabindex="0"` : ''}>${head}${esc(n.body)}${n.place ? `<div class="badge">${esc(n.place)}</div>` : ''}</div>`;
 }
 
@@ -299,20 +320,26 @@ function newsView() {
   return `<div class="ph2"><div class="pill grow">${t('newsTitle')}</div>${canEdit() ? '<button class="pill plus" data-a="nnew" aria-label="+">+</button>' : ''}</div>` + box(t('near'), g.near) + box(t('far'), g.far);
 }
 
+function annExtra(ns) {
+  const cur = ns.cur && !ns.exp ? ` (${t('expCur')} ${fmtShort(fmt(new Date(ns.cur)))})` : '';
+  return `<div class="badge">${t('annDate')}</div><input type="date" name="ndate" value="${esc(S.f.ndate)}"><div class="badge">${t('expLabel')}${cur}</div><div class="seg">` +
+    [['1', 'd1'], ['3', 'd3'], ['7', 'd7'], ['c', 'dC']].map(x => `<button type="button" class="${ns.exp === x[0] ? 'on' : ''}" data-a="nexp" data-v="${x[0]}">${t(x[1])}</button>`).join('') + '</div>' +
+    (ns.exp === 'c' ? `<input type="number" name="ncustom" min="1" max="365" inputmode="numeric" placeholder="${t('days')}" value="${esc(S.f.ncustom)}">` : '');
+}
 function newsSheet() {
   if (!S.nsheet || !canEdit()) return '';
   const ns = S.nsheet, ev = ns.kind === 'event';
   const kind = ns.id ? `<div class="badge" style="margin:6px 0">${t(ev ? 'kEv' : 'kAnn')}</div>` :
     `<div class="seg"><button type="button" class="${ev ? '' : 'on'}" data-a="nkind" data-v="announcement">${t('kAnn')}</button><button type="button" class="${ev ? 'on' : ''}" data-a="nkind" data-v="event">${t('kEv')}</button></div>`;
   const inner = `<textarea name="nbody" maxlength="500" placeholder="${t('textPh')}">${esc(S.f.nbody)}</textarea>` +
-    (ev ? `<div class="badge">${t('evDate')}</div><input type="date" name="ndate" value="${esc(S.f.ndate)}"><div class="badge">${t('evTime')}</div><input type="time" name="ntime" value="${esc(S.f.ntime)}"><input name="nplace" maxlength="80" placeholder="${t('evPlace')}" value="${esc(S.f.nplace)}">` : '');
+    (ev ? `<div class="badge">${t('evDate')}</div><input type="date" name="ndate" value="${esc(S.f.ndate)}"><div class="badge">${t('evTime')}</div><input type="time" name="ntime" value="${esc(S.f.ntime)}"><input name="nplace" maxlength="80" placeholder="${t('evPlace')}" value="${esc(S.f.nplace)}">` : annExtra(ns));
   return `<div class="sheet" data-a="nclose"><div class="nsh"><b>${t(ns.id ? 'editItem' : 'newItem')}</b>${kind}${form('savenews', inner, t('save'))}` +
     `${ns.id ? `<button class="btn out" data-a="ndel">${t('del')}</button>` : ''}<button class="lnk" style="padding-left:0" data-a="nclose">${t('cancel')}</button></div></div>`;
 }
 
 function appView() {
   const r = S.profile && S.profile.role, ed = canEdit();
-  if (!r || r === 'pending') return `<div class="card"><h3>${t('wait')}</h3><p>${t('waitT')}</p></div>`;
+  if (!r || r === 'pending') return `<div class="card"><h3>${t('wait')}</h3><p>${t('waitT')}</p><button class="btn out" data-a="out">${t('out')}</button></div>`;
   if (S.tab === 'profile') return profileView();
   if (S.tab === 'news') return newsView();
   if (S.tab === 'sched') return S.sedit && ed && S.sched
@@ -351,7 +378,7 @@ function profileView() {
 
 function lessonRow(d, no, name) {
   const w = S.hw[d + '|' + no], has = !!w && hasHw(w), n = w ? (w.photo_paths || []).filter(x => S.urls[x]).length : 0;
-  const line = has ? `<div class="hl"><span class="ht">${w.topic ? `<b>${esc(w.topic)}</b> ` : ''}${esc(w.body || '')}${S.done.has(w.id) ? ' ✓' : ''}</span>${n ? `<button class="chip" data-a="photos" data-v="${d}|${no}">+ ${t('photo').toLowerCase()}</button>` : ''}</div>` : '<div class="hl"><span class="ht">—</span></div>';
+  const line = has ? `<div class="hl"><span class="ht">${esc(w.body || '')}${S.done.has(w.id) ? ' ✓' : ''}</span>${n ? `<button class="chip fbtn" data-a="file" data-v="${d}|${no}">${CLIP} ${t('file')}</button>` : ''}</div>` : '<div class="hl"><span class="ht">—</span></div>';
   return `<div class="lr" role="button" tabindex="0" data-a="lesson" data-v="${d}|${no}"><div class="ls2"><span>${no}.</span>${esc(name)}${w ? wtBadge(w.work_type) : ''}</div>${line}</div>`;
 }
 
@@ -360,7 +387,7 @@ function detailSheet() {
   const [d, no] = S.detail.split('|'), name = (subjects(d) || {})[no] || '', w = S.hw[S.detail];
   const photos = w ? (w.photo_paths || []).filter(x => S.urls[x]) : [];
   return `<div class="sheet" data-a="dclose"><div><div class="dh"><b>${no}. ${esc(name)}</b><span class="badge">${DN[lang][(parse(d).getDay() + 6) % 7]} ${fmtShort(d)}</span></div>` +
-    (w && WTK.includes(w.work_type) ? `<div style="margin:0 0 10px">${wtBadge(w.work_type, true)}</div>` : '') + (w && hasHw(w) ? (w.topic ? `<div class="dt">${esc(w.topic)}</div>` : '') + (w.body ? `<div class="db">${esc(w.body)}</div>` : '') + photos.map(x => `<img class="dimg" src="${esc(S.urls[x])}">`).join('') : `<div class="badge">${t('nohw')}</div>`) +
+    (w && WTK.includes(w.work_type) ? `<div style="margin:0 0 10px">${wtBadge(w.work_type, true)}</div>` : '') + (w && hasHw(w) ? (w.body ? `<div class="db">${esc(w.body)}</div>` : '') + (photos.length ? `<div><button class="sm fbtn" data-a="file" data-v="${S.detail}">${CLIP} ${t('file')}</button></div>` : '') : `<div class="badge">${t('nohw')}</div>`) +
     (canEdit() ? wtPick(w && w.work_type, 'setwt') : '') + `<button class="sm" style="margin:14px 8px 0 0" data-a="todiary" data-v="${d}">${t('toDiary')}</button><button class="sm" style="margin:14px 0 0" data-a="dclose">${t('close')}</button></div></div>`;
 }
 
@@ -370,8 +397,8 @@ function schedFeed() {
     const days = [0, 1, 2, 3, 4].map(i => addDays(mon, i)).filter(d => d >= q.from && d <= q.to);
     if (days.length && addDays(mon, 6) >= today) weeks.push({mon, days});
   }
-  let h = `<div class="ph2"><div class="pill grow">${t('schedule')}</div><button class="pill" data-a="qopen" aria-label="${t('quarter')}">${qn(S.q)}${CHEV}</button></div>`;
-  h += `<div class="srow">${ed ? `<button class="sm" data-a="sedit">${t('editSched')}</button>` : ''}<button class="sm" data-a="vac">${t('vacation')}</button></div>`;
+  let h = `<div class="ph2"><div class="pill grow">${t('schedule')}</div></div>`;
+  h += `<div class="srow">${ed ? `<button class="sm" data-a="sedit">${t('editSched')}</button>` : ''}<button class="sm" data-a="vac">${t('vacation')}</button><button class="sm" data-a="qopen">${t('pickQ')}</button></div>`;
   if (!weeks.length) return h + `<div class="card">${t('nowk')}</div>`;
   return h + weeks.map(w => `<div class="week"><div class="wh">${fmtShort(w.mon)} – ${fmtShort(addDays(w.mon, 6))}</div>` +
     w.days.map(d => {
@@ -402,7 +429,7 @@ function subjects(date) {
   return o;
 }
 
-const hasHw = w => !!(w.topic || w.body || (w.photo_paths || []).length);
+const hasHw = w => !!(w.body || (w.photo_paths || []).length);
 const todo = d => Object.values(S.hw).some(w => w.lesson_date === d && hasHw(w) && !S.done.has(w.id));
 
 function diaryView() {
@@ -417,16 +444,16 @@ function diaryView() {
     const ph = w ? (w.photo_paths || []).filter(p => S.urls[p]).length : 0;
     const mid = has ? (w.body ? `<div class="hw">${esc(w.body)}</div>` : '') : '<div class="badge">—</div>';
     const doneBtn = has ? `<button class="sm${dn ? ' on' : ''}${S.pop === w.id ? ' pop' : ''}" data-a="done" data-v="${w.id}">${dn ? '✓ ' + t('done') : t('notdone')}</button>` : '';
-    const chip = ph ? `<button class="chip" data-a="photos" data-v="${date}|${no}">+ ${t('photo').toLowerCase()}${ph > 1 ? ' (' + ph + ')' : ''}</button>` : '';
+    const chip = ph ? `<button class="sm fbtn" data-a="file" data-v="${date}|${no}">${CLIP} ${t('file')}</button>` : '';
     const editBtn = ed ? `<button class="sm" data-a="edit" data-v="${no}">${t(w ? 'edit' : 'add')}</button>` : '';
-    return `<div class="card row${dn ? ' done' : ''}"><div class="l"><div class="ls"><b>${no}.</b> ${esc(subj[no])}${w ? wtBadge(w.work_type) : ''}</div>${mid}</div><div class="r">${has && w.topic ? `<b>${esc(w.topic)}</b>` : ''}</div>${doneBtn || chip || editBtn ? `<div class="foot">${doneBtn}<div class="fr">${chip}${editBtn}</div></div>` : ''}</div>`;
+    return `<div class="card row${dn ? ' done' : ''}"><div class="l"><div class="ls"><b>${no}.</b> ${esc(subj[no])}${w ? wtBadge(w.work_type) : ''}</div>${mid}${chip}</div>${doneBtn || editBtn ? `<div class="foot">${doneBtn}<div class="fr">${editBtn}</div></div>` : ''}</div>`;
   }).join('');
 }
 
 function editForm() {
   const e = S.edit;
-  const ph = e.photos.map(p => `<div class="ph"><img src="${esc(S.urls[p] || '')}"><button type="button" class="x" data-a="rmphoto" data-v="${esc(p)}">✕</button></div>`).join('');
-  const inner = `<input name="hwtopic" placeholder="${t('topic')}" value="${esc(S.f.hwtopic)}"><textarea name="hwbody" placeholder="${t('hwtext')}">${esc(S.f.hwbody)}</textarea>${wtPick(e.wt, 'wt')}<div class="phr">${ph}<label class="sm">+ ${t('photo')}<input id="hwfile" type="file" accept="image/*" multiple hidden></label></div>`;
+  const ph = e.photos.map(p => `<div class="ph">${IMG.includes(extOf(p)) ? `<img src="${esc(S.urls[p] || '')}">` : `<em class="fchip">${esc(extOf(p))}</em>`}<button type="button" class="x" data-a="rmphoto" data-v="${esc(p)}">✕</button></div>`).join('');
+  const inner = `<textarea name="hwbody" placeholder="${t('hwtext')}">${esc(S.f.hwbody)}</textarea><div class="phr">${ph}<label class="sm fbtn">${CLIP} ${t('file')}<input id="hwfile" type="file" multiple hidden></label></div>${wtPick(e.wt, 'wt')}`;
   return `<div class="card"><b>${e.no}. ${esc(e.subject)}</b>${form('savehw', inner, t('save'))}<button class="lnk" style="padding-left:0" data-a="cancel">${t('cancel')}</button></div>`;
 }
 
@@ -494,8 +521,9 @@ async function uploadPhotos(files) {
   S.busy = true; S.msg = ''; render();
   try {
     for (const f of files) {
-      const path = `${S.edit.date}/${S.edit.no}-${Date.now()}-${Math.random().toString(36).slice(2, 6)}.jpg`;
-      const {error} = await sb.storage.from(BUCKET).upload(path, await shrink(f), {contentType:'image/jpeg'});
+      const img = /^image\//.test(f.type), ext = img ? 'jpg' : ((f.name.split('.').pop() || 'bin').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 8) || 'bin');
+      const path = `${S.edit.date}/${S.edit.no}-${Date.now()}-${Math.random().toString(36).slice(2, 6)}.${ext}`;
+      const {error} = await sb.storage.from(BUCKET).upload(path, img ? await shrink(f) : f, {contentType: img ? 'image/jpeg' : (f.type || 'application/octet-stream')});
       if (error) throw error;
       const {data} = await sb.storage.from(BUCKET).createSignedUrl(path, 3600);
       S.urls[path] = data.signedUrl; S.edit.photos.push(path); S.edit.added.push(path);
@@ -513,7 +541,7 @@ function render() {
   else body = authView();
   const a = document.getElementById('app');
   a.className = nav ? 'hasnav' : '';
-  a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + vsheet() + detailSheet() + newsSheet() + viewer();
+  a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + vsheet() + detailSheet() + newsSheet() + fsheet() + viewer();
   if (S.scroll) { S.scroll = false; const el = document.querySelector('[data-cur]'); if (el) el.scrollIntoView({block: 'start'}); }
 }
 
@@ -563,12 +591,13 @@ async function act(a, v) {
       const {data} = await sb.from('profiles').select('*').eq('id', S.user.id).maybeSingle();
       S.profile = data; S.pedit = false;
     }
-    else if (a === 'nnew') { if (canEdit()) { S.nsheet = {id: null, kind: 'announcement'}; S.f.nbody = ''; S.f.ndate = ''; S.f.ntime = ''; S.f.nplace = ''; } }
+    else if (a === 'nnew') { if (canEdit()) { S.nsheet = {id: null, kind: 'announcement', exp: '7'}; S.f.ncustom = ''; S.f.nbody = ''; S.f.ndate = ''; S.f.ntime = ''; S.f.nplace = ''; } }
     else if (a === 'nkind') { S.nsheet.kind = v; }
+    else if (a === 'nexp') { S.nsheet.exp = v; }
     else if (a === 'nclose') { S.nsheet = null; }
     else if (a === 'nedit') {
       const n = S.news.find(x => x.id === Number(v));
-      if (n && canEdit()) { S.nsheet = {id: n.id, kind: n.kind}; S.f.nbody = n.body || ''; S.f.ndate = n.event_date || ''; S.f.ntime = (n.event_time || '').slice(0, 5); S.f.nplace = n.place || ''; }
+      if (n && canEdit()) { S.nsheet = {id: n.id, kind: n.kind, exp: '', cur: n.expires_at}; S.f.ncustom = ''; S.f.nbody = n.body || ''; S.f.ndate = n.event_date || n.ann_date || ''; S.f.ntime = (n.event_time || '').slice(0, 5); S.f.nplace = n.place || ''; }
     }
     else if (a === 'ndel') {
       if (!confirm(t('delConfirm'))) return;
@@ -582,6 +611,14 @@ async function act(a, v) {
       if (ev && !S.f.ndate) throw new Error(t('needDate'));
       if (ev && S.f.ndate < fmt(new Date())) throw new Error(t('pastDate'));
       const row = {kind: ns.kind, body, event_date: ev ? S.f.ndate : null, event_time: ev && S.f.ntime ? S.f.ntime : null, place: ev ? ((S.f.nplace || '').trim() || null) : null, updated_at: new Date().toISOString()};
+      if (!ev) {
+        row.ann_date = S.f.ndate || null;
+        if (ns.exp) {
+          const days = ns.exp === 'c' ? Math.floor(Number(S.f.ncustom)) : Number(ns.exp);
+          if (!(days >= 1 && days <= 365)) throw new Error(t('needDays'));
+          row.expires_at = new Date(Date.now() + days * 864e5).toISOString();
+        }
+      }
       const {error} = ns.id ? await sb.from('news').update(row).eq('id', ns.id) : await sb.from('news').insert(row);
       if (error) throw error;
       S.nsheet = null; await loadNews();
@@ -597,15 +634,36 @@ async function act(a, v) {
     else if (a === 'sedit') { if (canEdit()) { initSched(); S.sedit = true; } }
     else if (a === 'sback') { S.sedit = false; S.scroll = true; await loadDiary(true); }
     else if (a === 'todiary') { const d = parse(v); S.week = fmt(mondayOf(d)); S.day = (d.getDay() + 6) % 7 + 1; S.tab = 'diary'; S.detail = null; await loadDiary(); }
-    else if (a === 'out') { await sb.auth.signOut(); S.view = 'login'; S.f = {}; S.edit = null; S.sched = null; S.sedit = false; S.tab = 'diary'; }
+    else if (a === 'out') { try { await sb.auth.signOut({scope: 'local'}); } catch (e) {} S.user = null; S.profile = null; S.view = 'login'; S.f = {}; S.edit = null; S.sched = null; S.sedit = false; S.tab = 'diary'; }
     else if (a === 'role') {
       const [id, role] = v.split('|');
       const {error} = await sb.from('profiles').update({role}).eq('id', id);
       if (error) throw error;
       await loadPeople();
     }
+    else if (a === 'udel') {
+      if (!confirm(t('udelConfirm'))) return;
+      const {error} = await sb.rpc('delete_user', {p_id: v});
+      if (error) throw error;
+      await loadPeople();
+    }
     else if (a === 'theme') { setTheme(dark() ? 'light' : 'dark'); }
     else if (a === 'photos') { const w = S.hw[v]; S.viewer = ((w && w.photo_paths) || []).map(x => S.urls[x]).filter(Boolean); }
+    else if (a === 'file') {
+      const w = S.hw[v], ps = ((w && w.photo_paths) || []).filter(x => S.urls[x]);
+      S.fv = await Promise.all(ps.map(async x => {
+        const e = extOf(x), kind = IMG.includes(e) ? 'img' : TXT.includes(e) ? 'txt' : 'other';
+        let text = '';
+        if (kind === 'txt') { try { text = (await (await fetch(S.urls[x])).text()).slice(0, 20000); } catch (er) {} }
+        return {p: x, kind, url: S.urls[x], text, name: fname(x)};
+      }));
+    }
+    else if (a === 'fclose') { S.fv = null; }
+    else if (a === 'dl') {
+      const {data, error} = await sb.storage.from(BUCKET).createSignedUrl(v, 120, {download: fname(v)});
+      if (error) throw error;
+      const l = document.createElement('a'); l.href = data.signedUrl; l.click();
+    }
     else if (a === 'closeview') { S.viewer = null; }
     else if (a === 'done') {
       const id = Number(v);
@@ -625,7 +683,7 @@ async function act(a, v) {
     else if (a === 'edit') {
       const no = Number(v), date = dayDate(), w = S.hw[date + '|' + no];
       S.edit = {date, no, subject: (subjects(date) || {})[no] || '', photos: [...(w ? w.photo_paths || [] : [])], removed: [], added: [], wt: (w && w.work_type) || '', wt0: (w && w.work_type) || ''};
-      S.f.hwtopic = w && w.topic || ''; S.f.hwbody = w && w.body || '';
+      S.f.hwbody = w && w.body || '';
     }
     else if (a === 'wt') { S.edit.wt = S.edit.wt === v ? '' : v; }
     else if (a === 'setwt') {
@@ -644,7 +702,7 @@ async function act(a, v) {
     }
     else if (a === 'savehw') {
       const e = S.edit, key = e.date + '|' + e.no;
-      const row = {lesson_date: e.date, lesson_no: e.no, topic: (S.f.hwtopic || '').trim() || null, body: (S.f.hwbody || '').trim() || null,
+      const row = {lesson_date: e.date, lesson_no: e.no, body: (S.f.hwbody || '').trim() || null,
         photo_paths: e.photos, updated_by: S.user.id, updated_at: new Date().toISOString()};
       if (!S.hw[key]) row.created_by = S.user.id;
       if (e.wt !== e.wt0) row.work_type = e.wt || null;
