@@ -169,6 +169,10 @@ label.sm{display:inline-flex}
 .nhd{display:flex;align-items:center;gap:8px;margin-bottom:4px}
 .nt{margin-left:auto;display:inline-flex;align-items:center;gap:4px;color:var(--m);font-weight:600;font-size:14px}.nt svg{width:15px;height:15px}
 .sm.danger{color:#d93b3b;border-color:#d93b3b}
+.tag,.wt{display:inline-flex;align-items:center;justify-content:center;text-align:center;line-height:1}
+.tag{padding:5px 11px;background:color-mix(in srgb,var(--tc) 16%,transparent);color:var(--t)}
+.wt{padding:5px 11px}.wt.big{padding:6px 13px}
+.fbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:14px}.fbar .sm{margin:0}
 </style>
 </head>
 <body>
@@ -249,8 +253,8 @@ const IMG = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'avif'], TXT = ['txt', 
 const extOf = p => p.split('.').pop().toLowerCase();
 const fname = p => 'hw-' + p.split('/')[0] + '-' + p.split('/').pop().split('-')[0] + '.' + extOf(p);
 const fsheet = () => !S.fv ? '' : `<div class="sheet" data-a="fclose"><div data-a="fkeep"><b>${t('file')}</b>` +
-  S.fv.map(f => `<div class="fi">${f.kind === 'img' ? `<img class="dimg" src="${esc(f.url)}">` : f.kind === 'txt' ? `<pre class="ftxt">${esc(f.text)}</pre>` : `<div class="badge">${esc(f.name)}</div>`}<button class="sm fbtn" style="margin:10px 0 0" data-a="dl" data-v="${esc(f.p)}">${t('download')}</button></div>`).join('') +
-  (S.msg ? `<div class="msg">${esc(S.msg)}</div>` : '') + `<button class="sm" style="margin:14px 0 0" data-a="fclose">${t('close')}</button></div></div>`;
+  S.fv.map(f => `<div class="fi">${f.kind === 'img' ? `<img class="dimg" src="${esc(f.url)}">` : f.kind === 'txt' ? `<pre class="ftxt">${esc(f.text)}</pre>` : `<div class="badge">${esc(f.name)}</div>`}</div>`).join('') +
+  (S.msg ? `<div class="msg">${esc(S.msg)}</div>` : '') + `<div class="fbar"><button class="sm" data-a="fclose">${t('close')}</button>${S.fv.length ? `<button class="sm" data-a="dl" data-v="">${t('download')}</button>` : ''}</div></div></div>`;
 const viewer = () => S.viewer ? `<div class="ov" data-a="closeview">${S.viewer.map(u => `<img src="${esc(u)}">`).join('')}<button class="cl" data-a="closeview">✕</button></div>` : '';
 
 const fld = (n, type, ph, ac) =>
@@ -436,7 +440,7 @@ function diaryView() {
   const ed = canEdit(), date = dayDate(), subj = subjects(date) || {};
   const nos = Object.keys(subj).map(Number).sort((a, b) => a - b);
   const h = `<div class="ph2"><div class="pill grow">${t('diary')}</div></div><div class="wk"><button class="arr" aria-label="prev" data-a="week" data-v="-1">‹</button><b>${fmtShort(S.week)} – ${fmtShort(addDays(S.week, 4))}</b><button class="arr" aria-label="next" data-a="week" data-v="1">›</button></div><div class="tabs">` +
-    DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}<br><small>${parse(addDays(S.week, i)).getDate()}${todo(addDays(S.week, i)) ? ' <span class="dot">●</span>' : ''}</small></button>`).join('') + '</div>';
+    DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}<br><small>${parse(addDays(S.week, i)).getDate()}</small></button>`).join('') + '</div>';
   if (!nos.length) return h + `<div class="card">${t(ed ? 'noschedEd' : 'nosched')}</div>`;
   return h + nos.map(no => {
     if (S.edit && S.edit.date === date && S.edit.no === no) return editForm();
@@ -660,9 +664,11 @@ async function act(a, v) {
     }
     else if (a === 'fclose') { S.fv = null; }
     else if (a === 'dl') {
-      const {data, error} = await sb.storage.from(BUCKET).createSignedUrl(v, 120, {download: fname(v)});
-      if (error) throw error;
-      const l = document.createElement('a'); l.href = data.signedUrl; l.click();
+      for (const x of (v ? [v] : S.fv.map(f => f.p))) {
+        const {data, error} = await sb.storage.from(BUCKET).createSignedUrl(x, 120, {download: fname(x)});
+        if (error) throw error;
+        const l = document.createElement('a'); l.href = data.signedUrl; l.click();
+      }
     }
     else if (a === 'closeview') { S.viewer = null; }
     else if (a === 'done') {
