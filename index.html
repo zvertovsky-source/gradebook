@@ -175,6 +175,10 @@ label.sm{display:inline-flex}
 .fbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:14px}.fbar .sm{margin:0}
 .dphead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
 .dphead .wk{margin:0}.dphead .wk span{font-weight:600;font-size:14px}.dpick .tabs{margin:0}
+.dpick .tab{padding:16px 4px}
+.bnav button{position:relative;z-index:1;transition:color .3s}
+.bnav button.on{background:none}
+.bind{position:absolute;border-radius:22px;background:var(--p);transition:left .38s cubic-bezier(.4,0,.2,1);pointer-events:none}
 </style>
 </head>
 <body>
@@ -417,7 +421,7 @@ function navView() {
   const r = S.profile && S.profile.role;
   if (!r || r === 'pending') return '';
   const it = [['diary', HOME, t('diary')], ['sched', DOC, t('schedule')], ['news', FLAG, t('news')], ['profile', (S.profile && S.profile.avatar) ? `<span class="em2">${esc(S.profile.avatar)}</span>` : USER, t('profile')]];
-  return `<nav class="bnav">${it.map(x => `<button class="${S.tab === x[0] ? 'on' : ''}" data-a="tab" data-v="${x[0]}">${x[1]}<span>${x[2]}</span></button>`).join('')}</nav>`;
+  return `<nav class="bnav"><span class="bind"></span>${it.map(x => `<button class="${S.tab === x[0] ? 'on' : ''}" data-a="tab" data-v="${x[0]}">${x[1]}<span>${x[2]}</span></button>`).join('')}</nav>`;
 }
 
 const vsheet = () => !S.vac ? '' : `<div class="sheet" data-a="vclose"><div data-a="vkeep"><b>${t('vacation')}</b>` +
@@ -439,10 +443,10 @@ const todo = d => Object.values(S.hw).some(w => w.lesson_date === d && hasHw(w) 
 
 function diaryView() {
   const ed = canEdit();
-  const head = `<div class="ph2"><div class="pill grow">${t('diary')}</div></div><div class="card dpick"><div class="dphead"><b>${t('pickDay')}</b><div class="wk"><button class="arr" aria-label="prev" data-a="week" data-v="-1">‹</button><span>${fmtShort(S.week)} – ${fmtShort(addDays(S.week, 4))}</span><button class="arr" aria-label="next" data-a="week" data-v="1">›</button></div></div><div class="tabs">` +
+  const head = `<div class="ph2"><div class="pill grow">${t('diary')}</div></div><div class="card dpick"><div class="dphead"><b>${t('pickDay')}</b></div><div class="tabs">` +
     DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}</button>`).join('') + '</div></div>';
   if (!S.day) {
-    const list = S.news.filter(n => n.kind === 'announcement' && !expired(n)).sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at)).slice(0, 3);
+    const list = newsGroups().near.slice(0, 4);
     return head + `<div class="card"><h3 class="nh">${t('news')}</h3>${list.length ? list.map(n => newsItem(n, true)).join('') : `<div class="badge">${t('nothing')}</div>`}</div>`;
   }
   const date = dayDate(), subj = subjects(date) || {};
@@ -540,6 +544,7 @@ async function uploadPhotos(files) {
   finally { S.busy = false; render(); }
 }
 
+let navIdx = -1;
 function render() {
   const appr = S.ready && S.user && !S.recovering && S.profile && S.profile.role !== 'pending';
   let body, nav = '';
@@ -550,6 +555,19 @@ function render() {
   const a = document.getElementById('app');
   a.className = nav ? 'hasnav' : '';
   a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + vsheet() + detailSheet() + newsSheet() + fsheet() + viewer();
+  const nv = a.querySelector('.bnav');
+  if (nv) {
+    const bs = [...nv.querySelectorAll('button')], ni = bs.findIndex(b => b.classList.contains('on')), bi = nv.querySelector('.bind');
+    if (bi && ni >= 0) {
+      const place = b => { bi.style.left = b.offsetLeft + 'px'; bi.style.top = b.offsetTop + 'px'; bi.style.width = b.offsetWidth + 'px'; bi.style.height = b.offsetHeight + 'px'; };
+      const from = navIdx >= 0 && navIdx !== ni ? bs[navIdx] : null;
+      if (from) {
+        bs[ni].classList.remove('on'); from.classList.add('on'); place(from);
+        requestAnimationFrame(() => requestAnimationFrame(() => { from.classList.remove('on'); bs[ni].classList.add('on'); place(bs[ni]); }));
+      } else place(bs[ni]);
+      navIdx = ni;
+    }
+  } else navIdx = -1;
   if (S.scroll) { S.scroll = false; const el = document.querySelector('[data-cur]'); if (el) el.scrollIntoView({block: 'start'}); }
 }
 
