@@ -283,8 +283,11 @@ html[data-anim=off] .bnav button,html[data-anim=off] .dpick .tab{transition:none
 button{touch-action:manipulation}
 
 /* ===== Левая полоса карточек: ровные концы вровень с верхней и нижней гранью ===== */
-.card{position:relative;border-radius:18px;box-shadow:none;overflow:hidden}
-.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--p)}
+.card{position:relative;border-radius:18px;box-shadow:none}
+.card::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:4px;background:var(--p)}
+
+/* Окно добавления новости: без выделенной рамки, как остальные плашки */
+.sheet.side>div{border:0;border-top:0;border-radius:18px}
 </style>
 </head>
 <body>
