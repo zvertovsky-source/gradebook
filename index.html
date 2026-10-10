@@ -284,7 +284,8 @@ button{touch-action:manipulation}
 
 /* ===== Левая полоса карточек: ровные концы вровень с верхней и нижней гранью ===== */
 .card{position:relative;border-radius:18px;box-shadow:none}
-.card::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:4px;background:var(--p)}
+.card{padding:18px}
+.pi b{font-family:Unbounded,Inter,sans-serif;font-weight:800;letter-spacing:-.01em}
 
 /* Окно добавления новости: без выделенной рамки, как остальные плашки */
 .sheet.side>div{border:0;border-top:0;border-radius:18px}
@@ -560,7 +561,7 @@ const todo = d => Object.values(S.hw).some(w => w.lesson_date === d && hasHw(w) 
 
 function diaryView() {
   const ed = canEdit();
-  const pick = `<div class="card dpick"><div class="dphead"><b>${t('pickDay')}</b></div><div class="tabs"><span class="tind"></span>` +
+  const pick = `<div class="card dpick"><h3 class="nh">${t('pickDay')}</h3><div class="tabs"><span class="tind"></span>` +
     DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}</button>`).join('') + '</div></div>';
   const list = newsGroups().near.slice(0, 5);
   const news = `<div class="card"><h3 class="nh">${t('news')}</h3>${list.length ? list.map(n => newsItem(n, true)).join('') : `<div class="badge">${t('nothing')}</div>`}</div>`;
