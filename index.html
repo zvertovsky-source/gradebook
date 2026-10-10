@@ -269,6 +269,22 @@ input,textarea{border-radius:12px;border:1.5px solid var(--line)}
 input:focus,textarea:focus{border-color:var(--p)}
 .sheet:not(.side)>div{border-radius:24px 24px 0 0}.sheet.side>div{border-radius:24px}
 @media(min-width:1000px){.sheet:not(.side)>div{border-radius:24px}}
+
+/* ===== Правки: без тряски при выборе дня, иконка-скрепка вместо кнопки «Файл» ===== */
+#app.anim .tabs{animation:none}
+.clipb{background:none;border:0;padding:8px;margin:-6px -6px -6px 0;color:var(--t);display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;border-radius:10px;flex:none}
+.clipb svg{width:20px;height:20px}
+.foot .clipb{margin:-8px 0 -8px -8px}
+.fbtns{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0}.fbtns .sm{margin:0}
+
+/* ===== Правки: выключение анимаций, мгновенный выбор дня, ДЗ из расписания ===== */
+html[data-anim=off] .bind,html[data-anim=off] .tind{transition:none!important}
+html[data-anim=off] .bnav button,html[data-anim=off] .dpick .tab{transition:none!important}
+button{touch-action:manipulation}
+
+/* ===== Левая полоса карточек: ровные концы вровень с верхней и нижней гранью ===== */
+.card{position:relative;border-radius:0 18px 18px 0;box-shadow:none}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--p)}
 </style>
 </head>
 <body>
@@ -289,7 +305,7 @@ const T = {
     soon:'Здесь скоро будет расписание и домашние задания.',diary:'Дневник',people:'Люди',approve:'Одобрить',
     mkAdmin:'Сделать админом',rmAdmin:'Снять права админа',revoke:'Убрать доступ',r_pending:'Ждёт одобрения',
     r_student:'Ученик',r_admin:'Админ',r_owner:'Создатель',badlogin:'Неверная почта или пароль',
-    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',hwtext:'Домашнее задание',file:'Файл',download:'Скачать',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано',notdone:'Не сделано',profile:'Профиль',theme:'Тема',language:'Язык',dark:'Тёмная',light:'Светлая',editSched:'Изменить расписание',back:'Назад',today:'сегодня',toDiary:'Открыть в дневнике',quarter:'Четверть',quarterWord:'четверть',nohw:'Домашнего задания нет',close:'Закрыть',nowk:'В этой четверти больше нет предстоящих недель',editProfile:'Изменить профиль',nick:'Никнейм',bio:'О себе',ownEmoji:'Или вставь свой смайлик',emojiOnly:'Нужен смайлик, а не текст или фото',news:'Новости',newsTitle:'Новости и события',near:'Ближайшие',far:'Долгосрочные',announce:'объявление',kAnn:'Объявление',kEv:'Событие',newItem:'Новая запись',editItem:'Редактировать запись',evDate:'Дата',evTime:'Время',evPlace:'Место проведения',textPh:'Текст',del:'Удалить',delConfirm:'Удалить эту запись?',needText:'Введите текст',needDate:'Укажите дату события',pastDate:'Дата события уже прошла',nothing:'Пока ничего нет',vacation:'Каникулы',pickDay:'Выбор дня',evTag:'событие',annDate:'Дата (необязательно)',expLabel:'Исчезнет через',expCur:'сейчас до',d1:'1 день',d3:'3 дня',d7:'7 дней',dC:'Своё',days:'Число дней',needDays:'Укажите число дней от 1 до 365',pickQ:'Выбрать четверть',udelConfirm:'Удалить пользователя из базы? Это нельзя отменить.',vAut:'Осенние',vWin:'Зимние',vSpr:'Весенние',vSum:'Летние',wtLabel:'Пометка о работе',wtHint:'нажмите ещё раз, чтобы убрать',wt_kr:'Контрольная работа',wt_sr:'Самостоятельная работа',wt_qz:'Летучка/Тест',wt_lr:'Лабораторная работа',wt_pr:'Практическая работа'},
+    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',hwtext:'Домашнее задание',file:'Файл',download:'Скачать',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано',notdone:'Не сделано',profile:'Профиль',theme:'Тема',language:'Язык',dark:'Тёмная',light:'Светлая',editSched:'Изменить расписание',back:'Назад',today:'сегодня',toDiary:'Открыть в дневнике',quarter:'Четверть',quarterWord:'четверть',nohw:'Домашнего задания нет',close:'Закрыть',nowk:'В этой четверти больше нет предстоящих недель',editProfile:'Изменить профиль',nick:'Никнейм',bio:'О себе',ownEmoji:'Или вставь свой смайлик',emojiOnly:'Нужен смайлик, а не текст или фото',news:'Новости',newsTitle:'Новости и события',near:'Ближайшие',far:'Долгосрочные',announce:'объявление',kAnn:'Объявление',kEv:'Событие',newItem:'Новая запись',editItem:'Редактировать запись',evDate:'Дата',evTime:'Время',evPlace:'Место проведения',textPh:'Текст',del:'Удалить',delConfirm:'Удалить эту запись?',needText:'Введите текст',needDate:'Укажите дату события',pastDate:'Дата события уже прошла',nothing:'Пока ничего нет',vacation:'Каникулы',pickDay:'Выбор дня',evTag:'событие',annDate:'Дата (необязательно)',expLabel:'Исчезнет через',expCur:'сейчас до',d1:'1 день',d3:'3 дня',d7:'7 дней',dC:'Своё',days:'Число дней',needDays:'Укажите число дней от 1 до 365',pickQ:'Выбрать четверть',udelConfirm:'Удалить пользователя из базы? Это нельзя отменить.',vAut:'Осенние',vWin:'Зимние',vSpr:'Весенние',vSum:'Летние',anim:'Анимации',animOn:'Включены',animOff:'Выключены',viewFile:'Просмотреть файл',dlFile:'Скачать файл',wtLabel:'Пометка о работе',wtHint:'нажмите ещё раз, чтобы убрать',wt_kr:'Контрольная работа',wt_sr:'Самостоятельная работа',wt_qz:'Летучка/Тест',wt_lr:'Лабораторная работа',wt_pr:'Практическая работа'},
   en: {title:'Class Diary',email:'Email',pass:'Password (at least 6 characters)',login:'Log in',signup:'Sign up',
     forgot:'Forgot password?',toLogin:'Have an account? Log in',toSignup:'No account? Sign up',code:'Code from the email',
     confirm:'Confirm',verifyH:'Enter the code',verifyT:'We sent a code to',sent:'Code sent to your email',
@@ -298,7 +314,7 @@ const T = {
     soon:'The schedule and homework will appear here soon.',diary:'Diary',people:'People',approve:'Approve',
     mkAdmin:'Make admin',rmAdmin:'Remove admin rights',revoke:'Revoke access',r_pending:'Pending approval',
     r_student:'Student',r_admin:'Admin',r_owner:'Owner',badlogin:'Wrong email or password',
-    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',hwtext:'Homework (in Russian)',file:'File',download:'Download',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done',notdone:'Not done',profile:'Profile',theme:'Theme',language:'Language',dark:'Dark',light:'Light',editSched:'Edit schedule',back:'Back',today:'today',toDiary:'Open in diary',quarter:'Quarter',quarterWord:'quarter',nohw:'No homework',close:'Close',nowk:'No upcoming weeks left in this quarter',editProfile:'Edit profile',nick:'Nickname',bio:'About me',ownEmoji:'Or paste your own emoji',emojiOnly:'An emoji is required, not text or a photo',news:'News',newsTitle:'News and events',near:'Upcoming',far:'Long-term',announce:'notice',kAnn:'Notice',kEv:'Event',newItem:'New post',editItem:'Edit post',evDate:'Date',evTime:'Time',evPlace:'Place',textPh:'Text',del:'Delete',delConfirm:'Delete this post?',needText:'Enter some text',needDate:'Pick the event date',pastDate:'The event date has already passed',nothing:'Nothing yet',vacation:'Holidays',pickDay:'Choose a day',evTag:'event',annDate:'Date (optional)',expLabel:'Disappears after',expCur:'currently until',d1:'1 day',d3:'3 days',d7:'7 days',dC:'Custom',days:'Number of days',needDays:'Enter a number of days from 1 to 365',pickQ:'Choose quarter',udelConfirm:'Delete this user from the database? This cannot be undone.',vAut:'Autumn',vWin:'Winter',vSpr:'Spring',vSum:'Summer',wtLabel:'Work mark',wtHint:'tap again to remove',wt_kr:'Test (exam)',wt_sr:'Independent work',wt_qz:'Quiz/Test',wt_lr:'Lab work',wt_pr:'Practical work'}
+    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',hwtext:'Homework (in Russian)',file:'File',download:'Download',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done',notdone:'Not done',profile:'Profile',theme:'Theme',language:'Language',dark:'Dark',light:'Light',editSched:'Edit schedule',back:'Back',today:'today',toDiary:'Open in diary',quarter:'Quarter',quarterWord:'quarter',nohw:'No homework',close:'Close',nowk:'No upcoming weeks left in this quarter',editProfile:'Edit profile',nick:'Nickname',bio:'About me',ownEmoji:'Or paste your own emoji',emojiOnly:'An emoji is required, not text or a photo',news:'News',newsTitle:'News and events',near:'Upcoming',far:'Long-term',announce:'notice',kAnn:'Notice',kEv:'Event',newItem:'New post',editItem:'Edit post',evDate:'Date',evTime:'Time',evPlace:'Place',textPh:'Text',del:'Delete',delConfirm:'Delete this post?',needText:'Enter some text',needDate:'Pick the event date',pastDate:'The event date has already passed',nothing:'Nothing yet',vacation:'Holidays',pickDay:'Choose a day',evTag:'event',annDate:'Date (optional)',expLabel:'Disappears after',expCur:'currently until',d1:'1 day',d3:'3 days',d7:'7 days',dC:'Custom',days:'Number of days',needDays:'Enter a number of days from 1 to 365',pickQ:'Choose quarter',udelConfirm:'Delete this user from the database? This cannot be undone.',vAut:'Autumn',vWin:'Winter',vSpr:'Spring',vSum:'Summer',anim:'Animations',animOn:'On',animOff:'Off',viewFile:'View file',dlFile:'Download file',wtLabel:'Work mark',wtHint:'tap again to remove',wt_kr:'Test (exam)',wt_sr:'Independent work',wt_qz:'Quiz/Test',wt_lr:'Lab work',wt_pr:'Practical work'}
 };
 let lang = 'ru';
 try { lang = localStorage.getItem('lang') || 'ru'; } catch (e) {}
@@ -335,6 +351,8 @@ const qn = i => ['I', 'II', 'III', 'IV'][i];
 const CHEV = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
 S.q = (() => { const today = fmt(new Date()), i = QS().findIndex(x => today <= x[1]); return i < 0 ? 3 : i; })();
 
+const animOff = () => document.documentElement.dataset.anim === 'off';
+try { if (localStorage.getItem('anim') === 'off') document.documentElement.dataset.anim = 'off'; } catch (e) {}
 const dark = () => (document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
 function paintTheme() { const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = dark() ? '#1f1f1f' : '#f5f1e6'; }
 function setTheme(x) { document.documentElement.dataset.theme = x; try { localStorage.setItem('theme', x); } catch (e) {} paintTheme(); }
@@ -345,6 +363,7 @@ const SUN = svg('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9
 const MOON = svg('<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>');
 const CLIP = svg('<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/>');
 const CLOCK = svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>');
+const DLI = svg('<path d="M12 4v10M7.5 10l4.5 4.5 4.5-4.5M5 19h14"/>');
 const IMG = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'avif'], TXT = ['txt', 'md', 'csv', 'json', 'log'];
 const extOf = p => p.split('.').pop().toLowerCase();
 const fname = p => 'hw-' + p.split('/')[0] + '-' + p.split('/').pop().split('-')[0] + '.' + extOf(p);
@@ -471,7 +490,8 @@ function profileView() {
   const owner = S.profile.role === 'owner';
   const left = `<div class="ph2"><div class="pill grow">${t('profile')}</div></div>${profCard()}` +
     `<div class="card prow"><span>${t('theme')}</span><button class="sm" data-a="theme">${dark() ? t('dark') + ' ' + MOON : t('light') + ' ' + SUN}</button></div>` +
-    `<div class="card prow"><span>${t('language')}</span><button class="sm" data-a="lang">${lang === 'ru' ? 'Русский' : 'English'}</button></div>`;
+    `<div class="card prow"><span>${t('language')}</span><button class="sm" data-a="lang">${lang === 'ru' ? 'Русский' : 'English'}</button></div>` +
+    `<div class="card prow"><span>${t('anim')}</span><button class="sm" data-a="anim">${t(animOff() ? 'animOff' : 'animOn')}</button></div>`;
   return `<div class="pgrid${owner ? ' own' : ''}${S.pedit ? ' pe' : ''}"><div class="pleft">${left}</div>` +
     (owner ? `<div class="pright"><h3 class="phd">${t('people')}</h3>${peopleView()}</div>` : '') +
     (S.pedit ? `<div class="pedit">${profEdit()}</div>` : '') + '</div>';
@@ -480,17 +500,18 @@ function profileView() {
 
 function lessonRow(d, no, name) {
   const w = S.hw[d + '|' + no], has = !!w && hasHw(w), n = w ? (w.photo_paths || []).filter(x => S.urls[x]).length : 0;
-  const line = has ? `<div class="hl"><span class="ht">${esc(w.body || '')}</span>${n ? `<button class="chip fbtn" data-a="file" data-v="${d}|${no}">${CLIP} ${t('file')}</button>` : ''}</div>` : '<div class="hl"><span class="ht">—</span></div>';
+  const line = has ? `<div class="hl"><span class="ht">${esc(w.body || '')}</span>${n ? `<button class="clipb" data-a="file" data-v="${d}|${no}" aria-label="${t('file')}">${CLIP}</button>` : ''}</div>` : '<div class="hl"><span class="ht">—</span></div>';
   return `<div class="lr" role="button" tabindex="0" data-a="lesson" data-v="${d}|${no}"><div class="ls2"><span>${no}.</span>${esc(name)}${w ? wtBadge(w.work_type) : ''}</div>${line}</div>`;
 }
 
 function detailSheet() {
   if (!S.detail) return '';
+  if (S.edit && S.detail === S.edit.date + '|' + S.edit.no) return `<div class="sheet"><div>${editForm(true)}</div></div>`;
   const [d, no] = S.detail.split('|'), name = (subjects(d) || {})[no] || '', w = S.hw[S.detail];
   const photos = w ? (w.photo_paths || []).filter(x => S.urls[x]) : [];
   return `<div class="sheet" data-a="dclose"><div><div class="dh"><b>${no}. ${esc(name)}</b><span class="badge">${DN[lang][(parse(d).getDay() + 6) % 7]} ${fmtShort(d)}</span></div>` +
-    (w && WTK.includes(w.work_type) ? `<div style="margin:0 0 10px">${wtBadge(w.work_type, true)}</div>` : '') + (w && hasHw(w) ? (w.body ? `<div class="db">${esc(w.body)}</div>` : '') + (photos.length ? `<div><button class="sm fbtn" data-a="file" data-v="${S.detail}">${CLIP} ${t('file')}</button></div>` : '') : `<div class="badge">${t('nohw')}</div>`) +
-    (canEdit() ? wtPick(w && w.work_type, 'setwt') : '') + `<button class="sm" style="margin:14px 8px 0 0" data-a="todiary" data-v="${d}">${t('toDiary')}</button><button class="sm" style="margin:14px 0 0" data-a="dclose">${t('close')}</button></div></div>`;
+    (w && WTK.includes(w.work_type) ? `<div style="margin:0 0 10px">${wtBadge(w.work_type, true)}</div>` : '') + (w && hasHw(w) ? (w.body ? `<div class="db">${esc(w.body)}</div>` : '') + (photos.length ? `<div class="fbtns"><button class="sm fbtn" data-a="file" data-v="${S.detail}">${CLIP} ${t('viewFile')}</button><button class="sm fbtn" data-a="dlhw" data-v="${S.detail}">${DLI} ${t('dlFile')}</button></div>${S.msg && !canEdit() ? `<div class="msg">${esc(S.msg)}</div>` : ''}` : '') : `<div class="badge">${t('nohw')}</div>`) +
+    (canEdit() ? wtPick(w && w.work_type, 'setwt') : '') + `${canEdit() ? `<button class="sm" style="margin:14px 8px 0 0" data-a="dedit" data-v="${S.detail}">${t(w && hasHw(w) ? 'edit' : 'add')}</button>` : ''}<button class="sm" style="margin:14px 8px 0 0" data-a="todiary" data-v="${d}">${t('toDiary')}</button><button class="sm" style="margin:14px 0 0" data-a="dclose">${t('close')}</button></div></div>`;
 }
 
 function schedFeed() {
@@ -537,10 +558,10 @@ const todo = d => Object.values(S.hw).some(w => w.lesson_date === d && hasHw(w) 
 function diaryView() {
   const ed = canEdit();
   const pick = `<div class="card dpick"><div class="dphead"><b>${t('pickDay')}</b></div><div class="tabs"><span class="tind"></span>` +
-    DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}</button>`).join('') + '</div></div>' +
-    (S.day ? `<button class="sm" style="width:100%;margin:0 0 12px" data-a="day" data-v="${S.day}">${t('close')}</button>` : '');
+    DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}</button>`).join('') + '</div></div>';
   const list = newsGroups().near.slice(0, 5);
   const news = `<div class="card"><h3 class="nh">${t('news')}</h3>${list.length ? list.map(n => newsItem(n, true)).join('') : `<div class="badge">${t('nothing')}</div>`}</div>`;
+  const dayPart = () => {
   let body = '';
   if (S.day) {
     const date = dayDate(), subj = subjects(date) || {};
@@ -550,19 +571,23 @@ function diaryView() {
       const w = S.hw[date + '|' + no], has = w && hasHw(w);
       const ph = w ? (w.photo_paths || []).filter(p => S.urls[p]).length : 0;
       const mid = has ? (w.body ? `<div class="hw">${esc(w.body)}</div>` : '') : '<div class="badge">—</div>';
-      const chip = ph ? `<button class="sm fbtn" data-a="file" data-v="${date}|${no}">${CLIP} ${t('file')}</button>` : '';
+      const chip = ph ? `<button class="clipb" data-a="file" data-v="${date}|${no}" aria-label="${t('file')}">${CLIP}</button>` : '';
       const editBtn = ed ? `<button class="sm" data-a="edit" data-v="${no}">${t(w ? 'edit' : 'add')}</button>` : '';
       return `<div class="card row"><div class="l"><div class="ls"><b>${no}.</b> ${esc(subj[no])}${w ? wtBadge(w.work_type) : ''}</div>${mid}</div>${chip || editBtn ? `<div class="foot">${chip}<div class="fr">${editBtn}</div></div>` : ''}</div>`;
     }).join('');
   }
-  return `<div class="ph2"><div class="pill grow">${t('diary')}</div></div><div class="dgrid${S.day ? ' open' : ''}"><div class="dleft">${news}</div><div class="dright">${pick}${body}</div></div>`;
+  return (S.day ? `<button class="sm" style="width:100%;margin:0 0 12px" data-a="day" data-v="${S.day}">${t('close')}</button>` : '') + body;
+  };
+  DAYPART = dayPart;
+  return `<div class="ph2"><div class="pill grow">${t('diary')}</div></div><div class="dgrid${S.day ? ' open' : ''}"><div class="dleft">${news}</div><div class="dright">${pick}<div id="dbody">${dayPart()}</div></div></div>`;
 }
 
-function editForm() {
+function editForm(bare) {
   const e = S.edit;
   const ph = e.photos.map(p => `<div class="ph">${IMG.includes(extOf(p)) ? `<img src="${esc(S.urls[p] || '')}">` : `<em class="fchip">${esc(extOf(p))}</em>`}<button type="button" class="x" data-a="rmphoto" data-v="${esc(p)}">✕</button></div>`).join('');
   const inner = `<textarea name="hwbody" placeholder="${t('hwtext')}">${esc(S.f.hwbody)}</textarea><div class="phr">${ph}<label class="sm fbtn">${CLIP} ${t('file')}<input id="hwfile" type="file" multiple hidden></label></div>${wtPick(e.wt, 'wt')}`;
-  return `<div class="card"><b>${e.no}. ${esc(e.subject)}</b>${form('savehw', inner, t('save'))}<button class="lnk" style="padding-left:0" data-a="cancel">${t('cancel')}</button></div>`;
+  const html = `<b>${e.no}. ${esc(e.subject)}</b>${form('savehw', inner, t('save'))}<button class="lnk" style="padding-left:0" data-a="cancel">${t('cancel')}</button>`;
+  return bare ? html : `<div class="card">${html}</div>`;
 }
 
 function schedView() {
@@ -645,14 +670,27 @@ function slideInd(box, ind, prev) {
   if (!ind) return -1;
   if (ni < 0) { ind.style.display = 'none'; return -1; }
   const place = b => { ind.style.left = b.offsetLeft + 'px'; ind.style.top = b.offsetTop + 'px'; ind.style.width = b.offsetWidth + 'px'; ind.style.height = b.offsetHeight + 'px'; };
-  const from = prev >= 0 && prev !== ni ? bs[prev] : null;
+  const from = prev >= 0 && prev !== ni && !animOff() ? bs[prev] : null;
   if (from) {
     bs[ni].classList.remove('on'); from.classList.add('on'); place(from);
     requestAnimationFrame(() => requestAnimationFrame(() => { from.classList.remove('on'); bs[ni].classList.add('on'); place(bs[ni]); }));
   } else place(bs[ni]);
   return ni;
 }
+let DAYPART = null;
+function dayUpdate() {
+  const g = document.querySelector('.dgrid'), b = document.getElementById('dbody'), dt = document.querySelector('.dpick .tabs');
+  if (!g || !b || !dt || S.tab !== 'diary' || !DAYPART) return false;
+  g.classList.toggle('open', !!S.day);
+  b.innerHTML = DAYPART();
+  [...dt.querySelectorAll('.tab')].forEach((x, i) => x.classList.toggle('on', S.day === i + 1));
+  const ind = dt.querySelector('.tind');
+  if (ind && S.day) ind.style.display = '';
+  dayIdx = slideInd(dt, ind, dayIdx);
+  return true;
+}
 function render() {
+  const sy0 = window.scrollY;
   const appr = S.ready && S.user && !S.recovering && S.profile && S.profile.role !== 'pending';
   let body, nav = '';
   if (!S.ready) body = `<div class="card">${t('load')}</div>`;
@@ -670,6 +708,7 @@ function render() {
   const nf = a.querySelector('.sfeed');
   if (nf && !S.scroll) { nf.scrollLeft = sx; nf.scrollTop = sy; }
   if (S.scroll) { S.scroll = false; const el = document.querySelector('[data-cur]'); if (el) el.scrollIntoView({block: 'start'}); }
+  else if (Math.abs(window.scrollY - sy0) > 1) window.scrollTo(0, sy0);
 }
 
 function errText(e) {
@@ -756,6 +795,12 @@ async function act(a, v) {
     else if (a === 'vclose') { S.vac = false; }
     else if (a === 'lesson') { S.detail = v; }
     else if (a === 'dclose') { S.detail = null; }
+    else if (a === 'dedit') {
+      if (!canEdit()) return;
+      const [d, no] = v.split('|'), n = Number(no), w = S.hw[v];
+      S.edit = {date: d, no: n, subject: (subjects(d) || {})[n] || '', photos: [...(w ? w.photo_paths || [] : [])], removed: [], added: [], wt: (w && w.work_type) || '', wt0: (w && w.work_type) || ''};
+      S.f.hwbody = (w && w.body) || '';
+    }
     else if (a === 'qclose') { S.qpick = false; }
     else if (a === 'q') { S.q = Number(v); S.qpick = false; S.open = null; S.scroll = true; await loadDiary(true); }
     else if (a === 'fday') { S.open = S.open === v ? null : v; }
@@ -776,6 +821,7 @@ async function act(a, v) {
       await loadPeople();
     }
     else if (a === 'theme') { setTheme(dark() ? 'light' : 'dark'); }
+    else if (a === 'anim') { const off = !animOff(); if (off) document.documentElement.dataset.anim = 'off'; else delete document.documentElement.dataset.anim; try { localStorage.setItem('anim', off ? 'off' : 'on'); } catch (e) {} }
     else if (a === 'photos') { const w = S.hw[v]; S.viewer = ((w && w.photo_paths) || []).map(x => S.urls[x]).filter(Boolean); }
     else if (a === 'file') {
       const w = S.hw[v], ps = ((w && w.photo_paths) || []).filter(x => S.urls[x]);
@@ -789,6 +835,14 @@ async function act(a, v) {
     else if (a === 'fclose') { S.fv = null; }
     else if (a === 'dl') {
       for (const x of (v ? [v] : S.fv.map(f => f.p))) {
+        const {data, error} = await sb.storage.from(BUCKET).createSignedUrl(x, 120, {download: fname(x)});
+        if (error) throw error;
+        const l = document.createElement('a'); l.href = data.signedUrl; l.click();
+      }
+    }
+    else if (a === 'dlhw') {
+      const w = S.hw[v];
+      for (const x of ((w && w.photo_paths) || [])) {
         const {data, error} = await sb.storage.from(BUCKET).createSignedUrl(x, 120, {download: fname(x)});
         if (error) throw error;
         const l = document.createElement('a'); l.href = data.signedUrl; l.click();
@@ -839,7 +893,7 @@ async function act(a, v) {
       const {error} = await sb.from('homework').upsert(row, {onConflict: 'lesson_date,lesson_no'});
       if (error) throw error;
       if (e.removed.length) await sb.storage.from(BUCKET).remove(e.removed);
-      S.edit = null; await loadDiary();
+      S.edit = null; await loadDiary(S.tab === 'sched');
     }
     else if (a === 'savesched') {
       if (!S.f.sfrom) throw new Error('date');
@@ -898,8 +952,8 @@ async function act(a, v) {
     S.msg = errText(e);
   } finally {
     S.busy = false;
-    render();
-    if (['tab', 'day', 'week', 'go', 'sday', 'out', 'q', 'todiary', 'sback', 'sedit'].includes(a)) {
+    if (!(a === 'day' && dayUpdate())) render();
+    if (['tab', 'week', 'go', 'sday', 'out', 'q', 'todiary', 'sback', 'sedit'].includes(a)) {
       const el = document.getElementById('app'); el.classList.add('anim');
       setTimeout(() => el.classList.remove('anim'), 700);
     }
