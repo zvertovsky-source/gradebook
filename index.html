@@ -283,7 +283,7 @@ html[data-anim=off] .bnav button,html[data-anim=off] .dpick .tab{transition:none
 button{touch-action:manipulation}
 
 /* ===== Левая полоса карточек: ровные концы вровень с верхней и нижней гранью ===== */
-.card{position:relative;border-radius:0 18px 18px 0;box-shadow:none}
+.card{position:relative;border-radius:18px;box-shadow:none;overflow:hidden}
 .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--p)}
 </style>
 </head>
@@ -701,6 +701,7 @@ function render() {
   a.className = nav ? 'hasnav' : '';
   const of = a.querySelector('.sfeed'), sx = of ? of.scrollLeft : 0, sy = of ? of.scrollTop : 0;
   a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + vsheet() + detailSheet() + newsSheet() + fsheet() + viewer();
+  alignNewsSheet();
   const nv = a.querySelector('.bnav');
   navIdx = nv ? slideInd(nv, nv.querySelector('.bind'), navIdx) : -1;
   const dt = a.querySelector('.dpick .tabs');
@@ -710,6 +711,18 @@ function render() {
   if (S.scroll) { S.scroll = false; const el = document.querySelector('[data-cur]'); if (el) el.scrollIntoView({block: 'start'}); }
   else if (Math.abs(window.scrollY - sy0) > 1) window.scrollTo(0, sy0);
 }
+
+function alignNewsSheet() {
+  const sh = document.querySelector('.sheet.side');
+  if (!sh) return;
+  const box = sh.firstElementChild;
+  if (!window.matchMedia('(min-width:1000px)').matches) { sh.style.paddingTop = ''; if (box) box.style.maxHeight = ''; return; }
+  const card = document.querySelector('#app .card');
+  const top = Math.max(20, card ? Math.round(card.getBoundingClientRect().top) : 20);
+  sh.style.paddingTop = top + 'px';
+  if (box) box.style.maxHeight = 'calc(100vh - ' + (top + 20) + 'px)';
+}
+window.addEventListener('resize', alignNewsSheet);
 
 function errText(e) {
   const m = (e && e.message) || '';
