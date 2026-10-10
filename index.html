@@ -179,6 +179,33 @@ label.sm{display:inline-flex}
 .bnav button{position:relative;z-index:1;transition:color .3s}
 .bnav button.on{background:none}
 .bind{position:absolute;border-radius:22px;background:var(--p);transition:left .38s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.dpick .tabs{position:relative}
+.dpick .tab{position:relative;z-index:1;transition:color .3s}
+.dpick .tab.on{background:none}
+.tind{position:absolute;border-radius:11px;background:var(--p);transition:left .35s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.dgrid{display:flex;flex-direction:column}.dright{order:1}.dleft{order:2}
+.pgrid{display:block}.phd{margin:22px 0 10px}
+.bind{transition:left .38s cubic-bezier(.4,0,.2,1),top .38s cubic-bezier(.4,0,.2,1)}
+@media(max-width:999px){.dgrid.open .dleft{display:none}.pgrid.pe .pleft,.pgrid.pe .pright{display:none}}
+@media(min-width:1000px){
+#app.hasnav{max-width:none;margin:0;padding:calc(env(safe-area-inset-top,0px) + 20px) 28px 28px 148px}
+.bnav{left:16px;top:16px;bottom:16px;transform:none;width:96px;flex-direction:column;justify-content:flex-start;padding:10px 8px;gap:8px}
+.bnav button{flex:none;padding:14px 0}
+.bnav button:last-of-type{margin-top:auto}
+.v-diary{max-width:1180px}.v-news{max-width:560px}.v-profile{max-width:1320px}
+.dgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}.dleft,.dright{order:0}
+.pgrid{display:grid;grid-template-columns:minmax(0,440px);gap:20px;align-items:start}
+.pgrid.own{grid-template-columns:minmax(0,440px) minmax(0,440px)}
+.pgrid.pe{grid-template-columns:minmax(0,440px) minmax(0,420px)}
+.pgrid.own.pe{grid-template-columns:minmax(0,420px) minmax(0,420px) minmax(0,400px)}
+.pright .phd{margin:0 0 12px}
+.v-sched>.ph2,.v-sched>.srow,.sedw{max-width:560px}
+.sfeed{display:flex;gap:16px;align-items:flex-start;overflow:auto;height:calc(100vh - 200px);height:calc(100dvh - 200px);scroll-snap-type:x proximity;padding-bottom:12px}
+.sfeed .week{flex:0 0 440px;margin-bottom:0;scroll-snap-align:start}
+.sheet:not(.side){align-items:center}.sheet:not(.side)>div{border-radius:26px}
+.sheet.side{background:none;align-items:flex-start;justify-content:flex-end;padding:20px;pointer-events:none}
+.sheet.side>div{pointer-events:auto;width:420px;border-radius:26px;border:1.5px solid var(--bd);max-height:calc(100vh - 40px)}
+}
 </style>
 </head>
 <body>
@@ -343,20 +370,22 @@ function newsSheet() {
     `<div class="seg"><button type="button" class="${ev ? '' : 'on'}" data-a="nkind" data-v="announcement">${t('kAnn')}</button><button type="button" class="${ev ? 'on' : ''}" data-a="nkind" data-v="event">${t('kEv')}</button></div>`;
   const inner = `<textarea name="nbody" maxlength="500" placeholder="${t('textPh')}">${esc(S.f.nbody)}</textarea>` +
     (ev ? `<div class="badge">${t('evDate')}</div><input type="date" name="ndate" value="${esc(S.f.ndate)}"><div class="badge">${t('evTime')}</div><input type="time" name="ntime" value="${esc(S.f.ntime)}"><input name="nplace" maxlength="80" placeholder="${t('evPlace')}" value="${esc(S.f.nplace)}">` : annExtra(ns));
-  return `<div class="sheet" data-a="nclose"><div class="nsh"><b>${t(ns.id ? 'editItem' : 'newItem')}</b>${kind}${form('savenews', inner, t('save'))}` +
+  return `<div class="sheet side" data-a="nclose"><div class="nsh"><b>${t(ns.id ? 'editItem' : 'newItem')}</b>${kind}${form('savenews', inner, t('save'))}` +
     `${ns.id ? `<button class="btn out" data-a="ndel">${t('del')}</button>` : ''}<button class="lnk" style="padding-left:0" data-a="nclose">${t('cancel')}</button></div></div>`;
 }
 
-function appView() {
+function appInner() {
   const r = S.profile && S.profile.role, ed = canEdit();
   if (!r || r === 'pending') return `<div class="card"><h3>${t('wait')}</h3><p>${t('waitT')}</p><button class="btn out" data-a="out">${t('out')}</button></div>`;
   if (S.tab === 'profile') return profileView();
   if (S.tab === 'news') return newsView();
   if (S.tab === 'sched') return S.sedit && ed && S.sched
-    ? `<div class="ph2"><div class="pill grow">${t('editSched')}</div><button class="pill" data-a="sback">${t('back')}</button></div>` + schedView()
+    ? `<div class="sedw"><div class="ph2"><div class="pill grow">${t('editSched')}</div><button class="pill" data-a="sback">${t('back')}</button></div>` + schedView() + '</div>'
     : schedFeed();
   return diaryView();
 }
+
+function appView() { return `<div class="vw v-${S.tab}">${appInner()}</div>`; }
 
 const EMOJI = ['😀','😎','🤓','😺','🐼','🦊','🐸','🐙','🦄','🐧','🌵','🌈','⚡','🔥','🌙','⭐','🎧','🎮','⚽','🏀','🎨','📚','🚀','🍕','🍩','🌸','👾','🤖','👻','🎯'];
 
@@ -375,13 +404,13 @@ function profEdit() {
 }
 
 function profileView() {
-  if (S.pedit) return profEdit();
-  const r = S.profile.role;
-  let h = `<div class="ph2"><div class="pill grow">${t('profile')}</div></div>${profCard()}` +
+  const owner = S.profile.role === 'owner';
+  const left = `<div class="ph2"><div class="pill grow">${t('profile')}</div></div>${profCard()}` +
     `<div class="card prow"><span>${t('theme')}</span><button class="sm" data-a="theme">${dark() ? t('dark') + ' ' + MOON : t('light') + ' ' + SUN}</button></div>` +
     `<div class="card prow"><span>${t('language')}</span><button class="sm" data-a="lang">${lang === 'ru' ? 'Русский' : 'English'}</button></div>`;
-  if (r === 'owner') h += `<h3 style="margin:22px 0 10px">${t('people')}</h3>` + peopleView();
-  return h;
+  return `<div class="pgrid${owner ? ' own' : ''}${S.pedit ? ' pe' : ''}"><div class="pleft">${left}</div>` +
+    (owner ? `<div class="pright"><h3 class="phd">${t('people')}</h3>${peopleView()}</div>` : '') +
+    (S.pedit ? `<div class="pedit">${profEdit()}</div>` : '') + '</div>';
 }
 
 
@@ -409,12 +438,12 @@ function schedFeed() {
   let h = `<div class="ph2"><div class="pill grow">${t('schedule')}</div></div>`;
   h += `<div class="srow">${ed ? `<button class="sm" data-a="sedit">${t('editSched')}</button>` : ''}<button class="sm" data-a="vac">${t('vacation')}</button><button class="sm" data-a="qopen">${t('pickQ')}</button></div>`;
   if (!weeks.length) return h + `<div class="card">${t('nowk')}</div>`;
-  return h + weeks.map(w => `<div class="week"><div class="wh">${fmtShort(w.mon)} – ${fmtShort(addDays(w.mon, 6))}</div>` +
+  return h + '<div class="sfeed">' + weeks.map(w => `<div class="week"><div class="wh">${fmtShort(w.mon)} – ${fmtShort(addDays(w.mon, 6))}</div>` +
     w.days.map(d => {
       const subj = subjects(d) || {}, nos = Object.keys(subj).map(Number).sort((a, b) => a - b);
       return `<div class="dayrow"><div class="dayh"><b>${DN[lang][(parse(d).getDay() + 6) % 7]} ${fmtShort(d)}${d === today ? ` <span class="badge">· ${t('today')}</span>` : ''}</b></div>` +
         (nos.length ? nos.map(no => lessonRow(d, no, subj[no])).join('') : '<div class="badge">—</div>') + '</div>';
-    }).join('') + '</div>').join('');
+    }).join('') + '</div>').join('') + '</div>';
 }
 
 function navView() {
@@ -443,24 +472,26 @@ const todo = d => Object.values(S.hw).some(w => w.lesson_date === d && hasHw(w) 
 
 function diaryView() {
   const ed = canEdit();
-  const head = `<div class="ph2"><div class="pill grow">${t('diary')}</div></div><div class="card dpick"><div class="dphead"><b>${t('pickDay')}</b></div><div class="tabs">` +
-    DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}</button>`).join('') + '</div></div>';
-  if (!S.day) {
-    const list = newsGroups().near.slice(0, 4);
-    return head + `<div class="card"><h3 class="nh">${t('news')}</h3>${list.length ? list.map(n => newsItem(n, true)).join('') : `<div class="badge">${t('nothing')}</div>`}</div>`;
+  const pick = `<div class="card dpick"><div class="dphead"><b>${t('pickDay')}</b></div><div class="tabs"><span class="tind"></span>` +
+    DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}</button>`).join('') + '</div></div>' +
+    (S.day ? `<button class="sm" style="width:100%;margin:0 0 12px" data-a="day" data-v="${S.day}">${t('close')}</button>` : '');
+  const list = newsGroups().near.slice(0, 5);
+  const news = `<div class="card"><h3 class="nh">${t('news')}</h3>${list.length ? list.map(n => newsItem(n, true)).join('') : `<div class="badge">${t('nothing')}</div>`}</div>`;
+  let body = '';
+  if (S.day) {
+    const date = dayDate(), subj = subjects(date) || {};
+    const nos = Object.keys(subj).map(Number).sort((a, b) => a - b);
+    body = !nos.length ? `<div class="card">${t(ed ? 'noschedEd' : 'nosched')}</div>` : nos.map(no => {
+      if (S.edit && S.edit.date === date && S.edit.no === no) return editForm();
+      const w = S.hw[date + '|' + no], has = w && hasHw(w);
+      const ph = w ? (w.photo_paths || []).filter(p => S.urls[p]).length : 0;
+      const mid = has ? (w.body ? `<div class="hw">${esc(w.body)}</div>` : '') : '<div class="badge">—</div>';
+      const chip = ph ? `<button class="sm fbtn" data-a="file" data-v="${date}|${no}">${CLIP} ${t('file')}</button>` : '';
+      const editBtn = ed ? `<button class="sm" data-a="edit" data-v="${no}">${t(w ? 'edit' : 'add')}</button>` : '';
+      return `<div class="card row"><div class="l"><div class="ls"><b>${no}.</b> ${esc(subj[no])}${w ? wtBadge(w.work_type) : ''}</div>${mid}</div>${chip || editBtn ? `<div class="foot">${chip}<div class="fr">${editBtn}</div></div>` : ''}</div>`;
+    }).join('');
   }
-  const date = dayDate(), subj = subjects(date) || {};
-  const nos = Object.keys(subj).map(Number).sort((a, b) => a - b);
-  if (!nos.length) return head + `<div class="card">${t(ed ? 'noschedEd' : 'nosched')}</div>`;
-  return head + nos.map(no => {
-    if (S.edit && S.edit.date === date && S.edit.no === no) return editForm();
-    const w = S.hw[date + '|' + no], has = w && hasHw(w);
-    const ph = w ? (w.photo_paths || []).filter(p => S.urls[p]).length : 0;
-    const mid = has ? (w.body ? `<div class="hw">${esc(w.body)}</div>` : '') : '<div class="badge">—</div>';
-    const chip = ph ? `<button class="sm fbtn" data-a="file" data-v="${date}|${no}">${CLIP} ${t('file')}</button>` : '';
-    const editBtn = ed ? `<button class="sm" data-a="edit" data-v="${no}">${t(w ? 'edit' : 'add')}</button>` : '';
-    return `<div class="card row"><div class="l"><div class="ls"><b>${no}.</b> ${esc(subj[no])}${w ? wtBadge(w.work_type) : ''}</div>${mid}</div>${chip || editBtn ? `<div class="foot">${chip}<div class="fr">${editBtn}</div></div>` : ''}</div>`;
-  }).join('');
+  return `<div class="ph2"><div class="pill grow">${t('diary')}</div></div><div class="dgrid${S.day ? ' open' : ''}"><div class="dleft">${news}</div><div class="dright">${pick}${body}</div></div>`;
 }
 
 function editForm() {
@@ -544,7 +575,19 @@ async function uploadPhotos(files) {
   finally { S.busy = false; render(); }
 }
 
-let navIdx = -1;
+let navIdx = -1, dayIdx = -1;
+function slideInd(box, ind, prev) {
+  const bs = [...box.querySelectorAll('button')], ni = bs.findIndex(b => b.classList.contains('on'));
+  if (!ind) return -1;
+  if (ni < 0) { ind.style.display = 'none'; return -1; }
+  const place = b => { ind.style.left = b.offsetLeft + 'px'; ind.style.top = b.offsetTop + 'px'; ind.style.width = b.offsetWidth + 'px'; ind.style.height = b.offsetHeight + 'px'; };
+  const from = prev >= 0 && prev !== ni ? bs[prev] : null;
+  if (from) {
+    bs[ni].classList.remove('on'); from.classList.add('on'); place(from);
+    requestAnimationFrame(() => requestAnimationFrame(() => { from.classList.remove('on'); bs[ni].classList.add('on'); place(bs[ni]); }));
+  } else place(bs[ni]);
+  return ni;
+}
 function render() {
   const appr = S.ready && S.user && !S.recovering && S.profile && S.profile.role !== 'pending';
   let body, nav = '';
@@ -554,20 +597,14 @@ function render() {
   else body = authView();
   const a = document.getElementById('app');
   a.className = nav ? 'hasnav' : '';
+  const of = a.querySelector('.sfeed'), sx = of ? of.scrollLeft : 0, sy = of ? of.scrollTop : 0;
   a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + vsheet() + detailSheet() + newsSheet() + fsheet() + viewer();
   const nv = a.querySelector('.bnav');
-  if (nv) {
-    const bs = [...nv.querySelectorAll('button')], ni = bs.findIndex(b => b.classList.contains('on')), bi = nv.querySelector('.bind');
-    if (bi && ni >= 0) {
-      const place = b => { bi.style.left = b.offsetLeft + 'px'; bi.style.top = b.offsetTop + 'px'; bi.style.width = b.offsetWidth + 'px'; bi.style.height = b.offsetHeight + 'px'; };
-      const from = navIdx >= 0 && navIdx !== ni ? bs[navIdx] : null;
-      if (from) {
-        bs[ni].classList.remove('on'); from.classList.add('on'); place(from);
-        requestAnimationFrame(() => requestAnimationFrame(() => { from.classList.remove('on'); bs[ni].classList.add('on'); place(bs[ni]); }));
-      } else place(bs[ni]);
-      navIdx = ni;
-    }
-  } else navIdx = -1;
+  navIdx = nv ? slideInd(nv, nv.querySelector('.bind'), navIdx) : -1;
+  const dt = a.querySelector('.dpick .tabs');
+  dayIdx = dt ? slideInd(dt, dt.querySelector('.tind'), dayIdx) : -1;
+  const nf = a.querySelector('.sfeed');
+  if (nf && !S.scroll) { nf.scrollLeft = sx; nf.scrollTop = sy; }
   if (S.scroll) { S.scroll = false; const el = document.querySelector('[data-cur]'); if (el) el.scrollIntoView({block: 'start'}); }
 }
 
@@ -820,6 +857,7 @@ sb.auth.onAuthStateChange((ev, sess) => {
 });
 setTimeout(() => { if (!S.ready) load(); }, 3000);
 document.addEventListener('touchstart', () => {}, {passive: true});
+matchMedia('(min-width:1000px)').addEventListener('change', () => render());
 let lastDay = fmt(new Date());
 document.addEventListener('visibilitychange', () => {
   const n = fmt(new Date());
