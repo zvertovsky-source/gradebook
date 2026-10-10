@@ -206,6 +206,19 @@ label.sm{display:inline-flex}
 .sheet.side{background:none;align-items:flex-start;justify-content:flex-end;padding:20px;pointer-events:none}
 .sheet.side>div{pointer-events:auto;width:420px;border-radius:26px;border:1.5px solid var(--bd);max-height:calc(100vh - 40px)}
 }
+.nrow{display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
+.ntx{flex:1;min-width:0}
+.nmeta{flex:none;display:inline-flex;align-items:center;gap:10px;min-height:23px;color:var(--m);font-weight:600;font-size:14px;white-space:nowrap}.nmeta b{color:var(--t)}
+.pill.plus svg{width:24px;height:24px}
+.sarrows{display:none}
+@media(min-width:1000px){
+.v-diary{max-width:none}
+.v-sched{position:relative}
+.sarrows{display:flex;gap:8px;position:absolute;top:0;right:0}
+.sfeed{height:auto;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory}
+.sfeed .week{flex:0 0 calc((100% - 16px) / 2)}
+}
+@media(min-width:1400px){.sfeed .week{flex:0 0 calc((100% - 32px) / 3)}}
 </style>
 </head>
 <body>
@@ -348,13 +361,14 @@ function newsGroups() {
 
 function newsItem(n, ro) {
   const ed = canEdit() && !ro;
-  const ev = n.kind === 'event', dd = ev ? n.event_date : n.ann_date, head = `<div class="nhd"><span class="tag ${ev ? 'ev' : 'an'}">${t(ev ? 'evTag' : 'announce')}</span>${dd ? `<b>${fmtShort(dd)}</b>` : ''}${ev && n.event_time ? `<span class="nt">${CLOCK}${n.event_time.slice(0, 5)}</span>` : ''}</div>`;
-  return `<div class="ni${ed ? ' edit' : ''}"${ed ? ` data-a="nedit" data-v="${n.id}" role="button" tabindex="0"` : ''}>${head}${esc(n.body)}${n.place ? `<div class="badge">${esc(n.place)}</div>` : ''}</div>`;
+  const ev = n.kind === 'event', dd = ev ? n.event_date : n.ann_date, head = `<div class="nhd"><span class="tag ${ev ? 'ev' : 'an'}">${t(ev ? 'evTag' : 'announce')}</span></div>`;
+  const meta = `${dd ? `<b>${fmtShort(dd)}</b>` : ''}${ev && n.event_time ? `<span class="nt">${CLOCK}${n.event_time.slice(0, 5)}</span>` : ''}`;
+  return `<div class="ni${ed ? ' edit' : ''}"${ed ? ` data-a="nedit" data-v="${n.id}" role="button" tabindex="0"` : ''}>${head}<div class="nrow"><span class="ntx">${esc(n.body)}</span>${meta ? `<span class="nmeta">${meta}</span>` : ''}</div>${n.place ? `<div class="badge">${esc(n.place)}</div>` : ''}</div>`;
 }
 
 function newsView() {
   const g = newsGroups(), box = (title, list) => `<div class="card"><h3 class="nh">${title}</h3>${list.length ? list.map(n => newsItem(n)).join('') : `<div class="badge">${t('nothing')}</div>`}</div>`;
-  return `<div class="ph2"><div class="pill grow">${t('newsTitle')}</div>${canEdit() ? '<button class="pill plus" data-a="nnew" aria-label="+">+</button>' : ''}</div>` + box(t('near'), g.near) + box(t('far'), g.far);
+  return `<div class="ph2"><div class="pill grow">${t('newsTitle')}</div>${canEdit() ? `<button class="pill plus" data-a="nnew" aria-label="+">${svg('<path d="M12 5v14M5 12h14"/>')}</button>` : ''}</div>` + box(t('near'), g.near) + box(t('far'), g.far);
 }
 
 function annExtra(ns) {
@@ -438,7 +452,7 @@ function schedFeed() {
   let h = `<div class="ph2"><div class="pill grow">${t('schedule')}</div></div>`;
   h += `<div class="srow">${ed ? `<button class="sm" data-a="sedit">${t('editSched')}</button>` : ''}<button class="sm" data-a="vac">${t('vacation')}</button><button class="sm" data-a="qopen">${t('pickQ')}</button></div>`;
   if (!weeks.length) return h + `<div class="card">${t('nowk')}</div>`;
-  return h + '<div class="sfeed">' + weeks.map(w => `<div class="week"><div class="wh">${fmtShort(w.mon)} – ${fmtShort(addDays(w.mon, 6))}</div>` +
+  return h + '<div class="sarrows"><button class="arr" aria-label="prev" data-a="sscroll" data-v="-1">‹</button><button class="arr" aria-label="next" data-a="sscroll" data-v="1">›</button></div><div class="sfeed">' + weeks.map(w => `<div class="week"><div class="wh">${fmtShort(w.mon)} – ${fmtShort(addDays(w.mon, 6))}</div>` +
     w.days.map(d => {
       const subj = subjects(d) || {}, nos = Object.keys(subj).map(Number).sort((a, b) => a - b);
       return `<div class="dayrow"><div class="dayh"><b>${DN[lang][(parse(d).getDay() + 6) % 7]} ${fmtShort(d)}${d === today ? ` <span class="badge">· ${t('today')}</span>` : ''}</b></div>` +
@@ -632,6 +646,7 @@ async function load() {
 }
 
 async function act(a, v) {
+  if (a === 'sscroll') { const f = document.querySelector('.sfeed'); if (f) f.scrollBy({left: Number(v) * (f.clientWidth + 16), behavior: 'smooth'}); return; }
   if (S.busy) return;
   S.busy = true; S.msg = ''; S.info = ''; S.pop = null;
   try {
