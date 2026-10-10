@@ -6,18 +6,18 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Дневник">
-<meta name="theme-color" content="#f2f2f4">
+<meta name="theme-color" content="#f3f3f0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" media="print" onload="this.media='all'">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
 <title>Электронный дневник</title>
 <style>
-:root{--bg:#f2f2f4;--c:#fff;--t:#111;--m:#6f6f76;--line:#d6d6dc;--bd:#85858d;--p:#111;--pt:#fff;--soft:#efeff2;--e:#d93b3b;--ok:#1f9d55;color-scheme:light}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0c0c0e;--c:#1a1a1d;--t:#f2f2f3;--m:#9a9aa2;--line:#3a3a40;--bd:#74747c;--p:#f2f2f3;--pt:#111;--soft:#26262a;color-scheme:dark}}
-:root[data-theme=dark]{--bg:#0c0c0e;--c:#1a1a1d;--t:#f2f2f3;--m:#9a9aa2;--line:#3a3a40;--bd:#74747c;--p:#f2f2f3;--pt:#111;--soft:#26262a;color-scheme:dark}
+:root{--bg:#f3f3f0;--c:#fff;--t:#0a0a0a;--m:#66665f;--line:#e2e2dc;--bd:#8d8d86;--p:#ffd60a;--pt:#0a0a0a;--soft:#ececE6;--e:#d93b3b;--ok:#1f9d55;--blue:#4655f5;--ink:#0a0a0a;--ink-t:#fff;--nav:#0a0a0a;--nav-m:#a8a8a2;--grid:rgba(10,10,10,.05);--wk-bg:#0a0a0a;--wk-t:#f4f4f2;--wk-m:#a8a8a2;--wk-l:#2d2d2b;--wk-bd:#63635e;--wk-s:#1d1d1c;--wk-n:#ffd60a;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0a0a0a;--c:#151515;--t:#f4f4f2;--m:#a3a39d;--line:#2b2b2a;--bd:#74746e;--soft:#222221;--ink:#f4f4f2;--ink-t:#0a0a0a;--nav:#1f1f1e;--nav-m:#a3a39d;--grid:rgba(255,255,255,.05);--wk-bg:#f4f4f2;--wk-t:#0a0a0a;--wk-m:#5d5d58;--wk-l:#d6d6d0;--wk-bd:#8d8d86;--wk-s:#e7e7e1;--wk-n:#4655f5;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#0a0a0a;--c:#151515;--t:#f4f4f2;--m:#a3a39d;--line:#2b2b2a;--bd:#74746e;--soft:#222221;--ink:#f4f4f2;--ink-t:#0a0a0a;--nav:#1f1f1e;--nav-m:#a3a39d;--grid:rgba(255,255,255,.05);--wk-bg:#f4f4f2;--wk-t:#0a0a0a;--wk-m:#5d5d58;--wk-l:#d6d6d0;--wk-bd:#8d8d86;--wk-s:#e7e7e1;--wk-n:#4655f5;color-scheme:dark}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0}
 body{font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",Inter,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--t);-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased}
@@ -219,6 +219,37 @@ label.sm{display:inline-flex}
 .sfeed .week{flex:0 0 calc((100% - 16px) / 2)}
 }
 @media(min-width:1400px){.sfeed .week{flex:0 0 calc((100% - 32px) / 3)}}
+
+/* ===== Новый дизайн: белое/чёрное, жёлтый акцент, серифные заголовки, сетка ===== */
+body{font:16px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:36px 36px;background-attachment:fixed}
+h3,.top b,.wh,.dh b,.ls b,.pill.grow,.sheet>div>b{font-family:"Playfair Display",Georgia,serif;font-weight:800;letter-spacing:-.01em}
+.top b{font-size:26px}h3{font-size:24px}
+.card{border-radius:24px;padding:18px;box-shadow:0 12px 30px -20px rgba(0,0,0,.4)}
+.ph2{align-items:flex-end;margin:6px 0 20px}
+.pill.grow{border:0;background:none;padding:0 0 14px;position:relative;justify-content:flex-start;text-align:left;font-size:clamp(28px,8vw,38px);line-height:1.05}
+.pill.grow::after{content:"";position:absolute;left:0;bottom:0;width:64px;height:7px;border-radius:4px;background:var(--p)}
+button.pill{background:var(--ink);color:var(--ink-t);border:0;font-size:16px;padding:12px 20px}
+.pill.plus{width:52px;height:52px;border-radius:50%;background:var(--p);color:#0a0a0a}
+.btn{border-radius:999px;background:var(--p);color:#0a0a0a;font-weight:700;padding:15px}
+.sm{font-weight:600}.sm.on{background:var(--p);color:#0a0a0a;border-color:var(--p)}
+.arr{border-radius:50%;border:0;background:var(--ink);color:var(--ink-t)}
+.tabs,.seg{border-radius:999px;padding:4px}.tab,.seg button,.tind{border-radius:999px}
+.seg button.on{background:var(--p);color:#0a0a0a}
+.bnav{background:var(--nav);border:0;border-radius:36px;box-shadow:0 16px 40px -14px rgba(0,0,0,.6)}
+.bnav button{color:var(--nav-m);border-radius:28px}.bnav button.on{color:#0a0a0a}.bind{border-radius:28px;background:var(--p)}
+.week{--c:var(--wk-bg);--t:var(--wk-t);--m:var(--wk-m);--line:var(--wk-l);--bd:var(--wk-bd);--soft:var(--wk-s);background:var(--wk-bg);color:var(--wk-t);border:0;border-radius:30px;padding:8px 20px 12px}
+.wh{font-size:26px}
+.ls2 span{font-family:"Playfair Display",Georgia,serif;font-weight:800;color:var(--wk-n);min-width:26px}
+.dayh .badge{color:var(--wk-n);font-weight:700}
+.nh{border-bottom:2px solid var(--t)}
+.tag{background:var(--tc);border-color:var(--tc);color:#fff;font-weight:700}
+.tag.an{--tc:var(--blue)}.tag.ev{--tc:#ffd60a;color:#0a0a0a}
+input,textarea{border-radius:14px;border:1.5px solid transparent}
+input:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 25%,transparent)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}input:focus-visible,textarea:focus-visible{outline:0}
+.sheet>div{border-radius:30px 30px 0 0}
+.qopt{border-radius:20px}.qopt.on{background:var(--p);color:#0a0a0a;border-color:var(--p)}
+.em.on{border-color:var(--blue)}
 </style>
 </head>
 <body>
@@ -286,7 +317,7 @@ const CHEV = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
 S.q = (() => { const today = fmt(new Date()), i = QS().findIndex(x => today <= x[1]); return i < 0 ? 3 : i; })();
 
 const dark = () => (document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
-function paintTheme() { const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = dark() ? '#0c0c0e' : '#f2f2f4'; }
+function paintTheme() { const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = dark() ? '#0a0a0a' : '#f3f3f0'; }
 function setTheme(x) { document.documentElement.dataset.theme = x; try { localStorage.setItem('theme', x); } catch (e) {} paintTheme(); }
 try { const th = localStorage.getItem('theme'); if (th) document.documentElement.dataset.theme = th; } catch (e) {}
 paintTheme();
