@@ -702,10 +702,12 @@ function render() {
   else if (S.user) { body = appView(); nav = navView(); }
   else body = authView();
   const a = document.getElementById('app');
+  const hadSheet = !!a.querySelector('.sheet'), shBox = a.querySelector('.sheet>div'), shY = shBox ? shBox.scrollTop : 0;
   a.className = nav ? 'hasnav' : '';
   const of = a.querySelector('.sfeed'), sx = of ? of.scrollLeft : 0, sy = of ? of.scrollTop : 0;
   a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + vsheet() + detailSheet() + newsSheet() + fsheet() + viewer();
   alignNewsSheet();
+  if (hadSheet) { a.querySelectorAll('.sheet').forEach(x => { x.style.animation = 'none'; }); const nb = a.querySelector('.sheet>div'); if (nb) nb.scrollTop = shY; }
   const nv = a.querySelector('.bnav');
   navIdx = nv ? slideInd(nv, nv.querySelector('.bind'), navIdx) : -1;
   const dt = a.querySelector('.dpick .tabs');
