@@ -653,8 +653,8 @@ function shrink(file) {
 }
 
 async function uploadPhotos(files) {
-  if (!S.edit || S.busy) return;
-  S.busy = true; S.msg = ''; render();
+  if (!S.edit || (S.busy && Date.now() - (S.busyAt || 0) < 15000)) return;
+  S.busy = true; S.busyAt = Date.now(); S.msg = ''; render();
   try {
     for (const f of files) {
       const img = /^image\//.test(f.type), ext = img ? 'jpg' : ((f.name.split('.').pop() || 'bin').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 8) || 'bin');
@@ -753,10 +753,12 @@ async function load() {
   render();
 }
 
+const INSTANT = new Set(['lang','go','pedit','pcancel','pick','nnew','nkind','nexp','nclose','nedit','qopen','qclose','vac','vclose','lesson','dclose','dedit','fday','sedit','theme','anim','photos','fclose','closeview','day','sday','edit','wt','rmphoto']);
 async function act(a, v) {
   if (a === 'sscroll') { const f = document.querySelector('.sfeed'); if (f) f.scrollBy({left: Number(v) * (f.clientWidth + 16), behavior: 'smooth'}); return; }
-  if (S.busy) return;
-  S.busy = true; S.msg = ''; S.info = ''; S.pop = null;
+  const lock = !INSTANT.has(a);
+  if (lock) { if (S.busy && Date.now() - (S.busyAt || 0) < 15000) return; S.busy = true; S.busyAt = Date.now(); }
+  S.msg = ''; S.info = ''; S.pop = null;
   try {
     const email = (S.f.email || '').trim();
     if (a === 'lang') { lang = lang === 'ru' ? 'en' : 'ru'; try { localStorage.setItem('lang', lang); } catch (e) {} }
@@ -970,7 +972,7 @@ async function act(a, v) {
   } catch (e) {
     S.msg = errText(e);
   } finally {
-    S.busy = false;
+    if (lock) S.busy = false;
     if (!(a === 'day' && dayUpdate())) render();
     if (['tab', 'week', 'go', 'sday', 'out', 'q', 'todiary', 'sback', 'sedit'].includes(a)) {
       const el = document.getElementById('app'); el.classList.add('anim');
@@ -998,6 +1000,7 @@ document.addEventListener('touchstart', () => {}, {passive: true});
 matchMedia('(min-width:1000px)').addEventListener('change', () => render());
 let lastDay = fmt(new Date());
 document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && S.busy && Date.now() - (S.busyAt || 0) > 4000) { S.busy = false; render(); }
   const n = fmt(new Date());
   if (document.hidden || n === lastDay) return;
   lastDay = n;
