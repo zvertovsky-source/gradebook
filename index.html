@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#f2f2f4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@500;800&display=swap" media="print" onload="this.media='all'">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -220,6 +220,17 @@ label.sm{display:inline-flex}
 .sfeed .week{flex:0 0 calc((100% - 16px) / 2)}
 }
 @media(min-width:1400px){.sfeed .week{flex:0 0 calc((100% - 32px) / 3)}}
+.bnav button{transition:transform .12s ease,color .3s}
+.dpick .tab{transition:transform .12s ease,color .3s}
+:root{--hi:var(--bd);--hic:var(--line)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]):not([data-theme=pink]){--hi:#d4d4dc;--hic:#6a6a72}}
+:root[data-theme=dark]{--hi:#d4d4dc;--hic:#6a6a72}
+.pill,.sm,.arr,.bnav{border-color:transparent;background-image:linear-gradient(var(--c),var(--c)),linear-gradient(180deg,var(--hi),var(--bd) 55%);background-origin:border-box;background-clip:padding-box,border-box}
+.card{border-color:transparent;background-image:linear-gradient(var(--c),var(--c)),linear-gradient(180deg,var(--hic),var(--line) 40%);background-origin:border-box;background-clip:padding-box,border-box}
+.pill.grow,h3,.top b,.dphead b{font-family:"Unbounded","Arial Black","Segoe UI",system-ui,sans-serif;font-weight:800;letter-spacing:-.02em}
+.pill.grow{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+h3,.dphead b{font-size:16px}
+@media(min-width:1000px){.pill.grow{font-size:17px}}
 </style>
 </head>
 <body>
