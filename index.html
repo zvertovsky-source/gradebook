@@ -6,18 +6,19 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Дневник">
-<meta name="theme-color" content="#f5f1e6">
+<meta name="theme-color" content="#f2f2f4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@700;800&family=Oswald:wght@600;700&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
 <title>Электронный дневник</title>
 <style>
-:root{--bg:#f5f1e6;--c:#fffdf8;--t:#1a1a1a;--m:#625f56;--line:#d8d3c4;--bd:#8c887c;--p:#1a1a1a;--pt:#f5f1e6;--soft:#ebe6d8;--e:#d93b3b;--ok:#1f9d55;--smile:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%231a1a1a'/><ellipse cx='34' cy='37' rx='5' ry='9' transform='rotate(-12 34 37)' fill='%23f5f1e6'/><ellipse cx='68' cy='42' rx='5' ry='9' transform='rotate(-12 68 42)' fill='%23f5f1e6'/><path d='M20 58Q50 92 82 58' fill='none' stroke='%23f5f1e6' stroke-width='5' stroke-linecap='round'/></svg>");--plus:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 100'><g fill='none' stroke='%231a1a1a' stroke-width='1.6' stroke-linejoin='round'><path d='M40 26H60V46H80V66H60V86H40V66H20V46H40Z'/><path d='M54 14H74V34H94V54H74V74H54V54H34V34H54Z'/><path d='M40 26L54 14M60 26L74 14M80 46L94 34M80 66L94 54M20 46L34 34M20 66L34 54M60 86L74 74M40 86L54 74'/></g></svg>");color-scheme:light}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#1f1f1f;--c:#2a2a2a;--t:#fff;--m:#b3b0a8;--line:#3d3d3d;--bd:#7a7a76;--p:#f5f1e6;--pt:#1a1a1a;--soft:#343434;--e:#ff7a70;--ok:#6fd68f;--smile:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23f5f1e6'/><ellipse cx='34' cy='37' rx='5' ry='9' transform='rotate(-12 34 37)' fill='%231a1a1a'/><ellipse cx='68' cy='42' rx='5' ry='9' transform='rotate(-12 68 42)' fill='%231a1a1a'/><path d='M20 58Q50 92 82 58' fill='none' stroke='%231a1a1a' stroke-width='5' stroke-linecap='round'/></svg>");--plus:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 100'><g fill='none' stroke='%23ffffff' stroke-width='1.6' stroke-linejoin='round'><path d='M40 26H60V46H80V66H60V86H40V66H20V46H40Z'/><path d='M54 14H74V34H94V54H74V74H54V54H34V34H54Z'/><path d='M40 26L54 14M60 26L74 14M80 46L94 34M80 66L94 54M20 46L34 34M20 66L34 54M60 86L74 74M40 86L54 74'/></g></svg>");color-scheme:dark}}
-:root[data-theme=dark]{--bg:#1f1f1f;--c:#2a2a2a;--t:#fff;--m:#b3b0a8;--line:#3d3d3d;--bd:#7a7a76;--p:#f5f1e6;--pt:#1a1a1a;--soft:#343434;--e:#ff7a70;--ok:#6fd68f;--smile:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23f5f1e6'/><ellipse cx='34' cy='37' rx='5' ry='9' transform='rotate(-12 34 37)' fill='%231a1a1a'/><ellipse cx='68' cy='42' rx='5' ry='9' transform='rotate(-12 68 42)' fill='%231a1a1a'/><path d='M20 58Q50 92 82 58' fill='none' stroke='%231a1a1a' stroke-width='5' stroke-linecap='round'/></svg>");--plus:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 100'><g fill='none' stroke='%23ffffff' stroke-width='1.6' stroke-linejoin='round'><path d='M40 26H60V46H80V66H60V86H40V66H20V46H40Z'/><path d='M54 14H74V34H94V54H74V74H54V54H34V34H54Z'/><path d='M40 26L54 14M60 26L74 14M80 46L94 34M80 66L94 54M20 46L34 34M20 66L34 54M60 86L74 74M40 86L54 74'/></g></svg>");color-scheme:dark}
+:root{--bg:#f2f2f4;--c:#fff;--t:#111;--m:#6f6f76;--line:#d6d6dc;--bd:#85858d;--p:#111;--pt:#fff;--soft:#efeff2;--e:#d93b3b;--ok:#1f9d55;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0c0c0e;--c:#1a1a1d;--t:#f2f2f3;--m:#9a9aa2;--line:#3a3a40;--bd:#74747c;--p:#f2f2f3;--pt:#111;--soft:#26262a;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#0c0c0e;--c:#1a1a1d;--t:#f2f2f3;--m:#9a9aa2;--line:#3a3a40;--bd:#74747c;--p:#f2f2f3;--pt:#111;--soft:#26262a;color-scheme:dark}
+:root[data-theme=pink]{--bg:#fbeef3;--c:#fff7fa;--t:#4a2a38;--m:#a0788a;--line:#f0d3df;--bd:#d99ab5;--p:#f2a0bd;--pt:#4a2a38;--soft:#fbe2ec;color-scheme:light}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0}
 body{font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",Inter,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--t);-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased}
@@ -219,76 +220,6 @@ label.sm{display:inline-flex}
 .sfeed .week{flex:0 0 calc((100% - 16px) / 2)}
 }
 @media(min-width:1400px){.sfeed .week{flex:0 0 calc((100% - 32px) / 3)}}
-
-/* ===== Стиль «вечеринка»: графит, сверхширокий шрифт, молочно-белый акцент ===== */
-html,body{overflow-x:clip}
-body{font-family:Inter,-apple-system,"Segoe UI",Roboto,sans-serif}
-h3,.pill.grow,.dh b,.sheet>div>b{font-family:Unbounded,Inter,sans-serif;font-weight:800;letter-spacing:-.01em}
-.wh,.ls2 span,.top b{font-family:Oswald,Inter,sans-serif;font-weight:700}
-#app{position:relative}
-#app::before{content:"";display:block;width:36%;max-width:190px;height:84px;margin-bottom:16px;background:radial-gradient(circle,var(--p) 1.3px,transparent 1.8px) 0 0/15px 15px;-webkit-mask-image:linear-gradient(135deg,#000 25%,transparent 95%);mask-image:linear-gradient(135deg,#000 25%,transparent 95%)}
-.top b{font-size:28px;text-transform:uppercase}
-h3{font-size:19px}
-.ph2{margin:0 0 22px;align-items:flex-end}
-.pill.grow{border:0;background:none;padding:0;border-radius:0;justify-content:flex-start;text-align:left;color:var(--t);font-size:clamp(30px,9.5vw,60px);line-height:1.04;letter-spacing:-.02em;hyphens:auto}
-button.pill{background:var(--p);color:var(--pt);border:0;font:600 16px Inter,sans-serif;padding:15px 22px}
-.pill.plus{width:54px;height:54px;padding:0}
-.card{background:var(--c);border:0;padding:18px 18px 18px 22px;box-shadow:inset 4px 0 0 var(--p)}
-.btn{background:var(--p);color:var(--pt);font:600 17px Inter,sans-serif;padding:16px}
-.sm{background:transparent;border:1.5px solid var(--bd);font-weight:600}
-.sm.on,.qopt.on,.seg button.on{background:var(--p);color:var(--pt);border-color:var(--p)}
-.arr{background:var(--p);color:var(--pt);border:0}
-.tabs,.seg{background:transparent;border:1.5px solid var(--bd);padding:3px}.tind{background:var(--p)}
-.tag{background:transparent;color:var(--t);border:1.5px solid var(--t);font-weight:700}.tag.ev{background:var(--p);color:var(--pt);border-color:var(--p)}
-.nh{border-bottom:2px solid var(--p);padding-bottom:10px}
-.bnav{background:var(--c);border:1px solid var(--line);box-shadow:0 16px 34px -10px rgba(0,0,0,.6)}
-.bnav button{color:var(--m);font-weight:600}.bnav button.on{color:var(--pt)}.bind{background:var(--p)}
-.wh{font-size:34px;line-height:1;text-transform:uppercase;padding:14px 0 12px}
-.ls2 span{font-size:18px;color:var(--t)}
-.dayh .badge{color:var(--t);font-weight:800;text-decoration:underline;text-underline-offset:3px}
-input,textarea{background:var(--soft);border:0;border-bottom:2px solid var(--p)}
-input:focus,textarea:focus{border-color:var(--p);box-shadow:none;background:var(--c)}
-:focus-visible{outline:2px solid var(--p);outline-offset:3px}input:focus-visible,textarea:focus-visible{outline:0}
-.card,.sm,.chip,.tab,.tabs,.seg,.seg button,.tind,.arr,.qopt,.em,.wt,.tag,.bnav,.bind,.bnav button,.week,.fchip,.ph img,input,textarea,.ftxt,.dimg,.ov img,.btn,.pill,.sheet>div{border-radius:0}
-.sheet>div{border-top:3px solid var(--p)}.sheet:not(.side)>div,.sheet.side>div{border-radius:0}
-.em.on{border-color:var(--p)}
-
-/* ===== Правки: без смайла и креста, тёмные недели, скруглённые окна ===== */
-.week{--c:#2a2a2a;--t:#fff;--m:#b3b0a8;--line:#454545;--bd:#7a7a76;--soft:#343434;background:#2a2a2a;color:#fff;border:0;padding:6px 20px 12px}
-:root[data-theme=light] .week{--c:#1a1a1a;--soft:#2a2a2a;--line:#3d3d3d}
-:root[data-theme=light] .week{background:#1a1a1a}
-@media(prefers-color-scheme:light){:root:not([data-theme=dark]) .week{--c:#1a1a1a;--soft:#2a2a2a;--line:#3d3d3d;background:#1a1a1a}}
-.card{border-radius:18px}.week{border-radius:22px}
-.btn,button.pill,.arr{border-radius:14px}.pill.plus{border-radius:16px}
-.sm{border-radius:12px}.chip{border-radius:10px}.tag,.wt{border-radius:8px}.fchip{border-radius:10px}
-.tabs,.seg{border-radius:14px}.tab,.tind,.seg button{border-radius:10px}
-.qopt{border-radius:14px}.em{border-radius:12px}
-.bnav{border-radius:22px}.bind,.bnav button{border-radius:16px}
-.ph img,.ftxt{border-radius:12px}.dimg,.ov img{border-radius:14px}
-input,textarea{border-radius:12px;border:1.5px solid var(--line)}
-input:focus,textarea:focus{border-color:var(--p)}
-.sheet:not(.side)>div{border-radius:24px 24px 0 0}.sheet.side>div{border-radius:24px}
-@media(min-width:1000px){.sheet:not(.side)>div{border-radius:24px}}
-
-/* ===== Правки: без тряски при выборе дня, иконка-скрепка вместо кнопки «Файл» ===== */
-#app.anim .tabs{animation:none}
-.clipb{background:none;border:0;padding:8px;margin:-6px -6px -6px 0;color:var(--t);display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;border-radius:10px;flex:none}
-.clipb svg{width:20px;height:20px}
-.foot .clipb{margin:-8px 0 -8px -8px}
-.fbtns{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0}.fbtns .sm{margin:0}
-
-/* ===== Правки: выключение анимаций, мгновенный выбор дня, ДЗ из расписания ===== */
-html[data-anim=off] .bind,html[data-anim=off] .tind{transition:none!important}
-html[data-anim=off] .bnav button,html[data-anim=off] .dpick .tab{transition:none!important}
-button{touch-action:manipulation}
-
-/* ===== Левая полоса карточек: ровные концы вровень с верхней и нижней гранью ===== */
-.card{position:relative;border-radius:18px;box-shadow:none}
-.card{padding:18px}
-.pi b{font-family:Unbounded,Inter,sans-serif;font-weight:800;letter-spacing:-.01em}
-
-/* Окно добавления новости: без выделенной рамки, как остальные плашки */
-.sheet.side>div{border:0;border-top:0;border-radius:18px}
 </style>
 </head>
 <body>
@@ -309,7 +240,7 @@ const T = {
     soon:'Здесь скоро будет расписание и домашние задания.',diary:'Дневник',people:'Люди',approve:'Одобрить',
     mkAdmin:'Сделать админом',rmAdmin:'Снять права админа',revoke:'Убрать доступ',r_pending:'Ждёт одобрения',
     r_student:'Ученик',r_admin:'Админ',r_owner:'Создатель',badlogin:'Неверная почта или пароль',
-    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',hwtext:'Домашнее задание',file:'Файл',download:'Скачать',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано',notdone:'Не сделано',profile:'Профиль',theme:'Тема',language:'Язык',dark:'Тёмная',light:'Светлая',editSched:'Изменить расписание',back:'Назад',today:'сегодня',toDiary:'Открыть в дневнике',quarter:'Четверть',quarterWord:'четверть',nohw:'Домашнего задания нет',close:'Закрыть',nowk:'В этой четверти больше нет предстоящих недель',editProfile:'Изменить профиль',nick:'Никнейм',bio:'О себе',ownEmoji:'Или вставь свой смайлик',emojiOnly:'Нужен смайлик, а не текст или фото',news:'Новости',newsTitle:'Новости и события',near:'Ближайшие',far:'Долгосрочные',announce:'объявление',kAnn:'Объявление',kEv:'Событие',newItem:'Новая запись',editItem:'Редактировать запись',evDate:'Дата',evTime:'Время',evPlace:'Место проведения',textPh:'Текст',del:'Удалить',delConfirm:'Удалить эту запись?',needText:'Введите текст',needDate:'Укажите дату события',pastDate:'Дата события уже прошла',nothing:'Пока ничего нет',vacation:'Каникулы',pickDay:'Выбор дня',evTag:'событие',annDate:'Дата (необязательно)',expLabel:'Исчезнет через',expCur:'сейчас до',d1:'1 день',d3:'3 дня',d7:'7 дней',dC:'Своё',days:'Число дней',needDays:'Укажите число дней от 1 до 365',pickQ:'Выбрать четверть',udelConfirm:'Удалить пользователя из базы? Это нельзя отменить.',vAut:'Осенние',vWin:'Зимние',vSpr:'Весенние',vSum:'Летние',anim:'Анимации',animOn:'Включены',animOff:'Выключены',viewFile:'Просмотреть файл',dlFile:'Скачать файл',wtLabel:'Пометка о работе',wtHint:'нажмите ещё раз, чтобы убрать',wt_kr:'Контрольная работа',wt_sr:'Самостоятельная работа',wt_qz:'Летучка/Тест',wt_lr:'Лабораторная работа',wt_pr:'Практическая работа'},
+    badcode:'Неверный или просроченный код',empty:'Пока никого нет',load:'Загрузка…',schedule:'Расписание',nosched:'Расписание ещё не заполнено.',noschedEd:'Расписание ещё не заполнено. Заполните его во вкладке «Расписание».',edit:'Изменить',add:'Добавить ДЗ',hwtext:'Домашнее задание',file:'Файл',download:'Скачать',cancel:'Отмена',effFrom:'Действует с (дата приведётся к понедельнику)',effHint:'Прошлые недели не изменятся: новое расписание работает с этой даты.',subject:'Предмет',saveSched:'Сохранить расписание',saved:'Сохранено',done:'Сделано',notdone:'Не сделано',profile:'Профиль',theme:'Тема',language:'Язык',dark:'Тёмная',light:'Светлая',editSched:'Изменить расписание',back:'Назад',today:'сегодня',toDiary:'Открыть в дневнике',quarter:'Четверть',quarterWord:'четверть',nohw:'Домашнего задания нет',close:'Закрыть',nowk:'В этой четверти больше нет предстоящих недель',editProfile:'Изменить профиль',nick:'Никнейм',bio:'О себе',ownEmoji:'Или вставь свой смайлик',emojiOnly:'Нужен смайлик, а не текст или фото',news:'Новости',newsTitle:'Заметки мамы птицы',near:'Ближайшие',far:'Долгосрочные',announce:'объявление',kAnn:'Объявление',kEv:'Событие',newItem:'Новая запись',editItem:'Редактировать запись',evDate:'Дата',evTime:'Время',evPlace:'Место проведения',textPh:'Текст',del:'Удалить',delConfirm:'Удалить эту запись?',needText:'Введите текст',needDate:'Укажите дату события',pastDate:'Дата события уже прошла',nothing:'Пока ничего нет',vacation:'Каникулы',pink:'Розовая',pickDay:'Выбор дня',evTag:'событие',annDate:'Дата (необязательно)',expLabel:'Исчезнет через',expCur:'сейчас до',d1:'1 день',d3:'3 дня',d7:'7 дней',dC:'Своё',days:'Число дней',needDays:'Укажите число дней от 1 до 365',pickQ:'Выбрать четверть',udelConfirm:'Удалить пользователя из базы? Это нельзя отменить.',vAut:'Осенние',vWin:'Зимние',vSpr:'Весенние',vSum:'Летние',wtLabel:'Пометка о работе',wtHint:'нажмите ещё раз, чтобы убрать',wt_kr:'Контрольная работа',wt_sr:'Самостоятельная работа',wt_qz:'Летучка/Тест',wt_lr:'Лабораторная работа',wt_pr:'Практическая работа'},
   en: {title:'Class Diary',email:'Email',pass:'Password (at least 6 characters)',login:'Log in',signup:'Sign up',
     forgot:'Forgot password?',toLogin:'Have an account? Log in',toSignup:'No account? Sign up',code:'Code from the email',
     confirm:'Confirm',verifyH:'Enter the code',verifyT:'We sent a code to',sent:'Code sent to your email',
@@ -318,7 +249,7 @@ const T = {
     soon:'The schedule and homework will appear here soon.',diary:'Diary',people:'People',approve:'Approve',
     mkAdmin:'Make admin',rmAdmin:'Remove admin rights',revoke:'Revoke access',r_pending:'Pending approval',
     r_student:'Student',r_admin:'Admin',r_owner:'Owner',badlogin:'Wrong email or password',
-    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',hwtext:'Homework (in Russian)',file:'File',download:'Download',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done',notdone:'Not done',profile:'Profile',theme:'Theme',language:'Language',dark:'Dark',light:'Light',editSched:'Edit schedule',back:'Back',today:'today',toDiary:'Open in diary',quarter:'Quarter',quarterWord:'quarter',nohw:'No homework',close:'Close',nowk:'No upcoming weeks left in this quarter',editProfile:'Edit profile',nick:'Nickname',bio:'About me',ownEmoji:'Or paste your own emoji',emojiOnly:'An emoji is required, not text or a photo',news:'News',newsTitle:'News and events',near:'Upcoming',far:'Long-term',announce:'notice',kAnn:'Notice',kEv:'Event',newItem:'New post',editItem:'Edit post',evDate:'Date',evTime:'Time',evPlace:'Place',textPh:'Text',del:'Delete',delConfirm:'Delete this post?',needText:'Enter some text',needDate:'Pick the event date',pastDate:'The event date has already passed',nothing:'Nothing yet',vacation:'Holidays',pickDay:'Choose a day',evTag:'event',annDate:'Date (optional)',expLabel:'Disappears after',expCur:'currently until',d1:'1 day',d3:'3 days',d7:'7 days',dC:'Custom',days:'Number of days',needDays:'Enter a number of days from 1 to 365',pickQ:'Choose quarter',udelConfirm:'Delete this user from the database? This cannot be undone.',vAut:'Autumn',vWin:'Winter',vSpr:'Spring',vSum:'Summer',anim:'Animations',animOn:'On',animOff:'Off',viewFile:'View file',dlFile:'Download file',wtLabel:'Work mark',wtHint:'tap again to remove',wt_kr:'Test (exam)',wt_sr:'Independent work',wt_qz:'Quiz/Test',wt_lr:'Lab work',wt_pr:'Practical work'}
+    badcode:'Wrong or expired code',empty:'Nobody yet',load:'Loading…',schedule:'Schedule',nosched:'The schedule is not filled in yet.',noschedEd:'The schedule is empty. Fill it in on the Schedule tab.',edit:'Edit',add:'Add homework',hwtext:'Homework (in Russian)',file:'File',download:'Download',cancel:'Cancel',effFrom:'Effective from (snapped to Monday)',effHint:'Past weeks stay unchanged: the new schedule applies from this date.',subject:'Subject',saveSched:'Save schedule',saved:'Saved',done:'Done',notdone:'Not done',profile:'Profile',theme:'Theme',language:'Language',dark:'Dark',light:'Light',editSched:'Edit schedule',back:'Back',today:'today',toDiary:'Open in diary',quarter:'Quarter',quarterWord:'quarter',nohw:'No homework',close:'Close',nowk:'No upcoming weeks left in this quarter',editProfile:'Edit profile',nick:'Nickname',bio:'About me',ownEmoji:'Or paste your own emoji',emojiOnly:'An emoji is required, not text or a photo',news:'News',newsTitle:'Mama Bird’s Notes',near:'Upcoming',far:'Long-term',announce:'notice',kAnn:'Notice',kEv:'Event',newItem:'New post',editItem:'Edit post',evDate:'Date',evTime:'Time',evPlace:'Place',textPh:'Text',del:'Delete',delConfirm:'Delete this post?',needText:'Enter some text',needDate:'Pick the event date',pastDate:'The event date has already passed',nothing:'Nothing yet',vacation:'Holidays',pink:'Pink',pickDay:'Choose a day',evTag:'event',annDate:'Date (optional)',expLabel:'Disappears after',expCur:'currently until',d1:'1 day',d3:'3 days',d7:'7 days',dC:'Custom',days:'Number of days',needDays:'Enter a number of days from 1 to 365',pickQ:'Choose quarter',udelConfirm:'Delete this user from the database? This cannot be undone.',vAut:'Autumn',vWin:'Winter',vSpr:'Spring',vSum:'Summer',wtLabel:'Work mark',wtHint:'tap again to remove',wt_kr:'Test (exam)',wt_sr:'Independent work',wt_qz:'Quiz/Test',wt_lr:'Lab work',wt_pr:'Practical work'}
 };
 let lang = 'ru';
 try { lang = localStorage.getItem('lang') || 'ru'; } catch (e) {}
@@ -355,10 +286,9 @@ const qn = i => ['I', 'II', 'III', 'IV'][i];
 const CHEV = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
 S.q = (() => { const today = fmt(new Date()), i = QS().findIndex(x => today <= x[1]); return i < 0 ? 3 : i; })();
 
-const animOff = () => document.documentElement.dataset.anim === 'off';
-try { if (localStorage.getItem('anim') === 'off') document.documentElement.dataset.anim = 'off'; } catch (e) {}
-const dark = () => (document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
-function paintTheme() { const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = dark() ? '#1f1f1f' : '#f5f1e6'; }
+const themeName = () => document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+const dark = () => themeName() === 'dark';
+function paintTheme() { const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = ({dark: '#0c0c0e', pink: '#fbeef3'})[themeName()] || '#f2f2f4'; }
 function setTheme(x) { document.documentElement.dataset.theme = x; try { localStorage.setItem('theme', x); } catch (e) {} paintTheme(); }
 try { const th = localStorage.getItem('theme'); if (th) document.documentElement.dataset.theme = th; } catch (e) {}
 paintTheme();
@@ -366,8 +296,8 @@ const svg = p => `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" st
 const SUN = svg('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>');
 const MOON = svg('<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>');
 const CLIP = svg('<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/>');
+const HEART = svg('<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>');
 const CLOCK = svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>');
-const DLI = svg('<path d="M12 4v10M7.5 10l4.5 4.5 4.5-4.5M5 19h14"/>');
 const IMG = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'avif'], TXT = ['txt', 'md', 'csv', 'json', 'log'];
 const extOf = p => p.split('.').pop().toLowerCase();
 const fname = p => 'hw-' + p.split('/')[0] + '-' + p.split('/').pop().split('-')[0] + '.' + extOf(p);
@@ -493,9 +423,8 @@ function profEdit() {
 function profileView() {
   const owner = S.profile.role === 'owner';
   const left = `<div class="ph2"><div class="pill grow">${t('profile')}</div></div>${profCard()}` +
-    `<div class="card prow"><span>${t('theme')}</span><button class="sm" data-a="theme">${dark() ? t('dark') + ' ' + MOON : t('light') + ' ' + SUN}</button></div>` +
-    `<div class="card prow"><span>${t('language')}</span><button class="sm" data-a="lang">${lang === 'ru' ? 'Русский' : 'English'}</button></div>` +
-    `<div class="card prow"><span>${t('anim')}</span><button class="sm" data-a="anim">${t(animOff() ? 'animOff' : 'animOn')}</button></div>`;
+    `<div class="card prow"><span>${t('theme')}</span><button class="sm" data-a="theme">${({dark: t('dark') + ' ' + MOON, pink: t('pink') + ' ' + HEART})[themeName()] || t('light') + ' ' + SUN}</button></div>` +
+    `<div class="card prow"><span>${t('language')}</span><button class="sm" data-a="lang">${lang === 'ru' ? 'Русский' : 'English'}</button></div>`;
   return `<div class="pgrid${owner ? ' own' : ''}${S.pedit ? ' pe' : ''}"><div class="pleft">${left}</div>` +
     (owner ? `<div class="pright"><h3 class="phd">${t('people')}</h3>${peopleView()}</div>` : '') +
     (S.pedit ? `<div class="pedit">${profEdit()}</div>` : '') + '</div>';
@@ -504,18 +433,17 @@ function profileView() {
 
 function lessonRow(d, no, name) {
   const w = S.hw[d + '|' + no], has = !!w && hasHw(w), n = w ? (w.photo_paths || []).filter(x => S.urls[x]).length : 0;
-  const line = has ? `<div class="hl"><span class="ht">${esc(w.body || '')}</span>${n ? `<button class="clipb" data-a="file" data-v="${d}|${no}" aria-label="${t('file')}">${CLIP}</button>` : ''}</div>` : '<div class="hl"><span class="ht">—</span></div>';
+  const line = has ? `<div class="hl"><span class="ht">${esc(w.body || '')}</span>${n ? `<button class="chip fbtn" data-a="file" data-v="${d}|${no}">${CLIP} ${t('file')}</button>` : ''}</div>` : '<div class="hl"><span class="ht">—</span></div>';
   return `<div class="lr" role="button" tabindex="0" data-a="lesson" data-v="${d}|${no}"><div class="ls2"><span>${no}.</span>${esc(name)}${w ? wtBadge(w.work_type) : ''}</div>${line}</div>`;
 }
 
 function detailSheet() {
   if (!S.detail) return '';
-  if (S.edit && S.detail === S.edit.date + '|' + S.edit.no) return `<div class="sheet"><div>${editForm(true)}</div></div>`;
   const [d, no] = S.detail.split('|'), name = (subjects(d) || {})[no] || '', w = S.hw[S.detail];
   const photos = w ? (w.photo_paths || []).filter(x => S.urls[x]) : [];
   return `<div class="sheet" data-a="dclose"><div><div class="dh"><b>${no}. ${esc(name)}</b><span class="badge">${DN[lang][(parse(d).getDay() + 6) % 7]} ${fmtShort(d)}</span></div>` +
-    (w && WTK.includes(w.work_type) ? `<div style="margin:0 0 10px">${wtBadge(w.work_type, true)}</div>` : '') + (w && hasHw(w) ? (w.body ? `<div class="db">${esc(w.body)}</div>` : '') + (photos.length ? `<div class="fbtns"><button class="sm fbtn" data-a="file" data-v="${S.detail}">${CLIP} ${t('viewFile')}</button><button class="sm fbtn" data-a="dlhw" data-v="${S.detail}">${DLI} ${t('dlFile')}</button></div>${S.msg && !canEdit() ? `<div class="msg">${esc(S.msg)}</div>` : ''}` : '') : `<div class="badge">${t('nohw')}</div>`) +
-    (canEdit() ? wtPick(w && w.work_type, 'setwt') : '') + `${canEdit() ? `<button class="sm" style="margin:14px 8px 0 0" data-a="dedit" data-v="${S.detail}">${t(w && hasHw(w) ? 'edit' : 'add')}</button>` : ''}<button class="sm" style="margin:14px 8px 0 0" data-a="todiary" data-v="${d}">${t('toDiary')}</button><button class="sm" style="margin:14px 0 0" data-a="dclose">${t('close')}</button></div></div>`;
+    (w && WTK.includes(w.work_type) ? `<div style="margin:0 0 10px">${wtBadge(w.work_type, true)}</div>` : '') + (w && hasHw(w) ? (w.body ? `<div class="db">${esc(w.body)}</div>` : '') + (photos.length ? `<div><button class="sm fbtn" data-a="file" data-v="${S.detail}">${CLIP} ${t('file')}</button></div>` : '') : `<div class="badge">${t('nohw')}</div>`) +
+    (canEdit() ? wtPick(w && w.work_type, 'setwt') : '') + `<button class="sm" style="margin:14px 8px 0 0" data-a="todiary" data-v="${d}">${t('toDiary')}</button><button class="sm" style="margin:14px 0 0" data-a="dclose">${t('close')}</button></div></div>`;
 }
 
 function schedFeed() {
@@ -561,11 +489,11 @@ const todo = d => Object.values(S.hw).some(w => w.lesson_date === d && hasHw(w) 
 
 function diaryView() {
   const ed = canEdit();
-  const pick = `<div class="card dpick"><h3 class="nh">${t('pickDay')}</h3><div class="tabs"><span class="tind"></span>` +
-    DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}</button>`).join('') + '</div></div>';
+  const pick = `<div class="card dpick"><div class="dphead"><b>${t('pickDay')}</b></div><div class="tabs"><span class="tind"></span>` +
+    DN[lang].map((n, i) => `<button class="tab${S.day === i + 1 ? ' on' : ''}" data-a="day" data-v="${i + 1}">${n}</button>`).join('') + '</div></div>' +
+    (S.day ? `<button class="sm" style="width:100%;margin:0 0 12px" data-a="day" data-v="${S.day}">${t('close')}</button>` : '');
   const list = newsGroups().near.slice(0, 5);
   const news = `<div class="card"><h3 class="nh">${t('news')}</h3>${list.length ? list.map(n => newsItem(n, true)).join('') : `<div class="badge">${t('nothing')}</div>`}</div>`;
-  const dayPart = () => {
   let body = '';
   if (S.day) {
     const date = dayDate(), subj = subjects(date) || {};
@@ -575,23 +503,19 @@ function diaryView() {
       const w = S.hw[date + '|' + no], has = w && hasHw(w);
       const ph = w ? (w.photo_paths || []).filter(p => S.urls[p]).length : 0;
       const mid = has ? (w.body ? `<div class="hw">${esc(w.body)}</div>` : '') : '<div class="badge">—</div>';
-      const chip = ph ? `<button class="clipb" data-a="file" data-v="${date}|${no}" aria-label="${t('file')}">${CLIP}</button>` : '';
+      const chip = ph ? `<button class="sm fbtn" data-a="file" data-v="${date}|${no}">${CLIP} ${t('file')}</button>` : '';
       const editBtn = ed ? `<button class="sm" data-a="edit" data-v="${no}">${t(w ? 'edit' : 'add')}</button>` : '';
       return `<div class="card row"><div class="l"><div class="ls"><b>${no}.</b> ${esc(subj[no])}${w ? wtBadge(w.work_type) : ''}</div>${mid}</div>${chip || editBtn ? `<div class="foot">${chip}<div class="fr">${editBtn}</div></div>` : ''}</div>`;
     }).join('');
   }
-  return (S.day ? `<button class="sm" style="width:100%;margin:0 0 12px" data-a="day" data-v="${S.day}">${t('close')}</button>` : '') + body;
-  };
-  DAYPART = dayPart;
-  return `<div class="ph2"><div class="pill grow">${t('diary')}</div></div><div class="dgrid${S.day ? ' open' : ''}"><div class="dleft">${news}</div><div class="dright">${pick}<div id="dbody">${dayPart()}</div></div></div>`;
+  return `<div class="ph2"><div class="pill grow">${t('diary')}</div></div><div class="dgrid${S.day ? ' open' : ''}"><div class="dleft">${news}</div><div class="dright">${pick}${body}</div></div>`;
 }
 
-function editForm(bare) {
+function editForm() {
   const e = S.edit;
   const ph = e.photos.map(p => `<div class="ph">${IMG.includes(extOf(p)) ? `<img src="${esc(S.urls[p] || '')}">` : `<em class="fchip">${esc(extOf(p))}</em>`}<button type="button" class="x" data-a="rmphoto" data-v="${esc(p)}">✕</button></div>`).join('');
   const inner = `<textarea name="hwbody" placeholder="${t('hwtext')}">${esc(S.f.hwbody)}</textarea><div class="phr">${ph}<label class="sm fbtn">${CLIP} ${t('file')}<input id="hwfile" type="file" multiple hidden></label></div>${wtPick(e.wt, 'wt')}`;
-  const html = `<b>${e.no}. ${esc(e.subject)}</b>${form('savehw', inner, t('save'))}<button class="lnk" style="padding-left:0" data-a="cancel">${t('cancel')}</button>`;
-  return bare ? html : `<div class="card">${html}</div>`;
+  return `<div class="card"><b>${e.no}. ${esc(e.subject)}</b>${form('savehw', inner, t('save'))}<button class="lnk" style="padding-left:0" data-a="cancel">${t('cancel')}</button></div>`;
 }
 
 function schedView() {
@@ -653,8 +577,8 @@ function shrink(file) {
 }
 
 async function uploadPhotos(files) {
-  if (!S.edit || (S.busy && Date.now() - (S.busyAt || 0) < 15000)) return;
-  S.busy = true; S.busyAt = Date.now(); S.msg = ''; render();
+  if (!S.edit || S.busy) return;
+  S.busy = true; S.msg = ''; render();
   try {
     for (const f of files) {
       const img = /^image\//.test(f.type), ext = img ? 'jpg' : ((f.name.split('.').pop() || 'bin').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 8) || 'bin');
@@ -674,27 +598,14 @@ function slideInd(box, ind, prev) {
   if (!ind) return -1;
   if (ni < 0) { ind.style.display = 'none'; return -1; }
   const place = b => { ind.style.left = b.offsetLeft + 'px'; ind.style.top = b.offsetTop + 'px'; ind.style.width = b.offsetWidth + 'px'; ind.style.height = b.offsetHeight + 'px'; };
-  const from = prev >= 0 && prev !== ni && !animOff() ? bs[prev] : null;
+  const from = prev >= 0 && prev !== ni ? bs[prev] : null;
   if (from) {
     bs[ni].classList.remove('on'); from.classList.add('on'); place(from);
     requestAnimationFrame(() => requestAnimationFrame(() => { from.classList.remove('on'); bs[ni].classList.add('on'); place(bs[ni]); }));
   } else place(bs[ni]);
   return ni;
 }
-let DAYPART = null;
-function dayUpdate() {
-  const g = document.querySelector('.dgrid'), b = document.getElementById('dbody'), dt = document.querySelector('.dpick .tabs');
-  if (!g || !b || !dt || S.tab !== 'diary' || !DAYPART) return false;
-  g.classList.toggle('open', !!S.day);
-  b.innerHTML = DAYPART();
-  [...dt.querySelectorAll('.tab')].forEach((x, i) => x.classList.toggle('on', S.day === i + 1));
-  const ind = dt.querySelector('.tind');
-  if (ind && S.day) ind.style.display = '';
-  dayIdx = slideInd(dt, ind, dayIdx);
-  return true;
-}
 function render() {
-  const sy0 = window.scrollY;
   const appr = S.ready && S.user && !S.recovering && S.profile && S.profile.role !== 'pending';
   let body, nav = '';
   if (!S.ready) body = `<div class="card">${t('load')}</div>`;
@@ -702,12 +613,9 @@ function render() {
   else if (S.user) { body = appView(); nav = navView(); }
   else body = authView();
   const a = document.getElementById('app');
-  const hadSheet = !!a.querySelector('.sheet'), shBox = a.querySelector('.sheet>div'), shY = shBox ? shBox.scrollTop : 0;
   a.className = nav ? 'hasnav' : '';
   const of = a.querySelector('.sfeed'), sx = of ? of.scrollLeft : 0, sy = of ? of.scrollTop : 0;
-  a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${dark() ? SUN : MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + vsheet() + detailSheet() + newsSheet() + fsheet() + viewer();
-  alignNewsSheet();
-  if (hadSheet) { a.querySelectorAll('.sheet').forEach(x => { x.style.animation = 'none'; }); const nb = a.querySelector('.sheet>div'); if (nb) nb.scrollTop = shY; }
+  a.innerHTML = (appr ? '' : `<div class="top"><b>${t('title')}</b><span><button class="lnk" data-a="theme">${({light: MOON, dark: HEART, pink: SUN})[themeName()] || MOON}</button><button class="lnk" data-a="lang">${lang === 'ru' ? 'EN' : 'RU'}</button>${S.user ? `<button class="lnk" data-a="out">${t('out')}</button>` : ''}</span></div>`) + body + nav + qsheet() + vsheet() + detailSheet() + newsSheet() + fsheet() + viewer();
   const nv = a.querySelector('.bnav');
   navIdx = nv ? slideInd(nv, nv.querySelector('.bind'), navIdx) : -1;
   const dt = a.querySelector('.dpick .tabs');
@@ -715,20 +623,7 @@ function render() {
   const nf = a.querySelector('.sfeed');
   if (nf && !S.scroll) { nf.scrollLeft = sx; nf.scrollTop = sy; }
   if (S.scroll) { S.scroll = false; const el = document.querySelector('[data-cur]'); if (el) el.scrollIntoView({block: 'start'}); }
-  else if (Math.abs(window.scrollY - sy0) > 1) window.scrollTo(0, sy0);
 }
-
-function alignNewsSheet() {
-  const sh = document.querySelector('.sheet.side');
-  if (!sh) return;
-  const box = sh.firstElementChild;
-  if (!window.matchMedia('(min-width:1000px)').matches) { sh.style.paddingTop = ''; if (box) box.style.maxHeight = ''; return; }
-  const card = document.querySelector('#app .card');
-  const top = Math.max(20, card ? Math.round(card.getBoundingClientRect().top) : 20);
-  sh.style.paddingTop = top + 'px';
-  if (box) box.style.maxHeight = 'calc(100vh - ' + (top + 20) + 'px)';
-}
-window.addEventListener('resize', alignNewsSheet);
 
 function errText(e) {
   const m = (e && e.message) || '';
@@ -753,12 +648,10 @@ async function load() {
   render();
 }
 
-const INSTANT = new Set(['lang','go','pedit','pcancel','pick','nnew','nkind','nexp','nclose','nedit','qopen','qclose','vac','vclose','lesson','dclose','dedit','fday','sedit','theme','anim','photos','fclose','closeview','day','sday','edit','wt','rmphoto']);
 async function act(a, v) {
   if (a === 'sscroll') { const f = document.querySelector('.sfeed'); if (f) f.scrollBy({left: Number(v) * (f.clientWidth + 16), behavior: 'smooth'}); return; }
-  const lock = !INSTANT.has(a);
-  if (lock) { if (S.busy && Date.now() - (S.busyAt || 0) < 15000) return; S.busy = true; S.busyAt = Date.now(); }
-  S.msg = ''; S.info = ''; S.pop = null;
+  if (S.busy) return;
+  S.busy = true; S.msg = ''; S.info = ''; S.pop = null;
   try {
     const email = (S.f.email || '').trim();
     if (a === 'lang') { lang = lang === 'ru' ? 'en' : 'ru'; try { localStorage.setItem('lang', lang); } catch (e) {} }
@@ -816,12 +709,6 @@ async function act(a, v) {
     else if (a === 'vclose') { S.vac = false; }
     else if (a === 'lesson') { S.detail = v; }
     else if (a === 'dclose') { S.detail = null; }
-    else if (a === 'dedit') {
-      if (!canEdit()) return;
-      const [d, no] = v.split('|'), n = Number(no), w = S.hw[v];
-      S.edit = {date: d, no: n, subject: (subjects(d) || {})[n] || '', photos: [...(w ? w.photo_paths || [] : [])], removed: [], added: [], wt: (w && w.work_type) || '', wt0: (w && w.work_type) || ''};
-      S.f.hwbody = (w && w.body) || '';
-    }
     else if (a === 'qclose') { S.qpick = false; }
     else if (a === 'q') { S.q = Number(v); S.qpick = false; S.open = null; S.scroll = true; await loadDiary(true); }
     else if (a === 'fday') { S.open = S.open === v ? null : v; }
@@ -841,8 +728,7 @@ async function act(a, v) {
       if (error) throw error;
       await loadPeople();
     }
-    else if (a === 'theme') { setTheme(dark() ? 'light' : 'dark'); }
-    else if (a === 'anim') { const off = !animOff(); if (off) document.documentElement.dataset.anim = 'off'; else delete document.documentElement.dataset.anim; try { localStorage.setItem('anim', off ? 'off' : 'on'); } catch (e) {} }
+    else if (a === 'theme') { setTheme(({light: 'dark', dark: 'pink', pink: 'light'})[themeName()] || 'dark'); }
     else if (a === 'photos') { const w = S.hw[v]; S.viewer = ((w && w.photo_paths) || []).map(x => S.urls[x]).filter(Boolean); }
     else if (a === 'file') {
       const w = S.hw[v], ps = ((w && w.photo_paths) || []).filter(x => S.urls[x]);
@@ -856,14 +742,6 @@ async function act(a, v) {
     else if (a === 'fclose') { S.fv = null; }
     else if (a === 'dl') {
       for (const x of (v ? [v] : S.fv.map(f => f.p))) {
-        const {data, error} = await sb.storage.from(BUCKET).createSignedUrl(x, 120, {download: fname(x)});
-        if (error) throw error;
-        const l = document.createElement('a'); l.href = data.signedUrl; l.click();
-      }
-    }
-    else if (a === 'dlhw') {
-      const w = S.hw[v];
-      for (const x of ((w && w.photo_paths) || [])) {
         const {data, error} = await sb.storage.from(BUCKET).createSignedUrl(x, 120, {download: fname(x)});
         if (error) throw error;
         const l = document.createElement('a'); l.href = data.signedUrl; l.click();
@@ -914,7 +792,7 @@ async function act(a, v) {
       const {error} = await sb.from('homework').upsert(row, {onConflict: 'lesson_date,lesson_no'});
       if (error) throw error;
       if (e.removed.length) await sb.storage.from(BUCKET).remove(e.removed);
-      S.edit = null; await loadDiary(S.tab === 'sched');
+      S.edit = null; await loadDiary();
     }
     else if (a === 'savesched') {
       if (!S.f.sfrom) throw new Error('date');
@@ -972,9 +850,9 @@ async function act(a, v) {
   } catch (e) {
     S.msg = errText(e);
   } finally {
-    if (lock) S.busy = false;
-    if (!(a === 'day' && dayUpdate())) render();
-    if (['tab', 'week', 'go', 'sday', 'out', 'q', 'todiary', 'sback', 'sedit'].includes(a)) {
+    S.busy = false;
+    render();
+    if (['tab', 'day', 'week', 'go', 'sday', 'out', 'q', 'todiary', 'sback', 'sedit'].includes(a)) {
       const el = document.getElementById('app'); el.classList.add('anim');
       setTimeout(() => el.classList.remove('anim'), 700);
     }
@@ -1000,7 +878,6 @@ document.addEventListener('touchstart', () => {}, {passive: true});
 matchMedia('(min-width:1000px)').addEventListener('change', () => render());
 let lastDay = fmt(new Date());
 document.addEventListener('visibilitychange', () => {
-  if (!document.hidden && S.busy && Date.now() - (S.busyAt || 0) > 4000) { S.busy = false; render(); }
   const n = fmt(new Date());
   if (document.hidden || n === lastDay) return;
   lastDay = n;
