@@ -7,6 +7,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Дневник">
 <meta name="theme-color" content="#f5f1e6">
+<link rel="preconnect" href="https://lkwzlpjzockmhbgmlbjn.supabase.co" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@700;800&family=Oswald:wght@600;700&display=swap" media="print" onload="this.media='all'">
@@ -332,6 +335,47 @@ const S = {ready:false, view:'login', otpType:'signup', email:'', f:{}, msg:'', 
            user:null, profile:null, tab:'diary', people:[], recovering:false,
            week:'', day:1, versions:[], slots:[], hw:{}, urls:{}, edit:null, sched:null, done:new Set(), viewer:null, pop:null, q:0, qpick:false, sedit:false, open:null, scroll:false, detail:null, pedit:false, news:[], nsheet:null, vac:false, fv:null};
 const BUCKET = 'homework-photos';
+
+/* ---------- быстрый старт: локальный кэш ---------- */
+const URL_LIFE = 43200;                          // срок жизни ссылок на фото, сек (12 ч)
+const URL_REUSE = (URL_LIFE - 1800) * 1000;      // переиспользуем ссылку, пока не осталось меньше 30 мин
+S.urlAt = {};
+const lsGet = k => { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+function clearCache() { try { Object.keys(localStorage).filter(k => k.indexOf('dc_') === 0).forEach(k => localStorage.removeItem(k)); } catch (e) {} }
+function urlsHydrate(uid) {
+  const o = lsGet('dc_urls_' + uid) || {}, now = Date.now();
+  for (const p in o) if (!S.urls[p] && now - o[p][1] < URL_REUSE) { S.urls[p] = o[p][0]; S.urlAt[p] = o[p][1]; }
+}
+function urlsSave() {
+  if (!S.user) return;
+  const o = {}, now = Date.now();
+  for (const p in S.urlAt) if (S.urls[p] && now - S.urlAt[p] < URL_REUSE) o[p] = [S.urls[p], S.urlAt[p]];
+  lsSet('dc_urls_' + S.user.id, o);
+}
+async function loadUrls(paths) {
+  const now = Date.now();
+  const need = paths.filter(p => !S.urls[p] || (S.urlAt[p] && now - S.urlAt[p] >= URL_REUSE));
+  if (!need.length) return;
+  const {data: u} = await sb.storage.from(BUCKET).createSignedUrls(need, URL_LIFE);
+  (u || []).forEach(x => { if (x.signedUrl) { S.urls[x.path] = x.signedUrl; S.urlAt[x.path] = now; } });
+  urlsSave();
+}
+function cacheSave() {
+  if (!S.user || !S.profile || S.profile.role === 'pending' || S.tab !== 'diary') return;
+  lsSet('dc_data_' + S.user.id, {ts: Date.now(), week: S.week, profile: S.profile, versions: S.versions, slots: S.slots,
+    news: S.news, hw: Object.values(S.hw), done: [...S.done]});
+}
+function cacheHydrate(uid) {
+  const c = lsGet('dc_data_' + uid);
+  if (!c || !c.profile || c.profile.role === 'pending' || c.week !== S.week || S.tab !== 'diary') return false;
+  if (Date.now() - c.ts > 12096e5) return false;   // старше 14 дней не используем
+  urlsHydrate(uid);
+  S.profile = c.profile; S.profFor = uid; S.versions = c.versions || []; S.slots = c.slots || []; S.news = c.news || [];
+  S.hw = {}; (c.hw || []).forEach(x => { S.hw[x.lesson_date + '|' + x.lesson_no] = x; });
+  S.done = new Set(c.done || []);
+  return true;
+}
 const pad = n => String(n).padStart(2, '0');
 const fmt = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
 const parse = x => { const [y, m, d] = x.split('-').map(Number); return new Date(y, m - 1, d); };
@@ -380,9 +424,9 @@ const IMG = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'avif'], TXT = ['txt', 
 const extOf = p => p.split('.').pop().toLowerCase();
 const fname = p => 'hw-' + p.split('/')[0] + '-' + p.split('/').pop().split('-')[0] + '.' + extOf(p);
 const fsheet = () => !S.fv ? '' : `<div class="sheet" data-a="fclose"><div data-a="fkeep"><b>${t('file')}</b>` +
-  S.fv.map(f => `<div class="fi">${f.kind === 'img' ? `<img class="dimg" src="${esc(f.url)}">` : f.kind === 'txt' ? `<pre class="ftxt">${esc(f.text)}</pre>` : `<div class="badge">${esc(f.name)}</div>`}</div>`).join('') +
+  S.fv.map(f => `<div class="fi">${f.kind === 'img' ? `<img class="dimg" loading="lazy" decoding="async" src="${esc(f.url)}">` : f.kind === 'txt' ? `<pre class="ftxt">${esc(f.text)}</pre>` : `<div class="badge">${esc(f.name)}</div>`}</div>`).join('') +
   (S.msg ? `<div class="msg">${esc(S.msg)}</div>` : '') + `<div class="fbar"><button class="sm" data-a="fclose">${t('close')}</button>${S.fv.length ? `<button class="sm" data-a="dl" data-v="">${t('download')}</button>` : ''}</div></div></div>`;
-const viewer = () => S.viewer ? `<div class="ov" data-a="closeview">${S.viewer.map(u => `<img src="${esc(u)}">`).join('')}<button class="cl" data-a="closeview">✕</button></div>` : '';
+const viewer = () => S.viewer ? `<div class="ov" data-a="closeview">${S.viewer.map(u => `<img decoding="async" src="${esc(u)}">`).join('')}<button class="cl" data-a="closeview">✕</button></div>` : '';
 
 const fld = (n, type, ph, ac) =>
   `<input name="${n}" type="${type}" placeholder="${esc(ph)}" autocomplete="${ac}" value="${esc(S.f[n])}" required>`;
@@ -599,7 +643,7 @@ function diaryView() {
 
 function editForm(bare) {
   const e = S.edit;
-  const ph = e.photos.map(p => `<div class="ph">${IMG.includes(extOf(p)) ? `<img src="${esc(S.urls[p] || '')}">` : `<em class="fchip">${esc(extOf(p))}</em>`}<button type="button" class="x" data-a="rmphoto" data-v="${esc(p)}">✕</button></div>`).join('');
+  const ph = e.photos.map(p => `<div class="ph">${IMG.includes(extOf(p)) ? `<img loading="lazy" decoding="async" src="${esc(S.urls[p] || '')}">` : `<em class="fchip">${esc(extOf(p))}</em>`}<button type="button" class="x" data-a="rmphoto" data-v="${esc(p)}">✕</button></div>`).join('');
   const inner = `<textarea name="hwbody" placeholder="${t('hwtext')}">${esc(S.f.hwbody)}</textarea><div class="phr">${ph}<label class="sm fbtn">${CLIP} ${t('file')}<input id="hwfile" type="file" multiple hidden></label></div>${wtPick(e.wt, 'wt')}`;
   const html = `<b>${e.no}. ${esc(e.subject)}</b>${form('savehw', inner, t('save'))}<button class="lnk" style="padding-left:0" data-a="cancel">${t('cancel')}</button>`;
   return bare ? html : `<div class="card">${html}</div>`;
@@ -622,30 +666,40 @@ function initSched() {
   }
 }
 
+async function loadDone(ids) {
+  S.done = new Set();
+  if (!ids.length || !S.user) return;
+  const {data} = await sb.from('homework_done').select('homework_id').eq('user_id', S.user.id).in('homework_id', ids);
+  (data || []).forEach(x => S.done.add(Number(x.homework_id)));
+}
+
 async function loadHw(from, to) {
   const {data} = await sb.from('homework').select('*').gte('lesson_date', from).lte('lesson_date', to);
   S.hw = {}; (data || []).forEach(x => S.hw[x.lesson_date + '|' + x.lesson_no] = x);
-  S.done = new Set();
-  const paths = [...new Set((data || []).flatMap(x => x.photo_paths || []))].filter(p => !S.urls[p]);
-  if (paths.length) {
-    const {data: u} = await sb.storage.from(BUCKET).createSignedUrls(paths, 3600);
-    (u || []).forEach(x => { if (x.signedUrl) S.urls[x.path] = x.signedUrl; });
-  }
+  const ids = (data || []).map(x => x.id);
+  const paths = [...new Set((data || []).flatMap(x => x.photo_paths || []))];
+  await Promise.all([loadUrls(paths), loadDone(ids)]);
 }
 
-async function loadDiary(feed) {
+let schedAt = 0;
+async function loadSched() {
   const [v, sl] = await Promise.all([
     sb.from('schedule_versions').select('id,effective_from').order('effective_from', {ascending:false}),
     sb.from('schedule_slots').select('version_id,weekday,lesson_no,subject')]);
-  S.versions = v.data || []; S.slots = sl.data || [];
-  if (feed) { const q = curQ(); await loadHw(q.from, q.to); }
-  else await loadHw(S.week, addDays(S.week, 4));
+  S.versions = v.data || []; S.slots = sl.data || []; schedAt = Date.now();
+}
+
+async function loadDiary(feed) {
+  const q = feed ? curQ() : {from: S.week, to: addDays(S.week, 4)};
+  const jobs = [loadHw(q.from, q.to)];
+  if (!S.versions.length || Date.now() - schedAt > 60000) jobs.push(loadSched());   // расписание меняется редко
+  await Promise.all(jobs);
 }
 
 async function loadTab() {
   if (S.tab === 'profile') { if (S.profile && S.profile.role === 'owner') await loadPeople(); }
   else if (S.tab === 'news') await loadNews();
-  else { await loadDiary(S.tab === 'sched'); if (S.tab === 'diary') await loadNews(); }
+  else await Promise.all([loadDiary(S.tab === 'sched'), S.tab === 'diary' ? loadNews() : null]);
 }
 
 function shrink(file) {
@@ -670,10 +724,10 @@ async function uploadPhotos(files) {
     for (const f of files) {
       const img = /^image\//.test(f.type), ext = img ? 'jpg' : ((f.name.split('.').pop() || 'bin').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 8) || 'bin');
       const path = `${S.edit.date}/${S.edit.no}-${Date.now()}-${Math.random().toString(36).slice(2, 6)}.${ext}`;
-      const {error} = await sb.storage.from(BUCKET).upload(path, img ? await shrink(f) : f, {contentType: img ? 'image/jpeg' : (f.type || 'application/octet-stream')});
+      const {error} = await sb.storage.from(BUCKET).upload(path, img ? await shrink(f) : f, {contentType: img ? 'image/jpeg' : (f.type || 'application/octet-stream'), cacheControl: '31536000'});
       if (error) throw error;
-      const {data} = await sb.storage.from(BUCKET).createSignedUrl(path, 3600);
-      S.urls[path] = data.signedUrl; S.edit.photos.push(path); S.edit.added.push(path);
+      const {data} = await sb.storage.from(BUCKET).createSignedUrl(path, URL_LIFE);
+      S.urls[path] = data.signedUrl; S.urlAt[path] = Date.now(); S.edit.photos.push(path); S.edit.added.push(path);
     }
   } catch (e) { S.msg = errText(e); }
   finally { S.busy = false; render(); }
@@ -758,12 +812,14 @@ async function loadPeople() {
 async function load() {
   if (S.user) {
     const uid = S.user.id;
+    if (!S.ready && cacheHydrate(uid)) { S.ready = true; render(); }   // показываем сохранённые данные сразу
     let r = await sb.from('profiles').select('*').eq('id', uid).maybeSingle();
     if (r.error || !r.data) { await new Promise(x => setTimeout(x, 700)); r = await sb.from('profiles').select('*').eq('id', uid).maybeSingle(); }
     const data = r.data;
-    S.profile = data;
+    if (!r.error || !(S.profile && S.profFor === uid)) S.profile = data;
     if (!r.error) S.profFor = uid;
-    if (data && data.role !== 'pending') await loadTab();
+    if (data && data.role !== 'pending') { await loadTab(); cacheSave(); }
+    else if (data) clearCache();
   } else { S.profile = null; S.profFor = null; }
   S.ready = true;
   render();
@@ -844,7 +900,7 @@ async function act(a, v) {
     else if (a === 'sedit') { if (canEdit()) { initSched(); S.sedit = true; } }
     else if (a === 'sback') { S.sedit = false; S.scroll = true; await loadDiary(true); }
     else if (a === 'todiary') { const d = parse(v); S.week = fmt(mondayOf(d)); S.day = (d.getDay() + 6) % 7 + 1; S.tab = 'diary'; S.detail = null; await loadDiary(); }
-    else if (a === 'out') { try { await sb.auth.signOut({scope: 'local'}); } catch (e) {} S.user = null; S.profile = null; S.view = 'login'; S.f = {}; S.edit = null; S.sched = null; S.sedit = false; S.tab = 'diary'; }
+    else if (a === 'out') { try { await sb.auth.signOut({scope: 'local'}); } catch (e) {} clearCache(); S.urls = {}; S.urlAt = {}; S.versions = []; S.slots = []; S.hw = {}; S.news = []; S.done = new Set(); schedAt = 0; S.user = null; S.profile = null; S.view = 'login'; S.f = {}; S.edit = null; S.sched = null; S.sedit = false; S.tab = 'diary'; }
     else if (a === 'role') {
       const [id, role] = v.split('|');
       const {error} = await sb.from('profiles').update({role}).eq('id', id);
@@ -951,7 +1007,7 @@ async function act(a, v) {
         if (sub) rows.push({version_id: id, weekday: d, lesson_no: n, subject: sub});
       }
       if (rows.length) { const {error} = await sb.from('schedule_slots').insert(rows); if (error) throw error; }
-      await loadDiary(); S.info = t('saved');
+      schedAt = 0; await loadDiary(); S.info = t('saved');
     }
     else if (a === 'login') {
       const {error} = await sb.auth.signInWithPassword({email, password: S.f.password || ''});
